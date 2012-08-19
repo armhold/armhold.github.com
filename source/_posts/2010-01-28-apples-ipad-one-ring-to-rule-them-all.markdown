@@ -56,7 +56,3 @@ Did you notice during the demo that when Steve Jobs went to the NY Times website
 
 Apple's [antipathy towards Flash](http://www.wired.com/gadgetlab/2008/11/adobe-flash-on/), and [Adobe in general](http://news.cnet.com/2100-1012-5181434.html), is nothing new. And as much as I would love to see Flash banished from the web, this kind of complete control by Apple really worries me. Don't get me wrong- I really want one of these devices. But I'm not so sure I'm ready to give up that much control to Apple just yet.
 
-
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-4935093699936500998?l=garmhold.blogspot.com)

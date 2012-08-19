@@ -33,6 +33,3 @@ It turns out there is a [feature request](http://youtrack.jetbrains.net/issue/ID
 If you're an Intellij user, please [create yourself an account](http://youtrack.jetbrains.net/registerUserForm) on their tracker and vote for this issue.
 
 
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-5756671819621609101?l=garmhold.blogspot.com)

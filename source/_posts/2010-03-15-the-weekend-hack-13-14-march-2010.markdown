@@ -103,16 +103,3 @@ One potential idea is to make an iPhone-friendlier version of it, with some big 
 
 So, what fun projects are you working on?
 
-
-
-
-
-
-
-
-
-
-
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-8903738812890999672?l=garmhold.blogspot.com)

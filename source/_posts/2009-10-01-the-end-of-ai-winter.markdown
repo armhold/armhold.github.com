@@ -15,7 +15,3 @@ Is it the [end of AI Winter](http://machineslikeus.com/the-end-of-AI-winter.html
 
 > An AI Winter is a collapse in the perception of artificial intelligence research. The term was coined by analogy with the relentless spiral of a nuclear winter: a chain reaction of pessimism in the AI community, followed by pessimism in the press, followed by a severe cutback in funding, followed by the end of serious research.
 
-  
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-6119140578851982145?l=garmhold.blogspot.com)

@@ -82,5 +82,3 @@ No more Russian dolls.
 
 image credit: [http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg](http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg)
 
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-4474706681478325964?l=garmhold.blogspot.com)

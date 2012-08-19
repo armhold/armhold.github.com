@@ -126,13 +126,3 @@ Apple- if this is how you treat business customers, customers who are tech-savvy
 
 Think Different indeed.
 
-
-
-
-
-
-
-
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-8841453936554877048?l=garmhold.blogspot.com)

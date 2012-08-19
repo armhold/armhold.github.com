@@ -25,18 +25,21 @@ I should point out that this isn't exactly new- JMock 2.5 came out in 2008, so I
 
 
 
-    
-    <span style="color:#eeeeee;" class="Apple-style-span">final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class); mockery.checking(new Expectations() {{ one(graphics).getBackground(); will(returnValue(java.awt.Color.BLUE));}});</span>
-
+``` java
+final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class);
+mockery.checking(new Expectations() {{ one(graphics).getBackground(); will(returnValue(java.awt.Color.BLUE));}});
+```
 
 Of course this is great for testing code that uses libraries that weren't designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.
 
 
 This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:
 
-    
-    <span style="font-family:Times;" class="Apple-style-span"><span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"><span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"><span style="font-size:small;" class="Apple-style-span"><span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span">final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class); mockery.checking(new Expectations() {{ one(dao).getLoggedInUsername(); will(returnValue("user1"));}});</span></span></span></span></span>
 
+``` java
+final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class);
+mockery.checking(new Expectations() {{ one(dao).getLoggedInUsername(); will(returnValue("user1"));}});
+```
 
 
 
@@ -44,20 +47,8 @@ It's really hard to overstate the significance of this.   It's changed the way 
 
 
 
-
-
-
-
-
-
-
 Of course there are still very legitimate reasons for using interfaces. If you're designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn't abandon them.
 
 
 
-
-
 But use interfaces with reason, and not by reflex.
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-188479247636856538?l=garmhold.blogspot.com)

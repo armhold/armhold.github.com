@@ -32,10 +32,3 @@ Later that same day, I went back to my site and was pleasantly surprised at how 
 
 PS: I wanted to include examples of the spinners, but Blogspot does not seem to support animated gifs. :-(
 
-
-
-
-
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-1965095450783394696?l=garmhold.blogspot.com)

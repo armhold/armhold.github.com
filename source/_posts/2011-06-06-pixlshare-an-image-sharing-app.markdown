@@ -33,7 +33,3 @@ I'm planning to add features like:
 
 [Give it a try!](http://pixlshare.com/)
 
-
-
-
-![](https://blogger.googleusercontent.com/tracker/3562558747791280858-1270788796689877149?l=garmhold.blogspot.com)
