@@ -1,6 +1,8 @@
 require "rubygems"
 require "bundler/setup"
 require "stringex"
+require 'fileutils'
+require 'find'
 
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
@@ -377,3 +379,59 @@ task :list do
   puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(', ')}"
   puts "(type rake -T for more detail)\n\n"
 end
+
+desc "download images from wordpress"
+task :wp_images do
+  puts "download images from wordpress"
+
+  Find.find("source/_posts") do |path|
+
+    if path =~ /.*\.markdown/
+      #puts "process: #{path}"
+      convert_file path, "#{path}.fixed"
+    end
+
+  end
+
+end
+
+
+def convert_file(infile, outfile)
+  content = File.open(infile, "rb").read
+
+  File.open(outfile, 'w') do |out|
+
+    content.split('\n').each do |line|
+
+      if line =~ /\((http:\/\/armhold.files.wordpress.com\/.*)\)\]\(http:\/\/armhold.files.wordpress.com\/.*\)/
+        url = $1
+
+        url =~ /http:\/\/armhold.files.wordpress.com\/(20\d\d)\/(\d\d)\/([a-z,0-9\.\-]+).*/
+        year, month, name = $1, $2, $3
+
+        #puts "need to download image: '#{url}', year: #{year}, month: #{month}, name: #{name}"
+
+        dir = "source/images/#{year}/#{month}"
+        FileUtils.mkdir_p dir
+        file = "#{dir}/#{name}"
+
+        cmd = "wget #{url} -O #{file}"
+        puts "system #{cmd}"
+        system "#{cmd}"
+
+        # [![](http://armhold.files.wordpress.com/2010/05/stillloading2.png?w=300)](http://armhold.files.wordpress.com/2010/05/stillloading2.png)
+
+        line.gsub! /\((http:\/\/armhold.files.wordpress.com\/.*)\)\]\(http:\/\/armhold.files.wordpress.com\/.*\)/, "[image](/#{file})"
+      else
+
+      end
+
+      out.puts line
+    end
+
+  end
+
+  File.delete infile
+  File.rename outfile, infile
+end
+
