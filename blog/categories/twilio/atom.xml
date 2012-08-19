@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: twilio | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/twilio/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-19T17:55:44-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Twilio and Adobe Flash]]></title>
+    <link href="http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash/"/>
+    <updated>2012-02-19T09:26:22-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash</id>
+    <content type="html"><![CDATA[<p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
+
+<p><img src="/images/2012/02/flash.png" alt="image" /></p>
+
+<p>The problem is that on Chrome, <strong>it won't let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
+
+<p>Updating to the latest Flash didn't help (it's apparently bundled with Chrome, and doesn't use the version you can install manually on OSX).</p>
+
+<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
+]]></content>
+  </entry>
+  
+</feed>

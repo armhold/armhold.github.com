@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/14/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,42 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2010-03-06T17:56:00-05:00" pubdate data-updated="true">Mar 6<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>Why do we do this?</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
 
+<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
 
-<p>Beautiful!</p>
+<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
+
+<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
+
+<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class); mockery.checking(new Expectations() );&lt;/span&gt;
+</code></pre>
+
+<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
+
+<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
+
+<pre><code>&lt;span style="font-family:Times;" class="Apple-style-span"&gt;&lt;span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"&gt;&lt;span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span"&gt;final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class); mockery.checking(new Expectations() );&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+</code></pre>
+
+<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
+
+<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
+
+<p>But use interfaces with reason, and not by reflex.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-188479247636856538?l=garmhold.blogspot.com" alt="" /></p>
 </div>
   
   
@@ -134,9 +131,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/15/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/13/">Newer &rarr;</a>
     
   </div>
 </div>

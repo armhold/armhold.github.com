@@ -9,8 +9,8 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="My fascination with GWT and Google App Engine continues. This weekend I created a
+multi-lingual memorable password generator. In order to create &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/10/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +71,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/">A Multilingual Password Generator Using GWT and Google App Engine</a></h1>
     
     
       <p class="meta">
@@ -87,44 +87,37 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2010-03-22T00:43:00-04:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>My fascination with GWT and Google App Engine continues. This weekend I created a
+<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
+</code></pre>
 
+<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
 
-<p>Beautiful!</p>
+<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
+
+<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
+
+<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
+
+<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
+
+<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
+
+<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
+</code></pre>
+
+<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
 </div>
   
   
@@ -134,9 +127,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/11/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/9/">Newer &rarr;</a>
     
   </div>
 </div>

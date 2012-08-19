@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="Have you just inherited an Ant project that you&#8217;re trying to convert to Maven? Maybe it came with a &#8220;lib&#8221; directory full or random &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/6/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/">Automatically Generate Maven Dependency Coordinates for Random Jar Files</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,20 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2011-09-03T12:07:38-04:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>Have you just inherited an Ant project that you&#8217;re trying to convert to Maven? Maybe it came with a &#8220;lib&#8221; directory full or random jar files. And worse, some thoughtless developer neglected to include version strings in the filenames?</p>
 
-<p>So here&#8217;s some code:</p>
+<p>Fear not! The Sonatype <a href="https://repository.sonatype.org/service/local/lucene/search?sha1=%22;">checksum search</a> REST service can give you the Maven coordinates based on the jar&#8217;s SHA1 hash.</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Still too much work? Not to worry, I just wrote a quick program to make it even easier for you. <a href="https://github.com/armhold/Provenance">Provenance</a> will take a directory full of jar files and write out the XML dependency information for every jar it finds. You can then copy/paste this right into the <code>&lt;dependencies&gt;</code> section of your pom.xml.</p>
 
-
-<p>Beautiful!</p>
+<p>Enjoy.</p>
 </div>
   
   
@@ -134,9 +109,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/7/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/5/">Newer &rarr;</a>
     
   </div>
 </div>

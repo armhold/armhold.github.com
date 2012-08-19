@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="Lots of folks are making great use of Twitter Bootstrap, which includes a handy login button right at the top: To protect your users&#8217; privacy, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/4/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: Submitting a Form Over SSL From an Unsecured Page</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,86 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2012-01-21T13:54:37-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
 
-<p>So here&#8217;s some code:</p>
+<p><img src="/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>To protect your users&#8217; privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don&#8217;t secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on <em>all your pages</em>, how can you secure the form?</p>
 
+<p>The first step is to manually adjust the form&#8217;s <strong>action</strong> attribute to ensure that the form submission happens over https, rather than http.</p>
 
-<p>Beautiful!</p>
+<p>But this is where we run into a problem with Wicket- if the hosting page is http, and you have also installed an HttpsMapper in your WicketApplication like this:</p>
+
+<pre><code>setRootRequestMapper(new HttpsMapper(getRootRequestMapper(), new HttpsConfig(HTTP_PORT, HTTPS_PORT)));
+</code></pre>
+
+<p>then Wicket will not allow your form to be sent over https; the mapper will notice the http/https mismatch, and instead of calling your form&#8217;s onSubmit() method, it will simply serve up the hosting page again, discarding your form submission.</p>
+
+<p>The solution is to manually post your form to a different, secure page that is marked for https via @RequireHttps. Then the HttpsMapper will allow the form submission to take place.</p>
+
+<p>First, we need a LoginForm that will adjust the form&#8217;s <strong>action</strong> attribute to point to our secure page:</p>
+
+<pre><code>public class LoginForm extends StatelessForm
+{
+    public LoginForm(String id)
+    {
+        super(id);
+        add(new TextField("username").setRequired(true));
+        add(new PasswordTextField("password").setRequired(true));
+    }
+
+   @Override
+   protected void onComponentTag(ComponentTag tag)
+   {
+       super.onComponentTag(tag);
+       String action = urlFor(LoginFormHandlerPage.class, null).toString();
+       tag.put("action", action);
+   }
+}
+</code></pre>
+
+<p>Now we&#8217;ll need to create a page to handle the form submission:</p>
+
+<pre><code>@RequireHttps
+public class LoginFormHandlerPage extends WebPage
+{
+    public LoginFormHandlerPage(PageParameters parameters)
+    {
+        HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (loginSuccessful(username, password))
+        {
+             if (! continueToOriginalDestination());
+             {
+                 setResponsePage(AccountPage.class);
+             }
+        }
+        else
+        {
+            getSession().error("login failed"));
+            // on failure send user to our regular login page
+            setResponsePage(LoginPage.class);
+        }
+    }
+}
+</code></pre>
+
+<p>Note that if you&#8217;re using Wicket 1.5.3 <a href="https://issues.apache.org/jira/browse/WICKET-4338">there is a bug</a> that prevents the processing of form POST parameters (that&#8217;s why we&#8217;re reading the params manually from the HttpServletRequest). Fixed in Wicket 1.5.4.</p>
+
+<p>The LoginFormHandlerPage will process the submitted form data over https, and if successful, log the user in, else send them to a page where then can re-enter their password.</p>
+
+<p>You can get all the code (and quite a bit more useful login-related stuff) from <a href="https://github.com/armhold/justaddwater">github</a>.</p>
+
+<p>Credit where it&#8217;s due: the real gem here (submitting the form to a secure url) comes from this <a href="http://www.petrikainulainen.net/programming/tips-and-tricks/wicket-https-tutorial-part-three-creating-a-secure-form-submit-from-a-non-secure-page/">blog posting</a> by Petri Kainulainen.</p>
 </div>
   
   
@@ -134,9 +175,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
     
   </div>
 </div>

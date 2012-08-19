@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="I started doing some Twilio development recently and ran into a problem with Adobe Flash. Twilio Client (which lets you make phone calls right from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,22 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2012-02-19T09:26:22-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
 
-<p>So here&#8217;s some code:</p>
+<p><img src="/images/2012/02/flash.png" alt="image" /></p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
 
+<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
 
-<p>Beautiful!</p>
+<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
 </div>
   
   
@@ -134,9 +111,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
     
   </div>
 </div>

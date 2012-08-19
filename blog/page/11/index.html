@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="Inspired by this recent post over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following: be small &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/11/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/03/15/the-weekend-hack-13-14-march-2010/">The Weekend Hack: 13-14 March, 2010</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,49 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2010-03-15T09:21:00-04:00" pubdate data-updated="true">Mar 15<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>Inspired by <a href="http://news.ycombinator.com/item?id=1133613">this recent post</a> over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following:</p>
 
-<p>So here&#8217;s some code:</p>
-
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><p>be small &amp; well-defined- doable in a weekend</p></li>
+<li><p>produce something useful for <em>someone</em></p></li>
+<li><p>give my rusty Google App Engine and GWT skills a workout</p></li>
+</ul>
 
 
-<p>Beautiful!</p>
+<p>I use <a href="http://wicket.apache.org/">Wicket</a> for my livelihood these days, but <a href="http://code.google.com/webtoolkit/">GWT</a> is my true love. I miss working with it.</p>
+
+<p>So I decided to create a searchable database of Weight Watchers &#8220;food points&#8221; values.  Last year, the company that I was working for held weekly WW meetings in our lunch room.  For about 6 months it was all but impossible to avoid hearing &#8220;how many points for X?&#8221; type questions several times daily.</p>
+
+<p>There are a lot of existing sites for this kind of thing, but I found the interfaces somewhat lacking (are we really still producing sites with MIDI soundtracks in 2010?)</p>
+
+<p>Thus was born <a href="http://slimpoints.appspot.com/">this weekend&#8217;s project</a>. At least until WW decides to shut it down. Here&#8217;s the breakdown of where the time went:</p>
+
+<ul>
+<li><p>2 hours brainstorming</p></li>
+<li><p>4 hours getting Intellij, GWT and Google App Engine to all play nicely (this was the most painful part, really)</p></li>
+<li><p>3 hours basic coding, page layout, getting the tabs to work</p></li>
+<li><p>45 minutes with an Emacs macro converting HTML tables with food point values into a nice, CSV-style GWT properties file</p></li>
+<li><p>2 hours playing around with font sizes and colors.  I&#8217;m still not 100% happy with this, but the project was time-limited by definition.</p></li>
+<li><p>1/2 hour enabling AdSense, getting things to look relatively nice</p></li>
+</ul>
+
+
+<p>A grand total of 260 lines of code.  GWT&#8217;s SuggestBox made autocomplete so much easier than Wicket Extensions&#8217; AutoCompleteTextField, which I had to use recently.</p>
+
+<p>The project is &#8220;done&#8221; in the sense that I am happy with it, and would feel content if I never spent another hour of time on it; that was part of my criteria for something doable in a weekend.  But that doesn&#8217;t mean I&#8217;ll never revisit it.</p>
+
+<p>One potential idea is to make an iPhone-friendlier version of it, with some big calculator-style buttons right on the page to facilitate data entry.  I might come back to this idea in the future if the site analytics tell me it&#8217;s worthwhile.  (As a side note, compared to the time and effort required to get an <a href="http://itunes.apple.com/us/app/another-tip-calculator-yatc/id316488754?mt=8">iPhone app of equivalent complexity</a> published, this was a piece of cake.)</p>
+
+<p>So, what fun projects are you working on?</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-8903738812890999672?l=garmhold.blogspot.com" alt="" /></p>
 </div>
   
   
@@ -134,9 +138,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/12/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/10/">Newer &rarr;</a>
     
   </div>
 </div>

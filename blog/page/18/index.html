@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="I&#8217;ve been a fan of Intellij IDEA for years, since a friend introduced me to it. It&#8217;s by far the best Java IDE around (this coming from a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/18/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/">Intellij Needs to Support More Than a Single Editor Window</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,26 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2010-01-24T10:50:00-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
 
+<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
 
-<p>Beautiful!</p>
+<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
+
+<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5756671819621609101?l=garmhold.blogspot.com" alt="" /></p>
 </div>
   
   
@@ -134,9 +115,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/19/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/17/">Newer &rarr;</a>
     
   </div>
 </div>

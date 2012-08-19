@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/7/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically/">Adding Git SHAs to Wicket Pages Automatically</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,102 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2011-08-04T15:58:34-04:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p>If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed. Especially if you&#8217;ve recently discovered the joys of branching and merging with Git.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>Here&#8217;s a handy way to <strong>add a Git SHA</strong> to all your app&#8217;s pages via <strong>Wicket and Maven</strong>.</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<h1>Maven</h1>
 
+<p>First, we&#8217;ll use the exec-maven-plugin to create a git.properties file for us. Add this to the <plugins> section in your pom.xml:</p>
 
-<p>Beautiful!</p>
+<pre><code>&lt;plugin&gt;
+   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+   &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+   &lt;version&gt;1.1&lt;/version&gt;
+   &lt;executions&gt;
+       &lt;execution&gt;
+          &lt;phase&gt;compile&lt;/phase&gt;
+          &lt;goals&gt;
+             &lt;goal&gt;exec&lt;/goal&gt;
+          &lt;/goals&gt;
+       &lt;/execution&gt;
+   &lt;/executions&gt;
+   &lt;configuration&gt;
+       &lt;executable&gt;git&lt;/executable&gt;
+       &lt;arguments&gt;
+            &lt;argument&gt;log&lt;/argument&gt;
+            &lt;argument&gt;--pretty=format:gitsha=%H %ci&lt;/argument&gt;
+            &lt;argument&gt;-n1&lt;/argument&gt;
+       &lt;/arguments&gt;
+       &lt;outputFile&gt;target/classes/git.properties&lt;/outputFile&gt;
+   &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>This will create a git.properties file containing the Git SHA, along with the commit timestamp whenever your code is compiled. You can learn how to further customize this <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">here</a>.</p>
+
+<h1>Wicket Application Subclass</h1>
+
+<p>Now we&#8217;ll need to read in the git.properties file when our application starts up.</p>
+
+<pre><code>public class Application extends WebApplication
+{
+    private String gitSHA;
+
+    public AppgravityApplication()
+    {
+        java.util.Properties props = new java.util.Properties();
+        try
+        {
+            props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("git.properties"));
+            gitSHA = props.getProperty("gitsha");
+            log.info("gitsha: " + gitSHA);
+        }
+        catch (IOException e)
+        {
+            log.severe(e.getMessage());
+            gitSHA = "unknown";
+        }
+    }
+
+    public String getGitSHA()
+    {
+        return gitSHA;
+    }
+</code></pre>
+
+<h1>Wicket WebPage Subclass</h1>
+
+<p>Now we&#8217;ll create a WebPage subclass that renders the Git SHA into a <meta> tag when the page is rendered.</p>
+
+<pre><code>public abstract class MyPage extends WebPage
+{
+    @Override
+    protected void onBeforeRender()
+    {
+        Label metaGitSHA = new Label("metaGitSHA", "");
+        metaGitSHA.add(new AttributeModifier("content", Model.of(((Application) getApplication()).getGitSHA())));
+        addOrReplace(metaGitSHA);
+        super.onBeforeRender();
+    }
+}
+</code></pre>
+
+<p>You&#8217;ll want to extend MyPage for each of your pages. You&#8217;ll need to add the placeholder meta tag to each of your HTML pages like this:</p>
+
+<pre><code>&lt;head&gt;
+    &lt;meta wicket:id="metaGitSHA" id="metaGitSHA" name="metaGitSHA" content=""/&gt;
+&lt;/head&gt;
+</code></pre>
+
+<p>And you&#8217;re done!</p>
 </div>
   
   
@@ -134,9 +191,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/8/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/6/">Newer &rarr;</a>
     
   </div>
 </div>

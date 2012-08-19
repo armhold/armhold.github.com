@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="I&#8217;ve been using a Mac almost exclusively since about 2006. Unsurprisingly, I have quite a lot of data on my system, and on its Time Machine &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/page/21/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +70,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/blog/2009/10/28/snow-leopard-migration-assistant-fail/">Snow Leopard Migration Assistant Fail</a></h1>
     
     
       <p class="meta">
@@ -87,44 +86,34 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2009-10-28T06:26:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2009</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+  <div class="entry-content"><p><img src="/images/2009/10/macpro.jpg" alt="image" /></p>
 
-<p>So here&#8217;s some code:</p>
+<p>I&#8217;ve been using a Mac almost exclusively since about 2006. Unsurprisingly, I have quite a lot of data on my system, and on its Time Machine backups. Until recently I have been quite impressed with Apple&#8217;s Migration Assistant- the tool that (used to!) seamlessly migrate your apps and data from an old machine to a new one. It&#8217;s one of those things that us smug Mac users brag about to our PC-using friends. Recently however, I&#8217;ve been disappointed by it.</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>First, my wife got a new MBPro from her job, which replaced her 3 year old MBPro. I told her the migration would be a piece of cake. I expected to do the usual trick where you boot the old machine into Firewire Target Mode, and the new machine sees the old one as a Firewire volume. No such luck- Apple changed the Firewire port on the newer MBPro, so she had to make a trip down to the Apple Store to get a new cable. Turns out they sold her the wrong one, so at this point I opted for doing the migration using our WiFi. Despite entering all the appropriate network configuration, the two computers couldn&#8217;t talk to each other.</p>
 
+<p>So I ran a Cat5 cable between the two machines. I was able to connect this time, but I kept getting thrown into an endless loop where you are prompted to enter a PIN to give the new computer access to the old one- it would connect for an instant, and then loop back to the beginning all over again.</p>
 
-<p>Beautiful!</p>
+<p>Wife, sensing my frustration level, decided to bring it into her office and have the IT guys deal with it. They had the appropriate Firewire cable and did the transfer without a hitch.</p>
+
+<p>So fast forward to me getting a new job, and the requisite new toy: a totally decked-out quad-core MacPro with all the bells and whistles. Time to migrate from my old MBPro to this new tower. I&#8217;m about 4 hours into the transfer using Migration Assistant (we have the right cable now!) and it&#8217;s still telling me that there are 10+ hours left in the transfer. This doesn&#8217;t look good. So I pop open the Console tool, and lo and behold, I see that MigrateTool has in fact crashed, <strong>despite the lack of any error messages on the screen.</strong> I quit Migration Assistant, and start over. Same deal.</p>
+
+<p><img src="/images/2009/10/migrationassistant.png" alt="image" /></p>
+
+<p>So I try erasing the Mac Pro&#8217;s HD and starting with a fresh OS install from DVD. Migration Assistant <strong>still</strong> silently crashes.</p>
+
+<p>So I try doing a migration from my Time Machine volume as the source volume in Migration Assistant. Same deal. So I try doing a &#8220;manual&#8221; installation using Time Machine. A few hours in, I finally get a somewhat helpful error message indicating that it cannot continue because <strong>the source volume is case-sensitive, the target volume is case-insensitive</strong>, and there is a pair of conflicting files on the source drive &#8220;3.3.1.ga&#8221; and &#8220;3.3.1.GA&#8221; (Hibernate, my favorite!)</p>
+
+<p>This is not totally surprising, and is what I suspected might be the problem- back in 2006 I had made the poor decision to install my MBPro as case-sensitive, since that&#8217;s what most Unixes use. That&#8217;s finally come back to bite me. Anyway, I remove the duplicate file from the source machine, and carry on. Several hours later, Migration Assistant crashes again. And since it doesn&#8217;t print any helpful error message, I can&#8217;t locate what is likely another duplicate file. Ugh!</p>
+
+<p>Obviously one solution might be to re-install the machine as case-sensitive, but I don&#8217;t want to go through this kind of hell again during some future migration; I&#8217;d rather pay the piper now and be done with it. I have a call into Apple Tech Support (you get 90 days free support on any new machine, even without Apple Care.. did you know that?) I will update as things progress. Any suggestions for solving this are greatly welcome.</p>
 </div>
   
   
@@ -134,9 +123,11 @@ format code with the Wordpress editor.</p>
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/blog/page/22/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/20/">Newer &rarr;</a>
     
   </div>
 </div>

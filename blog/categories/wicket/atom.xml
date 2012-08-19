@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: wicket | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/wicket/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-19T17:55:44-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Announcing: Wicket-Source plugin for Intellij IDEA]]></title>
+    <link href="http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/"/>
+    <updated>2012-02-15T19:06:07-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea</id>
+    <content type="html"><![CDATA[<p>The folks at <a href="https://www.42lines.net/">42lines</a> have released an awesome <a href="https://www.42lines.net/2012/01/31/announcing-wicket-source/">Firefox plugin</a> called "Wicket-Source". It allows you to easily navigate from your browser to the corresponding Wicket source code.</p>
+
+<p>Since their plugin is Eclipse-based, I wrote up a compatible plugin for Intellij IDEA. You can install it from <a href="http://plugins.intellij.net/plugin/?idea&amp;id=6846">the repository</a>, or build it yourself from the <a href="https://github.com/armhold/wicket-source-intellij">source on Github</a>.</p>
+
+<p>There are two parts to this plugin: the Firefox extension (provided by 42lines) and the IDE plugin; you need both. To install the Firefox plugin, follow the <a href="https://github.com/42Lines/wicket-source/wiki">directions from 42lines</a>. Then to install the Intellij plugin do the following:</p>
+
+<ol>
+<li><p>Open the Preferences dialog (Intellij IDEA menu -> Preferences)</p></li>
+<li><p>Under "IDE Settings" select "Plugins"</p></li>
+<li><p>Click the "Browse Repositories" button.</p></li>
+<li><p>In the search box type "wicket", which should narrow the results significantly.</p></li>
+<li><p>Right-click "Wicket Source", and select "Download and Install".</p></li>
+</ol>
+
+
+<p>You'll be asked to re-start Intellij, and then you should be in business. The plugin uses port  9123 and no password by default (same as the Firefox plugin defaults). To change this, open the IDE Settings dialog and click "Wicket Source" to enter a password.</p>
+
+<p>Enjoy!</p>
+
+<p><img src="/images/2012/02/wicket-source.png" alt="image" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wicket: submitting a form over SSL from an unsecured page]]></title>
+    <link href="http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/"/>
+    <updated>2012-01-21T13:54:37-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page</id>
+    <content type="html"><![CDATA[<p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
+
+<p><img src="/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
+
+<p>To protect your users' privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don't secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on <em>all your pages</em>, how can you secure the form?</p>
+
+<p>The first step is to manually adjust the form's <strong>action</strong> attribute to ensure that the form submission happens over https, rather than http.</p>
+
+<p>But this is where we run into a problem with Wicket- if the hosting page is http, and you have also installed an HttpsMapper in your WicketApplication like this:</p>
+
+<pre><code>setRootRequestMapper(new HttpsMapper(getRootRequestMapper(), new HttpsConfig(HTTP_PORT, HTTPS_PORT)));
+</code></pre>
+
+<p>then Wicket will not allow your form to be sent over https; the mapper will notice the http/https mismatch, and instead of calling your form's onSubmit() method, it will simply serve up the hosting page again, discarding your form submission.</p>
+
+<p>The solution is to manually post your form to a different, secure page that is marked for https via @RequireHttps. Then the HttpsMapper will allow the form submission to take place.</p>
+
+<p>First, we need a LoginForm that will adjust the form's <strong>action</strong> attribute to point to our secure page:</p>
+
+<pre><code>public class LoginForm extends StatelessForm
+{
+    public LoginForm(String id)
+    {
+        super(id);
+        add(new TextField("username").setRequired(true));
+        add(new PasswordTextField("password").setRequired(true));
+    }
+
+   @Override
+   protected void onComponentTag(ComponentTag tag)
+   {
+       super.onComponentTag(tag);
+       String action = urlFor(LoginFormHandlerPage.class, null).toString();
+       tag.put("action", action);
+   }
+}
+</code></pre>
+
+<p>Now we'll need to create a page to handle the form submission:</p>
+
+<pre><code>@RequireHttps
+public class LoginFormHandlerPage extends WebPage
+{
+    public LoginFormHandlerPage(PageParameters parameters)
+    {
+        HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (loginSuccessful(username, password))
+        {
+             if (! continueToOriginalDestination());
+             {
+                 setResponsePage(AccountPage.class);
+             }
+        }
+        else
+        {
+            getSession().error("login failed"));
+            // on failure send user to our regular login page
+            setResponsePage(LoginPage.class);
+        }
+    }
+}
+</code></pre>
+
+<p>Note that if you're using Wicket 1.5.3 <a href="https://issues.apache.org/jira/browse/WICKET-4338">there is a bug</a> that prevents the processing of form POST parameters (that's why we're reading the params manually from the HttpServletRequest). Fixed in Wicket 1.5.4.</p>
+
+<p>The LoginFormHandlerPage will process the submitted form data over https, and if successful, log the user in, else send them to a page where then can re-enter their password.</p>
+
+<p>You can get all the code (and quite a bit more useful login-related stuff) from <a href="https://github.com/armhold/justaddwater">github</a>.</p>
+
+<p>Credit where it's due: the real gem here (submitting the form to a secure url) comes from this <a href="http://www.petrikainulainen.net/programming/tips-and-tricks/wicket-https-tutorial-part-three-creating-a-secure-form-submit-from-a-non-secure-page/">blog posting</a> by Petri Kainulainen.</p>
+]]></content>
+  </entry>
+  
+</feed>

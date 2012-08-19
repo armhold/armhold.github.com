@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[George Armhold's Octopress Blog]]></title>
+  <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T12:22:27-04:00</updated>
+  <updated>2012-08-19T17:55:44-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -12,5 +12,731 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Trying out Octopress]]></title>
+    <link href="http://armhold.github.com/blog/2012/08/19/trying-out-octopress/"/>
+    <updated>2012-08-19T12:24:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2012/08/19/trying-out-octopress</id>
+    <content type="html"><![CDATA[<p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
+format code with the Wordpress editor.</p>
+
+<p>So here&#8217;s some code:</p>
+
+<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Beautiful!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Twilio and Adobe Flash]]></title>
+    <link href="http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash/"/>
+    <updated>2012-02-19T09:26:22-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash</id>
+    <content type="html"><![CDATA[<p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
+
+<p><img src="http://armhold.github.com/images/2012/02/flash.png" alt="image" /></p>
+
+<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
+
+<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
+
+<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Announcing: Wicket-Source plugin for Intellij IDEA]]></title>
+    <link href="http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/"/>
+    <updated>2012-02-15T19:06:07-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea</id>
+    <content type="html"><![CDATA[<p>The folks at <a href="https://www.42lines.net/">42lines</a> have released an awesome <a href="https://www.42lines.net/2012/01/31/announcing-wicket-source/">Firefox plugin</a> called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser to the corresponding Wicket source code.</p>
+
+<p>Since their plugin is Eclipse-based, I wrote up a compatible plugin for Intellij IDEA. You can install it from <a href="http://plugins.intellij.net/plugin/?idea&amp;id=6846">the repository</a>, or build it yourself from the <a href="https://github.com/armhold/wicket-source-intellij">source on Github</a>.</p>
+
+<p>There are two parts to this plugin: the Firefox extension (provided by 42lines) and the IDE plugin; you need both. To install the Firefox plugin, follow the <a href="https://github.com/42Lines/wicket-source/wiki">directions from 42lines</a>. Then to install the Intellij plugin do the following:</p>
+
+<ol>
+<li><p>Open the Preferences dialog (Intellij IDEA menu -> Preferences)</p></li>
+<li><p>Under &#8220;IDE Settings&#8221; select &#8220;Plugins&#8221;</p></li>
+<li><p>Click the &#8220;Browse Repositories&#8221; button.</p></li>
+<li><p>In the search box type &#8220;wicket&#8221;, which should narrow the results significantly.</p></li>
+<li><p>Right-click &#8220;Wicket Source&#8221;, and select &#8220;Download and Install&#8221;.</p></li>
+</ol>
+
+
+<p>You&#8217;ll be asked to re-start Intellij, and then you should be in business. The plugin uses port  9123 and no password by default (same as the Firefox plugin defaults). To change this, open the IDE Settings dialog and click &#8220;Wicket Source&#8221; to enter a password.</p>
+
+<p>Enjoy!</p>
+
+<p><img src="http://armhold.github.com/images/2012/02/wicket-source.png" alt="image" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wicket: submitting a form over SSL from an unsecured page]]></title>
+    <link href="http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/"/>
+    <updated>2012-01-21T13:54:37-05:00</updated>
+    <id>http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page</id>
+    <content type="html"><![CDATA[<p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
+
+<p><img src="http://armhold.github.com/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
+
+<p>To protect your users&#8217; privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don&#8217;t secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on <em>all your pages</em>, how can you secure the form?</p>
+
+<p>The first step is to manually adjust the form&#8217;s <strong>action</strong> attribute to ensure that the form submission happens over https, rather than http.</p>
+
+<p>But this is where we run into a problem with Wicket- if the hosting page is http, and you have also installed an HttpsMapper in your WicketApplication like this:</p>
+
+<pre><code>setRootRequestMapper(new HttpsMapper(getRootRequestMapper(), new HttpsConfig(HTTP_PORT, HTTPS_PORT)));
+</code></pre>
+
+<p>then Wicket will not allow your form to be sent over https; the mapper will notice the http/https mismatch, and instead of calling your form&#8217;s onSubmit() method, it will simply serve up the hosting page again, discarding your form submission.</p>
+
+<p>The solution is to manually post your form to a different, secure page that is marked for https via @RequireHttps. Then the HttpsMapper will allow the form submission to take place.</p>
+
+<p>First, we need a LoginForm that will adjust the form&#8217;s <strong>action</strong> attribute to point to our secure page:</p>
+
+<pre><code>public class LoginForm extends StatelessForm
+{
+    public LoginForm(String id)
+    {
+        super(id);
+        add(new TextField("username").setRequired(true));
+        add(new PasswordTextField("password").setRequired(true));
+    }
+
+   @Override
+   protected void onComponentTag(ComponentTag tag)
+   {
+       super.onComponentTag(tag);
+       String action = urlFor(LoginFormHandlerPage.class, null).toString();
+       tag.put("action", action);
+   }
+}
+</code></pre>
+
+<p>Now we&#8217;ll need to create a page to handle the form submission:</p>
+
+<pre><code>@RequireHttps
+public class LoginFormHandlerPage extends WebPage
+{
+    public LoginFormHandlerPage(PageParameters parameters)
+    {
+        HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (loginSuccessful(username, password))
+        {
+             if (! continueToOriginalDestination());
+             {
+                 setResponsePage(AccountPage.class);
+             }
+        }
+        else
+        {
+            getSession().error("login failed"));
+            // on failure send user to our regular login page
+            setResponsePage(LoginPage.class);
+        }
+    }
+}
+</code></pre>
+
+<p>Note that if you&#8217;re using Wicket 1.5.3 <a href="https://issues.apache.org/jira/browse/WICKET-4338">there is a bug</a> that prevents the processing of form POST parameters (that&#8217;s why we&#8217;re reading the params manually from the HttpServletRequest). Fixed in Wicket 1.5.4.</p>
+
+<p>The LoginFormHandlerPage will process the submitted form data over https, and if successful, log the user in, else send them to a page where then can re-enter their password.</p>
+
+<p>You can get all the code (and quite a bit more useful login-related stuff) from <a href="https://github.com/armhold/justaddwater">github</a>.</p>
+
+<p>Credit where it&#8217;s due: the real gem here (submitting the form to a secure url) comes from this <a href="http://www.petrikainulainen.net/programming/tips-and-tricks/wicket-https-tutorial-part-three-creating-a-secure-form-submit-from-a-non-secure-page/">blog posting</a> by Petri Kainulainen.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to get JNDI working with Wicket 1.5 and Jetty 7.5]]></title>
+    <link href="http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/"/>
+    <updated>2011-12-27T22:29:03-05:00</updated>
+    <id>http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5</id>
+    <content type="html"><![CDATA[<p>The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&#8217;s how I put things right again.</p>
+
+<p>First of all, the imports have all been moved in 7.x.  Here&#8217;s where they landed:</p>
+
+<pre><code>import org.eclipse.jetty.plus.webapp.EnvConfiguration;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
+</code></pre>
+
+<p>Next, you&#8217;ll need a jetty-env.xml.</p>
+
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
+
+&lt;Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+    &lt;New class="org.eclipse.jetty.plus.jndi.EnvEntry"&gt;
+    &lt;Arg&gt;jdbc/mydatasource&lt;/Arg&gt;
+    &lt;Arg&gt;
+        &lt;New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"&gt;
+            &lt;Set name="Url"&gt;jdbc:mysql://localhost/mydatabase?characterEncoding=utf8&lt;/Set&gt;
+            &lt;Set name="User"&gt;username&lt;/Set&gt;
+            &lt;Set name="Password"&gt;password&lt;/Set&gt;
+        &lt;/New&gt;
+    &lt;/Arg&gt;
+    &lt;/New&gt;
+&lt;/Configure&gt;
+</code></pre>
+
+<p>Normally this goes into src/main/webapp/WEB-INF, but you probably don&#8217;t want to deploy that with your app in your production war file. So instead I put mine in src/test/jetty/jetty-env.xml. You&#8217;ll need to modify your Start.java to tell Jetty to find the relocated config file.</p>
+
+<pre><code>EnvConfiguration envConfiguration = new EnvConfiguration();
+URL url = new File("src/test/jetty/jetty-env.xml").toURI().toURL();
+envConfiguration.setJettyEnvXml(url);
+bb.setConfigurations(new Configuration[]{
+    new WebInfConfiguration(),
+    envConfiguration,
+    new WebXmlConfiguration()
+});
+</code></pre>
+
+<p>I found that I also had to set a couple of environment properties:</p>
+
+<pre><code>System.setProperty("java.naming.factory.url.pkgs",
+                   "org.eclipse.jetty.jndi");
+System.setProperty("java.naming.factory.initial",
+                   "org.eclipse.jetty.jndi.InitialContextFactory");
+</code></pre>
+
+<p>With this, I can finally access my JNDI datasource happily from Wicket/Jetty.</p>
+
+<p>Update: I&#8217;ve created a <a href="https://gist.github.com/1539302">gist with the full source code.</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Automatically generate Maven dependency coordinates for random Jar files]]></title>
+    <link href="http://armhold.github.com/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/"/>
+    <updated>2011-09-03T12:07:38-04:00</updated>
+    <id>http://armhold.github.com/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files</id>
+    <content type="html"><![CDATA[<p>Have you just inherited an Ant project that you&#8217;re trying to convert to Maven? Maybe it came with a &#8220;lib&#8221; directory full or random jar files. And worse, some thoughtless developer neglected to include version strings in the filenames?</p>
+
+<p>Fear not! The Sonatype <a href="https://repository.sonatype.org/service/local/lucene/search?sha1=%22;">checksum search</a> REST service can give you the Maven coordinates based on the jar&#8217;s SHA1 hash.</p>
+
+<p>Still too much work? Not to worry, I just wrote a quick program to make it even easier for you. <a href="https://github.com/armhold/Provenance">Provenance</a> will take a directory full of jar files and write out the XML dependency information for every jar it finds. You can then copy/paste this right into the <code>&lt;dependencies&gt;</code> section of your pom.xml.</p>
+
+<p>Enjoy.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Adding Git SHAs to Wicket Pages Automatically]]></title>
+    <link href="http://armhold.github.com/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically/"/>
+    <updated>2011-08-04T15:58:34-04:00</updated>
+    <id>http://armhold.github.com/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically</id>
+    <content type="html"><![CDATA[<p>If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed. Especially if you&#8217;ve recently discovered the joys of branching and merging with Git.</p>
+
+<p>Here&#8217;s a handy way to <strong>add a Git SHA</strong> to all your app&#8217;s pages via <strong>Wicket and Maven</strong>.</p>
+
+<h1>Maven</h1>
+
+<p>First, we&#8217;ll use the exec-maven-plugin to create a git.properties file for us. Add this to the <plugins> section in your pom.xml:</p>
+
+<pre><code>&lt;plugin&gt;
+   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+   &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+   &lt;version&gt;1.1&lt;/version&gt;
+   &lt;executions&gt;
+       &lt;execution&gt;
+          &lt;phase&gt;compile&lt;/phase&gt;
+          &lt;goals&gt;
+             &lt;goal&gt;exec&lt;/goal&gt;
+          &lt;/goals&gt;
+       &lt;/execution&gt;
+   &lt;/executions&gt;
+   &lt;configuration&gt;
+       &lt;executable&gt;git&lt;/executable&gt;
+       &lt;arguments&gt;
+            &lt;argument&gt;log&lt;/argument&gt;
+            &lt;argument&gt;--pretty=format:gitsha=%H %ci&lt;/argument&gt;
+            &lt;argument&gt;-n1&lt;/argument&gt;
+       &lt;/arguments&gt;
+       &lt;outputFile&gt;target/classes/git.properties&lt;/outputFile&gt;
+   &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>This will create a git.properties file containing the Git SHA, along with the commit timestamp whenever your code is compiled. You can learn how to further customize this <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">here</a>.</p>
+
+<h1>Wicket Application Subclass</h1>
+
+<p>Now we&#8217;ll need to read in the git.properties file when our application starts up.</p>
+
+<pre><code>public class Application extends WebApplication
+{
+    private String gitSHA;
+
+    public AppgravityApplication()
+    {
+        java.util.Properties props = new java.util.Properties();
+        try
+        {
+            props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("git.properties"));
+            gitSHA = props.getProperty("gitsha");
+            log.info("gitsha: " + gitSHA);
+        }
+        catch (IOException e)
+        {
+            log.severe(e.getMessage());
+            gitSHA = "unknown";
+        }
+    }
+
+    public String getGitSHA()
+    {
+        return gitSHA;
+    }
+</code></pre>
+
+<h1>Wicket WebPage Subclass</h1>
+
+<p>Now we&#8217;ll create a WebPage subclass that renders the Git SHA into a <meta> tag when the page is rendered.</p>
+
+<pre><code>public abstract class MyPage extends WebPage
+{
+    @Override
+    protected void onBeforeRender()
+    {
+        Label metaGitSHA = new Label("metaGitSHA", "");
+        metaGitSHA.add(new AttributeModifier("content", Model.of(((Application) getApplication()).getGitSHA())));
+        addOrReplace(metaGitSHA);
+        super.onBeforeRender();
+    }
+}
+</code></pre>
+
+<p>You&#8217;ll want to extend MyPage for each of your pages. You&#8217;ll need to add the placeholder meta tag to each of your HTML pages like this:</p>
+
+<pre><code>&lt;head&gt;
+    &lt;meta wicket:id="metaGitSHA" id="metaGitSHA" name="metaGitSHA" content=""/&gt;
+&lt;/head&gt;
+</code></pre>
+
+<p>And you&#8217;re done!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Pixlshare- an image sharing app]]></title>
+    <link href="http://armhold.github.com/blog/2011/06/06/pixlshare-an-image-sharing-app/"/>
+    <updated>2011-06-06T18:27:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2011/06/06/pixlshare-an-image-sharing-app</id>
+    <content type="html"><![CDATA[<p><a href="http://pixlshare.com/">Pixlshare</a> is a new image-sharing webapp that I just started working on. It&#8217;s intended to be a low-friction way to do simple image sharing- upload an image and instantly get a URL that you can share with others. No accounts or logins needed- just click upload and you&#8217;re done.</p>
+
+<p><a href="http://pixlshare.com/images/trzlX8"><img src="http://pixlshare.com/images/trzlX8" alt="" /></a></p>
+
+<p>It&#8217;s built in Wicket and tiny bit of JQuery. It&#8217;s fairly basic, but it has one fairly novel feature- you can add textual annotations to your uploaded images; the annotations appear as actual searchable text, rather than merely being part of the image bits.</p>
+
+<p>I&#8217;m planning to add features like:</p>
+
+<ul>
+<li><p>HTML5 drag-n-drop for uploads</p></li>
+<li><p>upload multiple pictures at once to create an album</p></li>
+<li><p>user comments</p></li>
+</ul>
+
+
+<p><a href="http://pixlshare.com/">Give it a try!</a></p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-1270788796689877149?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Pause your Web History- break Google Maps]]></title>
+    <link href="http://armhold.github.com/blog/2010/05/05/pause-your-web-history-break-google-maps/"/>
+    <updated>2010-05-05T08:50:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2010/05/05/pause-your-web-history-break-google-maps</id>
+    <content type="html"><![CDATA[<p>For a few days <a href="http://maps.google.com/">Google Maps</a> stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page would just sit there with &#8220;Still loading&#8230;&#8221; forever. I thought it was a momentary glitch, but 2 days later it was still happening. I fired up Chrome on the same machine, which worked fine. Back in Safari, I tried clearing the cache, restarting the browser, etc. all to no avail.</p>
+
+<p>Today I figured it out- I had paused my <a href="https://www.google.com/history/">web history</a> some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.</p>
+
+<p><img src="http://armhold.github.com/images/2010/05/stillloading2.png" alt="image" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Multilingual Password Generator using GWT and Google App Engine]]></title>
+    <link href="http://armhold.github.com/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/"/>
+    <updated>2010-03-22T00:43:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine</id>
+    <content type="html"><![CDATA[<p>My fascination with GWT and Google App Engine continues. This weekend I created a
+<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
+
+<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
+
+<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
+</code></pre>
+
+<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
+
+<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
+
+<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
+
+<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
+
+<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
+
+<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
+
+<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
+</code></pre>
+
+<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Weekend Hack: 13-14 March, 2010]]></title>
+    <link href="http://armhold.github.com/blog/2010/03/15/the-weekend-hack-13-14-march-2010/"/>
+    <updated>2010-03-15T09:21:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2010/03/15/the-weekend-hack-13-14-march-2010</id>
+    <content type="html"><![CDATA[<p>Inspired by <a href="http://news.ycombinator.com/item?id=1133613">this recent post</a> over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following:</p>
+
+<ul>
+<li><p>be small &amp; well-defined- doable in a weekend</p></li>
+<li><p>produce something useful for <em>someone</em></p></li>
+<li><p>give my rusty Google App Engine and GWT skills a workout</p></li>
+</ul>
+
+
+<p>I use <a href="http://wicket.apache.org/">Wicket</a> for my livelihood these days, but <a href="http://code.google.com/webtoolkit/">GWT</a> is my true love. I miss working with it.</p>
+
+<p>So I decided to create a searchable database of Weight Watchers &#8220;food points&#8221; values.  Last year, the company that I was working for held weekly WW meetings in our lunch room.  For about 6 months it was all but impossible to avoid hearing &#8220;how many points for X?&#8221; type questions several times daily.</p>
+
+<p>There are a lot of existing sites for this kind of thing, but I found the interfaces somewhat lacking (are we really still producing sites with MIDI soundtracks in 2010?)</p>
+
+<p>Thus was born <a href="http://slimpoints.appspot.com/">this weekend&#8217;s project</a>. At least until WW decides to shut it down. Here&#8217;s the breakdown of where the time went:</p>
+
+<ul>
+<li><p>2 hours brainstorming</p></li>
+<li><p>4 hours getting Intellij, GWT and Google App Engine to all play nicely (this was the most painful part, really)</p></li>
+<li><p>3 hours basic coding, page layout, getting the tabs to work</p></li>
+<li><p>45 minutes with an Emacs macro converting HTML tables with food point values into a nice, CSV-style GWT properties file</p></li>
+<li><p>2 hours playing around with font sizes and colors.  I&#8217;m still not 100% happy with this, but the project was time-limited by definition.</p></li>
+<li><p>1/2 hour enabling AdSense, getting things to look relatively nice</p></li>
+</ul>
+
+
+<p>A grand total of 260 lines of code.  GWT&#8217;s SuggestBox made autocomplete so much easier than Wicket Extensions&#8217; AutoCompleteTextField, which I had to use recently.</p>
+
+<p>The project is &#8220;done&#8221; in the sense that I am happy with it, and would feel content if I never spent another hour of time on it; that was part of my criteria for something doable in a weekend.  But that doesn&#8217;t mean I&#8217;ll never revisit it.</p>
+
+<p>One potential idea is to make an iPhone-friendlier version of it, with some big calculator-style buttons right on the page to facilitate data entry.  I might come back to this idea in the future if the site analytics tell me it&#8217;s worthwhile.  (As a side note, compared to the time and effort required to get an <a href="http://itunes.apple.com/us/app/another-tip-calculator-yatc/id316488754?mt=8">iPhone app of equivalent complexity</a> published, this was a piece of cake.)</p>
+
+<p>So, what fun projects are you working on?</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-8903738812890999672?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Disable Top Sites in Safari]]></title>
+    <link href="http://armhold.github.com/blog/2010/03/14/how-to-disable-top-sites-in-safari/"/>
+    <updated>2010-03-14T00:56:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/03/14/how-to-disable-top-sites-in-safari</id>
+    <content type="html"><![CDATA[<blockquote></blockquote>
+
+<p><img src="http://armhold.github.com/images/2010/03/topsitesdemo.png" alt="image" />
+Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or window, and Safari sits there spinning while loading a bunch of web sites you may or may not be interested in going to. I find Safari to be a whole lot faster with the feature turned off.</p>
+
+<p>It&#8217;s simple.  Open Preferences, and tweak the settings for &#8220;New windows open with&#8221; and &#8220;New tabs open with&#8221; to be either an <strong>Empty Page</strong>, or whatever <strong>Home Page</strong> you prefer.</p>
+
+<p><img src="http://armhold.files.wordpress.com/2010/03/disabletopsites.png?w=269" alt="" /></p>
+
+<p><img src="" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why no "Here" Documents for Java?]]></title>
+    <link href="http://armhold.github.com/blog/2010/03/07/why-no-here-documents-for-java/"/>
+    <updated>2010-03-07T20:50:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/03/07/why-no-here-documents-for-java</id>
+    <content type="html"><![CDATA[<p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
+
+<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;#!/bin/shcat &lt;&lt; "EOF"Here is some text, embedded "right in the middle" of my Bourne shell script.EOF&lt;/span&gt;
+</code></pre>
+
+<p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
+
+<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;System.out.println("Here is some text, embedded\n" +" \"right in the middle\"\n" +"of my Java program.\n");&lt;/span&gt;
+</code></pre>
+
+<p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
+
+<p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5076794859272087621?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Relax. You can (mostly) stop using Interfaces in Java now.]]></title>
+    <link href="http://armhold.github.com/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/"/>
+    <updated>2010-03-06T17:56:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now</id>
+    <content type="html"><![CDATA[<p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
+
+<p>Why do we do this?</p>
+
+<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
+
+<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
+
+<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
+
+<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
+
+<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class); mockery.checking(new Expectations() );&lt;/span&gt;
+</code></pre>
+
+<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
+
+<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
+
+<pre><code>&lt;span style="font-family:Times;" class="Apple-style-span"&gt;&lt;span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"&gt;&lt;span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span"&gt;final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class); mockery.checking(new Expectations() );&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+</code></pre>
+
+<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
+
+<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
+
+<p>But use interfaces with reason, and not by reflex.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-188479247636856538?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[No More Russian Dolls- Respecting the Law of Demeter]]></title>
+    <link href="http://armhold.github.com/blog/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/"/>
+    <updated>2010-02-06T17:09:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter</id>
+    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/02/russiandolls.jpg" alt="image" /></p>
+
+<p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">a</span><span class="o">.</span><span class="na">getB</span><span class="o">().</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So in order to test something that used A, we&#8217;d need to also construct instances of B and C, and wire them all together like a stack of Russian dolls.  For many of our tests, the test <em>scaffolding</em> dwarfed the test proper, making it hard to tell what was really being tested.</p>
+
+<p>To address this, many of our tests were using the <a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> to build up these graphs.  This helped somewhat, by centralizing the construction of the objects, and it also led to some some re-use of the scaffolding code. But it still didn&#8217;t address the underlying problem of having to build up crazy amounts of superfluous objects for the test.</p>
+
+<p>Anyone who&#8217;s read Refactoring, or the Pragmatic Programmer series will recognize that the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> is in play here.  A, B, and C are too tightly coupled. We all know this is &#8220;bad&#8221;, but somehow this never really bothered me much in production code.  In the age of modern IDEs, it&#8217;s really easy to track down who is calling whom, and to re-work the code when you feel things have gotten out of hand.</p>
+
+<p>The typical remedy for fixing overly tight coupling is to use encapsulation or a delegate to hide the call chain. This never really struck me as much of an improvement, as it piled <strong>yet another interface</strong> on top of the code.  Having spent too much time toiling with J2EE megaliths, I was wary of adding yet another layer.</p>
+
+<p>But then when we realized what this <a href="http://c2.com/cgi/wiki?InappropriateIntimacy">inappropriate intimacy</a> was doing to our tests, a light bulb went off. Adding a really small interface to class <strong>A</strong> doesn&#8217;t really bloat the code, and most importantly- it gives the test code a hook where it can <strong>mock out the single call that it really cares about</strong>, ignoring the rest.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">B</span> <span class="n">b</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">A</span> <span class="n">mockedA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>         <span class="k">return</span> <span class="s">&quot;mockedResult&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yes, class <strong>B</strong>is still sharing too much information here, but unless it&#8217;s causing a problem, you can leave it alone for now, and apply the same fix to it only if it becomes an issue (maybe YAGNI).</p>
+
+<p>Obviously, this isn&#8217;t some new industry-changing technique; it&#8217;s been around forever.  But as a result of applying it judiciously, our test scaffolding has been drastically reduced, and tests are easier to write and understand.</p>
+
+<p>No more Russian dolls.</p>
+
+<p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-4474706681478325964?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[R.I.P., Mr. Salinger]]></title>
+    <link href="http://armhold.github.com/blog/2010/01/28/r-i-p-mr-salinger/"/>
+    <updated>2010-01-28T13:46:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/01/28/r-i-p-mr-salinger</id>
+    <content type="html"><![CDATA[<blockquote><p>&#8220;What I have to do, I have to catch everybody if they start to go over the cliff— I mean if they’re running and they don’t look where they’re going I have to come out from somewhere and catch them. That’s all I’d do all day. I’d just be the catcher in the rye and all.&#8221;</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apple's iPad: One Ring to Rule Them All ?]]></title>
+    <link href="http://armhold.github.com/blog/2010/01/28/apples-ipad-one-ring-to-rule-them-all/"/>
+    <updated>2010-01-28T08:07:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/01/28/apples-ipad-one-ring-to-rule-them-all</id>
+    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/noflash.png" alt="image" /></p>
+
+<p>Like any Apple fan, I want to run out and buy an iPad today. I&#8217;ve wanted an eReader for quite some time now, and have been dragging my feet on getting a Kindle only because I wanted to see if Apple could produce something better. Notwithstanding the current lack of reviews of its text quality, the iPad certainly seems to be the more compelling device.</p>
+
+<p>But there is a serious question you should ask yourself before taking the plunge. How would you feel if someone took your current computer (laptop, desktop- whatever it is you use on a daily basis) and told you that you could only install software on it that the manufacturer authorized? Do you currently check with Dell to see if it&#8217;s OK to install Photoshop or Chrome on your machine? With the iPad, that will be your Brave New World. Want to install the latest beta of your favorite program? Well, <strong>unless Apple makes radical changes to the App Store, you won&#8217;t be able to do that</strong>.</p>
+
+<p>As an iPhone user, I was willing to make <em>some</em> concessions to Apple regarding what apps could and could not do on the device. It is after all a phone, and I want my phone to work when I use it. I don&#8217;t want the battery to die unexpectedly because some app was running in the background, or to lose my data because another app decided to scribble all over the file system. A phone is an appliance, and by and large you want an appliance to behave predictably and reliably.</p>
+
+<p>But a tablet computer isn&#8217;t quite the same thing. It sits vaguely between &#8220;ebook reader&#8221; and &#8220;laptop computer&#8221;. As time goes on, I expect that laptops in general will start to look more and more like tablets. As Jobs said,</p>
+
+<blockquote><blockquote><p><em><strong>&#8220;Browsing, Email, Photos, Video, Music, Games, eBooks&#8230; if there&#8217;s gonna be a third category of device, it&#8217;s gonna have to be better at these kinds of tasks than a laptop or a smartphone, otherwise it has no reason for being.&#8221;</strong></em></p></blockquote></blockquote>
+
+<p>Right now you might use the iPad to read the New York Times while waiting for your bus, or to check your email while sitting in a café. But will you eventually use it for actual work? If the technology gets good enough, will you leave your laptop behind and starting using your tablet for everything? <strong>Once you really come to rely on it for your work, will you still be comfortable with Apple exerting total control over every piece of software you install on it?</strong></p>
+
+<p>Did you notice during the demo that when Steve Jobs went to the NY Times website, there were lots of &#8220;missing plugin&#8221; icons where the Flash ads should have been? At first I thought this was just an embarrassing mistake in delivery, but the more I think about it, the more I&#8217;ve come to believe that this was entirely intentional- <strong>a message to the NY Times directly from Mr Jobs, saying that their website will look like crap on the device until they dump Flash</strong>.</p>
+
+<p>Apple&#8217;s <a href="http://www.wired.com/gadgetlab/2008/11/adobe-flash-on/">antipathy towards Flash</a>, and <a href="http://news.cnet.com/2100-1012-5181434.html">Adobe in general</a>, is nothing new. And as much as I would love to see Flash banished from the web, this kind of complete control by Apple really worries me. Don&#8217;t get me wrong- I really want one of these devices. But I&#8217;m not so sure I&#8217;m ready to give up that much control to Apple just yet.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-4935093699936500998?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Intellij needs to support more than a single editor window]]></title>
+    <link href="http://armhold.github.com/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/"/>
+    <updated>2010-01-24T10:50:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window</id>
+    <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
+
+<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
+
+<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
+
+<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
+
+<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
+
+<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5756671819621609101?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cleveland and Rouen Are Sister-Cities]]></title>
+    <link href="http://armhold.github.com/blog/2010/01/05/cleveland-and-rouen-are-sister-cities/"/>
+    <updated>2010-01-05T12:05:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2010/01/05/cleveland-and-rouen-are-sister-cities</id>
+    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/rouen_cathedrale.jpg" alt="image" /></p>
+
+<p>I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that <a href="http://francewithbenefits.blogspot.com/2008/01/cleveland-rouen-sister-city-agreement.html">Cleveland and Rouen became sister cities in 2008</a>. Small world!</p>
+
+<p><img src="" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apple Fails at Customer Service]]></title>
+    <link href="http://armhold.github.com/blog/2009/11/15/apple-fails-at-customer-service/"/>
+    <updated>2009-11-15T19:31:00-05:00</updated>
+    <id>http://armhold.github.com/blog/2009/11/15/apple-fails-at-customer-service</id>
+    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2009/11/bluetoothmac.jpg" alt="image" />
+Before I get started, let me say that I&#8217;ve been a big Apple fan for a number of years now. I&#8217;ve purchased enough Macbooks, iMacs, iPods, iPhones, and iTunes content that I sometimes feel that maybe I should just go ahead and have a portion of my salary direct-deposited to Apple. I&#8217;ve even turned down job offers from companies that &#8220;don&#8217;t do Mac&#8221;. So publishing this blog entry feels almost like a betrayal of sorts.</p>
+
+<p>In November, I started a new job. They were kind enough to buy me pretty much whatever kind of top-of-the-line computer equipment I wanted. I settled on a Mac Pro tower with quad core 2.93GHz, 8GB and 1TB. A beast of a machine, with a hefty price tag of over $3.5K. It arrived, and I was thrilled with it. Until the second day, when it developed a problem with its fans.</p>
+
+<p>DOA #1</p>
+
+<p>For some reason the fans just started going full-tilt all the time, on a completely unloaded CPU. Even from a totally cold-restart. It was loud enough for my wife to inquire from another room, &#8220;what&#8217;s that noise?&#8221; I tried all the obvious things you might think of, and then some not-so-obvious things that the Apple tech support had me try over the phone.</p>
+
+<p>Nothing seemed to help, so the tech support offered to do a replacement, but told me that I&#8217;d have to box the machine up, ship it back to them, and then wait for them to receive it before sending me back a replacement. Since I was starting a new job in a couple of days and I <strong>needed</strong> this computer, this wouldn&#8217;t work for me. They suggested I bring it in to my local Apple Store and see if they could fix it. The tech support guy was even kind enough to schedule me an appointment with a &#8220;Genius&#8221;.</p>
+
+<p>So I lugged the tower (all 65 pounds of it) down to the Apple Store. The tech there was nice, took the machine in the back for a while and ran a few diagnostics on it. Eventually he came out and told me <strong>he could not reproduce the problem,</strong> and that <strong>all the diagnostics were normal</strong>. He admitted that it was a &#8220;little&#8221; loud, but not enough that he could isolate any particular component to replace.</p>
+
+<p>Now before I fell in love with Apple, I had been building my own PCs for years, and I can tell you that this was <strong>not normal fan behavior</strong>. It&#8217;s certainly not normal to be able to hear your computer from the other side of the house. And it didn&#8217;t do this on day one; this anomalous behavior began on day two, so it just didn&#8217;t make any sense that this was &#8220;normal&#8221;.</p>
+
+<p>So I guessed that maybe it was just too loud in the back room for the Genius to really appreciate the sound this thing was making. Or maybe he just didn&#8217;t know how to fix it. Whatever. I figured he&#8217;d just DOA it, and hand me a replacement on the spot. Nope- Apple would certainly DOA it for me, <strong>but since it was bought online, and not at the local store, I had to ship it back to Apple.</strong> WTF? So I had to lug all 65 pounds of it back home, defeated.</p>
+
+<p>I called Apple back up, and tried to negotiate for some kind of &#8220;ship ahead replacement&#8221;, whereby they could send me a replacement ASAP, and I would return the loud-but-functional machine once its replacement arrived (and then I could easy transfer my data, too). Nope. &#8220;But we paid extra for AppleCare!&#8221; Nope. I really needed a working computer for my upcoming start date, so I had to get my boss involved.</p>
+
+<p>He ended up spending over 70 minutes on the phone with them, and managed to &#8220;negotiate&#8221; a situation whereby he would purchase <strong>another</strong>, identical Mac Pro, they would ship it, and after it arrived I&#8217;d send back the original machine for a refund. So yes, they charged him for both machines, and the 2 x $3500 was on the company credit card until I shipped the defective unit back. Ugh!</p>
+
+<p>So I sent a polite, but to-the-point letter to Apple explaining the situation, and how it was not very professional, that Dell does better, etc. etc. The next day I get a call back from a very pleasant fellow named Ryan. He explained that my email had reached &#8220;the executive level&#8221;, that the lack of a &#8220;ship ahead&#8221; for defective units keeps coming up in customer service, and that he was happy to have my feedback. He gave me his email address and direct phone number, and told me to get in touch if I needed anything. This was a nice touch, even if he was just trying to make me feel better.</p>
+
+<p>A week or so later, the new Mac arrives. And it was blessedly silent. My wife was happy, I was happy. I transferred my data over, packed the old Mac up and shipped it back.</p>
+
+<p>Bluetooth Blues, aka DOA #2</p>
+
+<p>Happy to finally have a machine that I could stand to be in the same room with, I went down to the Apple Store again and bought myself a shiny new <strong>Magic Mouse</strong>, for $69. Went home and tried to use it, but found that the mouse just stuttered all over the screen. Tried it with my MacBook Pro, and it worked fine. For some reason it just did not like the tower.</p>
+
+<p>Again, I tried all the obvious things like software update, checking the battery, etc. No good. Finally I noticed that the mouse would work if I brought it to within about 8 inches of the Mac Pro- any farther than that, and it stopped working. So yeah you guessed it, a bad Bluetooth system on the new computer. Ugh! It turns out this is a <a href="http://2718.us/blog/2009/10/26/mac-pro-2007-bluetooth/">fairly</a> <a href="http://www.macosxhints.com/article.php?story=20060928062014272">common</a> <a href="http://www.mcelhearn.com/2007/04/19/apple-bungles-bluetooth-in-mac-pro/">problem</a>, going back to at least 2006 on the Mac Pro tower. I called Apple tech support, they had me try a bunch of things, and eventually confirmed my diagnosis.</p>
+
+<p>So this is <strong>a second DOA unit</strong>. You would think that maybe I had finally crossed some threshold where Apple would take pity on me, and just send me a new machine ASAP already, without making me go through all the &#8220;send us your bad unit first, and then we&#8217;ll replace it&#8221; bullshit. And you&#8217;d be wrong.</p>
+
+<p>So again, they offered to have it repaired at my local Apple Store, and <strong>assured me</strong> that they&#8217;d be able to fix it then and there, and not have to ship it away. They even made the appointment for me. I intentionally chose an appointment slot 4 days away, so that any parts they might need would be available, etc.</p>
+
+<p>So my Genius appointment arrives on Friday, and I lug the 65 pound box to the store one more time. My appointment was for 9:30am. They call my name, and I explain the long and sordid story. Then Genius tells me &#8220;oh, but my tech won&#8217;t be here until 11&#8221;. What? But my appointment is at 9:30! Turns out that Apple tech support did not communicate to the store that this would be a repair. Oh, and another thing- they don&#8217;t have the parts they need to fix the bluetooth- they&#8217;ll have to order it, and it&#8217;ll be another 1-3 days before it arrives. Are you serious? You want me to lug this computer back here <strong>a third time</strong>? Needless to say, I was pretty pissed off. I explained to the guy that I understood that it wasn&#8217;t <em>his</em> fault, per se, but Apple needs to get its act together. He offered to make me an appointment for next week, but I declined. Frankly I had had enough.</p>
+
+<p>So I fired off an email to Ryan explaining what happened. I get a call back from him, and incredibly, he tries to tell me that Apple has &#8220;gone above and beyond&#8221; in this situation. Really? How so? He says that by <strong>letting us purchase a second computer </strong>before sending the defective one back, Apple has more than fulfilled its obligation to us. Are you serious? Are you standing within range of Steve Jobs&#8217; Reality Distortion Field or something? I told him that I wasn&#8217;t really sure why he was calling me, because if the point of his call was to make me feel better, he&#8217;s just pissed me off even more. I say &#8220;thanks&#8221; and we hang up.</p>
+
+<p>Capitulation</p>
+
+<p>I am so annoyed at this point that I don&#8217;t even want to continue trying to get the computer fixed. I went and bought a $50 Bluetooth USB adapter, and my mouse now works fine. Considering the hassle it would take to ship the damn thing back to Apple again, this is clearly the path of least resistance.</p>
+
+<p>Apple- if this is how you treat business customers, customers who are tech-savvy and can diagnose problems with your equipment, what hope is there for anyone else? What&#8217;s the point of buying AppleCare? After all, <strong>even Dell will do a &#8220;ship ahead&#8221; </strong>for a defective part, even to a non-business home user.</p>
+
+<p>Think Different indeed.</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-8841453936554877048?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
   
 </feed>

@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>George Armhold's Blog</title>
+  <title>How to get JNDI working with Wicket 1.5 and Jetty 7.5 - George Armhold's Blog</title>
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ format code with the &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/">
+  <link rel="canonical" href="http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,15 +62,12 @@ format code with the &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title">How to Get JNDI Working With Wicket 1.5 and Jetty 7.5</h1>
     
     
       <p class="meta">
@@ -87,59 +83,115 @@ format code with the &hellip;">
   
 
 
-<time datetime="2012-08-19T12:24:00-04:00" pubdate data-updated="true">Aug 19<span>th</span>, 2012</time>
+<time datetime="2011-12-27T22:29:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+<div class="entry-content"><p>The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&#8217;s how I put things right again.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>First of all, the imports have all been moved in 7.x.  Here&#8217;s where they landed:</p>
 
-<figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span> <span class="n">indent</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">node</span><span class="si">}</span><span class="s2"> -&gt; &quot;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind_of?</span> <span class="no">Container</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">child</span><span class="o">|</span>
-</span><span class='line'>        <span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="no">Control</span><span class="o">::</span><span class="no">INDENT</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>import org.eclipse.jetty.plus.webapp.EnvConfiguration;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
+</code></pre>
 
+<p>Next, you&#8217;ll need a jetty-env.xml.</p>
 
-<p>Beautiful!</p>
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
+
+&lt;Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+    &lt;New class="org.eclipse.jetty.plus.jndi.EnvEntry"&gt;
+    &lt;Arg&gt;jdbc/mydatasource&lt;/Arg&gt;
+    &lt;Arg&gt;
+        &lt;New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"&gt;
+            &lt;Set name="Url"&gt;jdbc:mysql://localhost/mydatabase?characterEncoding=utf8&lt;/Set&gt;
+            &lt;Set name="User"&gt;username&lt;/Set&gt;
+            &lt;Set name="Password"&gt;password&lt;/Set&gt;
+        &lt;/New&gt;
+    &lt;/Arg&gt;
+    &lt;/New&gt;
+&lt;/Configure&gt;
+</code></pre>
+
+<p>Normally this goes into src/main/webapp/WEB-INF, but you probably don&#8217;t want to deploy that with your app in your production war file. So instead I put mine in src/test/jetty/jetty-env.xml. You&#8217;ll need to modify your Start.java to tell Jetty to find the relocated config file.</p>
+
+<pre><code>EnvConfiguration envConfiguration = new EnvConfiguration();
+URL url = new File("src/test/jetty/jetty-env.xml").toURI().toURL();
+envConfiguration.setJettyEnvXml(url);
+bb.setConfigurations(new Configuration[]{
+    new WebInfConfiguration(),
+    envConfiguration,
+    new WebXmlConfiguration()
+});
+</code></pre>
+
+<p>I found that I also had to set a couple of environment properties:</p>
+
+<pre><code>System.setProperty("java.naming.factory.url.pkgs",
+                   "org.eclipse.jetty.jndi");
+System.setProperty("java.naming.factory.initial",
+                   "org.eclipse.jetty.jndi.InitialContextFactory");
+</code></pre>
+
+<p>With this, I can finally access my JNDI datasource happily from Wicket/Jetty.</p>
+
+<p>Update: I&#8217;ve created a <a href="https://gist.github.com/1539302">gist with the full source code.</a></p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">George Armhold</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2011-12-27T22:29:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/" title="Previous Post: Automatically generate Maven dependency coordinates for random Jar files">&laquo; Automatically generate Maven dependency coordinates for random Jar files</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/" title="Next Post: Wicket: submitting a form over SSL from an unsecured page">Wicket: submitting a form over SSL from an unsecured page &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -172,7 +224,7 @@ format code with the Wordpress editor.</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/armhold">@armhold</a> on GitHub
@@ -202,7 +254,7 @@ format code with the Wordpress editor.</p>
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -221,6 +273,7 @@ format code with the Wordpress editor.</p>
 
   
 </aside>
+
 
     </div>
   </div>

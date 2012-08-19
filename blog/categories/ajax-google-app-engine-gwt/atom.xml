@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ajax google-app-engine gwt | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/ajax-google-app-engine-gwt/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-19T17:55:44-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Make your Ajax apps seem snappier with a faster animated gif]]></title>
+    <link href="http://armhold.github.com/blog/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/"/>
+    <updated>2009-09-29T13:58:00-04:00</updated>
+    <id>http://armhold.github.com/blog/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif</id>
+    <content type="html"><![CDATA[<p>I often lament the slow speed of the <a href="http://code.google.com/appengine/docs/java/gettingstarted/usingdatastore.html">datastore</a> used by Google's App Engine, relative to an old-fashioned RDBMS. While Google's datastore is designed to scale well for many, many simultaneous requests, it's a bit pokey on day-to-day CRUD operations.</p>
+
+<p>To deal with this, I implemented a standard "loading" icon that my app displays when accessing the datastore. This way my users will know that something is happening behind the scenes, and not assume that my app has simply stopped responding.</p>
+
+<p>Recently I decided to pretty things up a bit, and so I used the <a href="http://www.ajaxload.info/">GIF Generator</a> at Ajaxload to create a gif that better matched <a href="http://recipeminder.appspot.com">my app's</a> color scheme. I installed it, and quickly forgot about it.</p>
+
+<p>Later that same day, I went back to my site and was pleasantly surprised at how quickly App Engine was serving things up- things were noticeably snappier. Initially I chalked it up to the vagaries of the load on App Engine, but then I remembered the updated GIF I had installed. In addition to matching my site's color scheme, it also happened to "spin" faster than the old one. I was shocked at what a huge difference this made! Even though the actual wall-clock time spent is roughly the same, a faster-spinning icon made a huge difference in the <em>perceived</em> wait time. And that's what really matters most, isn't it?</p>
+
+<p>PS: I wanted to include examples of the spinners, but Blogspot does not seem to support animated gifs. :-(</p>
+
+<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-1965095450783394696?l=garmhold.blogspot.com" alt="" /></p>
+]]></content>
+  </entry>
+  
+</feed>
