@@ -4,7 +4,7 @@
   <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T18:50:37-04:00</updated>
+  <updated>2012-08-19T19:06:43-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -19,9 +19,10 @@
     <updated>2012-08-19T12:24:00-04:00</updated>
     <id>http://armhold.github.com/2012/08/19/trying-out-octopress</id>
     <content type="html"><![CDATA[<p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor.</p>
+format code with the Wordpress editor, so I&#8217;ve moved my blog from Wordpress (which originally started out
+on blogger) to Jekyll + Octopress, hosted on Github.</p>
 
-<p>So here&#8217;s some code:</p>
+<p>Let&#8217;s see how code formats under Octopress:</p>
 
 <figure class='code'><figcaption><span>print_tree</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
