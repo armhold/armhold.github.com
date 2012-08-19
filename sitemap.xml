@@ -1,139 +1,131 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://armhold.github.com/blog/2009/09/27/buckeyes-are-dangerous-weapons/</loc>
+        <loc>http://armhold.github.com/2009/09/27/buckeyes-are-dangerous-weapons/</loc>
         <lastmod>2012-08-19T17:13:32-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/
+            http://armhold.github.com/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/
         </loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://armhold.github.com/2009/10/01/the-end-of-ai-winter/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://armhold.github.com/2009/10/15/intellij-idea-open-sourced/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://armhold.github.com/2009/10/28/snow-leopard-migration-assistant-fail/</loc>
         <lastmod>2012-08-19T17:13:32-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2009/10/01/the-end-of-ai-winter/</loc>
-        <lastmod>2012-08-19T17:13:32-04:00</lastmod>
+        <loc>http://armhold.github.com/2009/11/15/apple-fails-at-customer-service/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2009/10/15/intellij-idea-open-sourced/</loc>
-        <lastmod>2012-08-19T17:13:32-04:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://armhold.github.com/blog/2009/10/28/snow-leopard-migration-assistant-fail/
-        </loc>
-        <lastmod>2012-08-19T17:13:32-04:00</lastmod>
-    </url>
-    <url>
-        <loc>http://armhold.github.com/blog/2009/11/15/apple-fails-at-customer-service/</loc>
-        <lastmod>2012-08-19T17:13:32-04:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://armhold.github.com/blog/2010/01/05/cleveland-and-rouen-are-sister-cities/
-        </loc>
+        <loc>http://armhold.github.com/2010/01/05/cleveland-and-rouen-are-sister-cities/</loc>
         <lastmod>2012-08-19T17:13:32-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/
+            http://armhold.github.com/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/
         </loc>
-        <lastmod>2012-08-19T17:13:32-04:00</lastmod>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://armhold.github.com/blog/2010/01/28/apples-ipad-one-ring-to-rule-them-all/
-        </loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
+        <loc>http://armhold.github.com/2010/01/28/apples-ipad-one-ring-to-rule-them-all/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2010/01/28/r-i-p-mr-salinger/</loc>
+        <loc>http://armhold.github.com/2010/01/28/r-i-p-mr-salinger/</loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/
+            http://armhold.github.com/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/
         </loc>
-        <lastmod>2012-08-19T17:53:25-04:00</lastmod>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/
+            http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/
         </loc>
+        <lastmod>2012-08-19T18:42:52-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://armhold.github.com/2010/03/07/why-no-here-documents-for-java/</loc>
+        <lastmod>2012-08-19T18:47:28-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://armhold.github.com/2010/03/14/how-to-disable-top-sites-in-safari/</loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2010/03/07/why-no-here-documents-for-java/</loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
-    </url>
-    <url>
-        <loc>http://armhold.github.com/blog/2010/03/14/how-to-disable-top-sites-in-safari/</loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
-    </url>
-    <url>
-        <loc>http://armhold.github.com/blog/2010/03/15/the-weekend-hack-13-14-march-2010/</loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
+        <loc>http://armhold.github.com/2010/03/15/the-weekend-hack-13-14-march-2010/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/
-        </loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://armhold.github.com/blog/2010/05/05/pause-your-web-history-break-google-maps/
+            http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/
         </loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2011/06/06/pixlshare-an-image-sharing-app/</loc>
+        <loc>http://armhold.github.com/2010/05/05/pause-your-web-history-break-google-maps/</loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
+        <loc>http://armhold.github.com/2011/06/06/pixlshare-an-image-sharing-app/</loc>
+        <lastmod>2012-08-19T18:44:59-04:00</lastmod>
+    </url>
+    <url>
         <loc>
-            http://armhold.github.com/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically/
+            http://armhold.github.com/2011/08/04/adding-git-shas-to-wicket-pages-automatically/
         </loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/
+            http://armhold.github.com/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/
         </loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/
+            http://armhold.github.com/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/
         </loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/
+            http://armhold.github.com/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/
         </loc>
         <lastmod>2012-08-19T17:13:33-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/
+            http://armhold.github.com/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/
         </loc>
-        <lastmod>2012-08-19T17:13:33-04:00</lastmod>
+        <lastmod>2012-08-19T18:18:58-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash/</loc>
+        <loc>http://armhold.github.com/2012/02/19/twilio-and-adobe-flash/</loc>
         <lastmod>2012-08-19T17:13:34-04:00</lastmod>
     </url>
     <url>
-        <loc>http://armhold.github.com/blog/2012/08/19/trying-out-octopress/</loc>
+        <loc>http://armhold.github.com/2012/08/19/trying-out-octopress/</loc>
         <lastmod>2012-08-19T17:13:34-04:00</lastmod>
     </url>
     <url>
         <loc>http://armhold.github.com/blog/archives/</loc>
-        <lastmod>2012-08-19T17:53:25-04:00</lastmod>
+        <lastmod>2012-08-19T18:47:28-04:00</lastmod>
     </url>
     <url>
         <loc>http://armhold.github.com/</loc>
-        <lastmod>2012-08-19T17:53:25-04:00</lastmod>
+        <lastmod>2012-08-19T18:47:28-04:00</lastmod>
     </url>
 </urlset>

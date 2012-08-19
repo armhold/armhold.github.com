@@ -70,7 +70,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/03/07/why-no-here-documents-for-java/">Why No &#8220;Here&#8221; Documents for Java?</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/07/why-no-here-documents-for-java/">Why No &#8220;Here&#8221; Documents for Java?</a></h1>
     
     
       <p class="meta">
@@ -95,19 +95,35 @@
 
   <div class="entry-content"><p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;#!/bin/shcat &lt;&lt; "EOF"Here is some text, embedded "right in the middle" of my Bourne shell script.EOF&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'>cat &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
+</span><span class='line'>Here is some text, embedded
+</span><span class='line'>
+</span><span class='line'>   <span class="s2">&quot;right in the middle&quot;</span>
+</span><span class='line'>
+</span><span class='line'>of my Bourne shell script.
+</span><span class='line'>EOF
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;System.out.println("Here is some text, embedded\n" +" \"right in the middle\"\n" +"of my Java program.\n");&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Here is some text, embedded\n&quot;</span> <span class="o">+</span><span class="s">&quot; \&quot;right in the middle\&quot;\n&quot;</span> <span class="o">+</span><span class="s">&quot;of my Java program.\n&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
 
 <p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5076794859272087621?l=garmhold.blogspot.com" alt="" /></p>
 </div>
   
   
@@ -132,23 +148,23 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
+        <a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
       </li>
     
   </ul>

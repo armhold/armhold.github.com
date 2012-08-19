@@ -4,7 +4,7 @@
   <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T17:55:44-04:00</updated>
+  <updated>2012-08-19T18:50:37-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Trying out Octopress]]></title>
-    <link href="http://armhold.github.com/blog/2012/08/19/trying-out-octopress/"/>
+    <link href="http://armhold.github.com/2012/08/19/trying-out-octopress/"/>
     <updated>2012-08-19T12:24:00-04:00</updated>
-    <id>http://armhold.github.com/blog/2012/08/19/trying-out-octopress</id>
+    <id>http://armhold.github.com/2012/08/19/trying-out-octopress</id>
     <content type="html"><![CDATA[<p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
 format code with the Wordpress editor.</p>
 
@@ -54,9 +54,9 @@ format code with the Wordpress editor.</p>
   
   <entry>
     <title type="html"><![CDATA[Twilio and Adobe Flash]]></title>
-    <link href="http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash/"/>
+    <link href="http://armhold.github.com/2012/02/19/twilio-and-adobe-flash/"/>
     <updated>2012-02-19T09:26:22-05:00</updated>
-    <id>http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash</id>
+    <id>http://armhold.github.com/2012/02/19/twilio-and-adobe-flash</id>
     <content type="html"><![CDATA[<p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
 
 <p><img src="http://armhold.github.com/images/2012/02/flash.png" alt="image" /></p>
@@ -71,9 +71,9 @@ format code with the Wordpress editor.</p>
   
   <entry>
     <title type="html"><![CDATA[Announcing: Wicket-Source plugin for Intellij IDEA]]></title>
-    <link href="http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/"/>
-    <updated>2012-02-15T19:06:07-05:00</updated>
-    <id>http://armhold.github.com/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea</id>
+    <link href="http://armhold.github.com/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/"/>
+    <updated>2012-02-16T07:06:07-05:00</updated>
+    <id>http://armhold.github.com/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea</id>
     <content type="html"><![CDATA[<p>The folks at <a href="https://www.42lines.net/">42lines</a> have released an awesome <a href="https://www.42lines.net/2012/01/31/announcing-wicket-source/">Firefox plugin</a> called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser to the corresponding Wicket source code.</p>
 
 <p>Since their plugin is Eclipse-based, I wrote up a compatible plugin for Intellij IDEA. You can install it from <a href="http://plugins.intellij.net/plugin/?idea&amp;id=6846">the repository</a>, or build it yourself from the <a href="https://github.com/armhold/wicket-source-intellij">source on Github</a>.</p>
@@ -99,9 +99,9 @@ format code with the Wordpress editor.</p>
   
   <entry>
     <title type="html"><![CDATA[Wicket: submitting a form over SSL from an unsecured page]]></title>
-    <link href="http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/"/>
+    <link href="http://armhold.github.com/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/"/>
     <updated>2012-01-21T13:54:37-05:00</updated>
-    <id>http://armhold.github.com/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page</id>
+    <id>http://armhold.github.com/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page</id>
     <content type="html"><![CDATA[<p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
 
 <p><img src="http://armhold.github.com/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
@@ -180,9 +180,9 @@ public class LoginFormHandlerPage extends WebPage
   
   <entry>
     <title type="html"><![CDATA[How to get JNDI working with Wicket 1.5 and Jetty 7.5]]></title>
-    <link href="http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/"/>
+    <link href="http://armhold.github.com/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/"/>
     <updated>2011-12-27T22:29:03-05:00</updated>
-    <id>http://armhold.github.com/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5</id>
+    <id>http://armhold.github.com/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5</id>
     <content type="html"><![CDATA[<p>The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&#8217;s how I put things right again.</p>
 
 <p>First of all, the imports have all been moved in 7.x.  Here&#8217;s where they landed:</p>
@@ -240,9 +240,9 @@ System.setProperty("java.naming.factory.initial",
   
   <entry>
     <title type="html"><![CDATA[Automatically generate Maven dependency coordinates for random Jar files]]></title>
-    <link href="http://armhold.github.com/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/"/>
+    <link href="http://armhold.github.com/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/"/>
     <updated>2011-09-03T12:07:38-04:00</updated>
-    <id>http://armhold.github.com/blog/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files</id>
+    <id>http://armhold.github.com/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files</id>
     <content type="html"><![CDATA[<p>Have you just inherited an Ant project that you&#8217;re trying to convert to Maven? Maybe it came with a &#8220;lib&#8221; directory full or random jar files. And worse, some thoughtless developer neglected to include version strings in the filenames?</p>
 
 <p>Fear not! The Sonatype <a href="https://repository.sonatype.org/service/local/lucene/search?sha1=%22;">checksum search</a> REST service can give you the Maven coordinates based on the jar&#8217;s SHA1 hash.</p>
@@ -255,9 +255,9 @@ System.setProperty("java.naming.factory.initial",
   
   <entry>
     <title type="html"><![CDATA[Adding Git SHAs to Wicket Pages Automatically]]></title>
-    <link href="http://armhold.github.com/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically/"/>
+    <link href="http://armhold.github.com/2011/08/04/adding-git-shas-to-wicket-pages-automatically/"/>
     <updated>2011-08-04T15:58:34-04:00</updated>
-    <id>http://armhold.github.com/blog/2011/08/04/adding-git-shas-to-wicket-pages-automatically</id>
+    <id>http://armhold.github.com/2011/08/04/adding-git-shas-to-wicket-pages-automatically</id>
     <content type="html"><![CDATA[<p>If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed. Especially if you&#8217;ve recently discovered the joys of branching and merging with Git.</p>
 
 <p>Here&#8217;s a handy way to <strong>add a Git SHA</strong> to all your app&#8217;s pages via <strong>Wicket and Maven</strong>.</p>
@@ -352,9 +352,9 @@ System.setProperty("java.naming.factory.initial",
   
   <entry>
     <title type="html"><![CDATA[Pixlshare- an image sharing app]]></title>
-    <link href="http://armhold.github.com/blog/2011/06/06/pixlshare-an-image-sharing-app/"/>
+    <link href="http://armhold.github.com/2011/06/06/pixlshare-an-image-sharing-app/"/>
     <updated>2011-06-06T18:27:00-04:00</updated>
-    <id>http://armhold.github.com/blog/2011/06/06/pixlshare-an-image-sharing-app</id>
+    <id>http://armhold.github.com/2011/06/06/pixlshare-an-image-sharing-app</id>
     <content type="html"><![CDATA[<p><a href="http://pixlshare.com/">Pixlshare</a> is a new image-sharing webapp that I just started working on. It&#8217;s intended to be a low-friction way to do simple image sharing- upload an image and instantly get a URL that you can share with others. No accounts or logins needed- just click upload and you&#8217;re done.</p>
 
 <p><a href="http://pixlshare.com/images/trzlX8"><img src="http://pixlshare.com/images/trzlX8" alt="" /></a></p>
@@ -371,16 +371,14 @@ System.setProperty("java.naming.factory.initial",
 
 
 <p><a href="http://pixlshare.com/">Give it a try!</a></p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-1270788796689877149?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Pause your Web History- break Google Maps]]></title>
-    <link href="http://armhold.github.com/blog/2010/05/05/pause-your-web-history-break-google-maps/"/>
+    <link href="http://armhold.github.com/2010/05/05/pause-your-web-history-break-google-maps/"/>
     <updated>2010-05-05T08:50:00-04:00</updated>
-    <id>http://armhold.github.com/blog/2010/05/05/pause-your-web-history-break-google-maps</id>
+    <id>http://armhold.github.com/2010/05/05/pause-your-web-history-break-google-maps</id>
     <content type="html"><![CDATA[<p>For a few days <a href="http://maps.google.com/">Google Maps</a> stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page would just sit there with &#8220;Still loading&#8230;&#8221; forever. I thought it was a momentary glitch, but 2 days later it was still happening. I fired up Chrome on the same machine, which worked fine. Back in Safari, I tried clearing the cache, restarting the browser, etc. all to no avail.</p>
 
 <p>Today I figured it out- I had paused my <a href="https://www.google.com/history/">web history</a> some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.</p>
@@ -391,9 +389,9 @@ System.setProperty("java.naming.factory.initial",
   
   <entry>
     <title type="html"><![CDATA[A Multilingual Password Generator using GWT and Google App Engine]]></title>
-    <link href="http://armhold.github.com/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/"/>
+    <link href="http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/"/>
     <updated>2010-03-22T00:43:00-04:00</updated>
-    <id>http://armhold.github.com/blog/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine</id>
+    <id>http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine</id>
     <content type="html"><![CDATA[<p>My fascination with GWT and Google App Engine continues. This weekend I created a
 <a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
 
@@ -423,9 +421,9 @@ System.setProperty("java.naming.factory.initial",
   
   <entry>
     <title type="html"><![CDATA[The Weekend Hack: 13-14 March, 2010]]></title>
-    <link href="http://armhold.github.com/blog/2010/03/15/the-weekend-hack-13-14-march-2010/"/>
+    <link href="http://armhold.github.com/2010/03/15/the-weekend-hack-13-14-march-2010/"/>
     <updated>2010-03-15T09:21:00-04:00</updated>
-    <id>http://armhold.github.com/blog/2010/03/15/the-weekend-hack-13-14-march-2010</id>
+    <id>http://armhold.github.com/2010/03/15/the-weekend-hack-13-14-march-2010</id>
     <content type="html"><![CDATA[<p>Inspired by <a href="http://news.ycombinator.com/item?id=1133613">this recent post</a> over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following:</p>
 
 <ul>
@@ -460,16 +458,14 @@ System.setProperty("java.naming.factory.initial",
 <p>One potential idea is to make an iPhone-friendlier version of it, with some big calculator-style buttons right on the page to facilitate data entry.  I might come back to this idea in the future if the site analytics tell me it&#8217;s worthwhile.  (As a side note, compared to the time and effort required to get an <a href="http://itunes.apple.com/us/app/another-tip-calculator-yatc/id316488754?mt=8">iPhone app of equivalent complexity</a> published, this was a piece of cake.)</p>
 
 <p>So, what fun projects are you working on?</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-8903738812890999672?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Disable Top Sites in Safari]]></title>
-    <link href="http://armhold.github.com/blog/2010/03/14/how-to-disable-top-sites-in-safari/"/>
+    <link href="http://armhold.github.com/2010/03/14/how-to-disable-top-sites-in-safari/"/>
     <updated>2010-03-14T00:56:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/03/14/how-to-disable-top-sites-in-safari</id>
+    <id>http://armhold.github.com/2010/03/14/how-to-disable-top-sites-in-safari</id>
     <content type="html"><![CDATA[<blockquote></blockquote>
 
 <p><img src="http://armhold.github.com/images/2010/03/topsitesdemo.png" alt="image" />
@@ -485,32 +481,48 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
   
   <entry>
     <title type="html"><![CDATA[Why no "Here" Documents for Java?]]></title>
-    <link href="http://armhold.github.com/blog/2010/03/07/why-no-here-documents-for-java/"/>
+    <link href="http://armhold.github.com/2010/03/07/why-no-here-documents-for-java/"/>
     <updated>2010-03-07T20:50:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/03/07/why-no-here-documents-for-java</id>
+    <id>http://armhold.github.com/2010/03/07/why-no-here-documents-for-java</id>
     <content type="html"><![CDATA[<p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;#!/bin/shcat &lt;&lt; "EOF"Here is some text, embedded "right in the middle" of my Bourne shell script.EOF&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'>cat &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
+</span><span class='line'>Here is some text, embedded
+</span><span class='line'>
+</span><span class='line'>   <span class="s2">&quot;right in the middle&quot;</span>
+</span><span class='line'>
+</span><span class='line'>of my Bourne shell script.
+</span><span class='line'>EOF
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;System.out.println("Here is some text, embedded\n" +" \"right in the middle\"\n" +"of my Java program.\n");&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Here is some text, embedded\n&quot;</span> <span class="o">+</span><span class="s">&quot; \&quot;right in the middle\&quot;\n&quot;</span> <span class="o">+</span><span class="s">&quot;of my Java program.\n&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
 
 <p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5076794859272087621?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Relax. You can (mostly) stop using Interfaces in Java now.]]></title>
-    <link href="http://armhold.github.com/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/"/>
+    <link href="http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/"/>
     <updated>2010-03-06T17:56:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now</id>
+    <id>http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now</id>
     <content type="html"><![CDATA[<p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
 
 <p>Why do we do this?</p>
@@ -523,31 +535,37 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
 
 <p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class); mockery.checking(new Expectations() );&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
 
 <p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
 
-<pre><code>&lt;span style="font-family:Times;" class="Apple-style-span"&gt;&lt;span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"&gt;&lt;span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span"&gt;final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class); mockery.checking(new Expectations() );&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
 
 <p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
 
 <p>But use interfaces with reason, and not by reflex.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-188479247636856538?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[No More Russian Dolls- Respecting the Law of Demeter]]></title>
-    <link href="http://armhold.github.com/blog/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/"/>
+    <link href="http://armhold.github.com/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/"/>
     <updated>2010-02-06T17:09:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter</id>
+    <id>http://armhold.github.com/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter</id>
     <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/02/russiandolls.jpg" alt="image" /></p>
 
 <p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
@@ -608,25 +626,23 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
 <p>No more Russian dolls.</p>
 
 <p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-4474706681478325964?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[R.I.P., Mr. Salinger]]></title>
-    <link href="http://armhold.github.com/blog/2010/01/28/r-i-p-mr-salinger/"/>
+    <link href="http://armhold.github.com/2010/01/28/r-i-p-mr-salinger/"/>
     <updated>2010-01-28T13:46:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/01/28/r-i-p-mr-salinger</id>
+    <id>http://armhold.github.com/2010/01/28/r-i-p-mr-salinger</id>
     <content type="html"><![CDATA[<blockquote><p>&#8220;What I have to do, I have to catch everybody if they start to go over the cliff— I mean if they’re running and they don’t look where they’re going I have to come out from somewhere and catch them. That’s all I’d do all day. I’d just be the catcher in the rye and all.&#8221;</p></blockquote>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Apple's iPad: One Ring to Rule Them All ?]]></title>
-    <link href="http://armhold.github.com/blog/2010/01/28/apples-ipad-one-ring-to-rule-them-all/"/>
+    <link href="http://armhold.github.com/2010/01/28/apples-ipad-one-ring-to-rule-them-all/"/>
     <updated>2010-01-28T08:07:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/01/28/apples-ipad-one-ring-to-rule-them-all</id>
+    <id>http://armhold.github.com/2010/01/28/apples-ipad-one-ring-to-rule-them-all</id>
     <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/noflash.png" alt="image" /></p>
 
 <p>Like any Apple fan, I want to run out and buy an iPad today. I&#8217;ve wanted an eReader for quite some time now, and have been dragging my feet on getting a Kindle only because I wanted to see if Apple could produce something better. Notwithstanding the current lack of reviews of its text quality, the iPad certainly seems to be the more compelling device.</p>
@@ -644,16 +660,14 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
 <p>Did you notice during the demo that when Steve Jobs went to the NY Times website, there were lots of &#8220;missing plugin&#8221; icons where the Flash ads should have been? At first I thought this was just an embarrassing mistake in delivery, but the more I think about it, the more I&#8217;ve come to believe that this was entirely intentional- <strong>a message to the NY Times directly from Mr Jobs, saying that their website will look like crap on the device until they dump Flash</strong>.</p>
 
 <p>Apple&#8217;s <a href="http://www.wired.com/gadgetlab/2008/11/adobe-flash-on/">antipathy towards Flash</a>, and <a href="http://news.cnet.com/2100-1012-5181434.html">Adobe in general</a>, is nothing new. And as much as I would love to see Flash banished from the web, this kind of complete control by Apple really worries me. Don&#8217;t get me wrong- I really want one of these devices. But I&#8217;m not so sure I&#8217;m ready to give up that much control to Apple just yet.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-4935093699936500998?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Intellij needs to support more than a single editor window]]></title>
-    <link href="http://armhold.github.com/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/"/>
+    <link href="http://armhold.github.com/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/"/>
     <updated>2010-01-24T10:50:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window</id>
+    <id>http://armhold.github.com/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window</id>
     <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
 
 <p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
@@ -665,16 +679,14 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
 <p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
 
 <p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-5756671819621609101?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Cleveland and Rouen Are Sister-Cities]]></title>
-    <link href="http://armhold.github.com/blog/2010/01/05/cleveland-and-rouen-are-sister-cities/"/>
+    <link href="http://armhold.github.com/2010/01/05/cleveland-and-rouen-are-sister-cities/"/>
     <updated>2010-01-05T12:05:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2010/01/05/cleveland-and-rouen-are-sister-cities</id>
+    <id>http://armhold.github.com/2010/01/05/cleveland-and-rouen-are-sister-cities</id>
     <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/rouen_cathedrale.jpg" alt="image" /></p>
 
 <p>I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that <a href="http://francewithbenefits.blogspot.com/2008/01/cleveland-rouen-sister-city-agreement.html">Cleveland and Rouen became sister cities in 2008</a>. Small world!</p>
@@ -685,9 +697,9 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
   
   <entry>
     <title type="html"><![CDATA[Apple Fails at Customer Service]]></title>
-    <link href="http://armhold.github.com/blog/2009/11/15/apple-fails-at-customer-service/"/>
+    <link href="http://armhold.github.com/2009/11/15/apple-fails-at-customer-service/"/>
     <updated>2009-11-15T19:31:00-05:00</updated>
-    <id>http://armhold.github.com/blog/2009/11/15/apple-fails-at-customer-service</id>
+    <id>http://armhold.github.com/2009/11/15/apple-fails-at-customer-service</id>
     <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2009/11/bluetoothmac.jpg" alt="image" />
 Before I get started, let me say that I&#8217;ve been a big Apple fan for a number of years now. I&#8217;ve purchased enough Macbooks, iMacs, iPods, iPhones, and iTunes content that I sometimes feel that maybe I should just go ahead and have a portion of my salary direct-deposited to Apple. I&#8217;ve even turned down job offers from companies that &#8220;don&#8217;t do Mac&#8221;. So publishing this blog entry feels almost like a betrayal of sorts.</p>
 
@@ -734,8 +746,6 @@ Before I get started, let me say that I&#8217;ve been a big Apple fan for a numb
 <p>Apple- if this is how you treat business customers, customers who are tech-savvy and can diagnose problems with your equipment, what hope is there for anyone else? What&#8217;s the point of buying AppleCare? After all, <strong>even Dell will do a &#8220;ship ahead&#8221; </strong>for a defective part, even to a non-business home user.</p>
 
 <p>Think Different indeed.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-8841453936554877048?l=garmhold.blogspot.com" alt="" /></p>
 ]]></content>
   </entry>
   

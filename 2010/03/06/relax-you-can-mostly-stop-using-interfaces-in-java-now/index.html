@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Relax. You can (mostly) stop using Interfaces in Java now. - George Armhold's Blog</title>
+  <meta name="author" content="George Armhold">
+
+  
+  <meta name="description" content="Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="George Armhold's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">George Armhold's Blog</a></h1>
+  
+    <h2>Data-driven webapps built with Ruby, Java & Wicket</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:armhold.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-06T17:56:00-05:00" pubdate data-updated="true">Mar 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
+
+<p>Why do we do this?</p>
+
+<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
+
+<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
+
+<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
+
+<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
+
+<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
+
+<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
+
+<p>But use interfaces with reason, and not by reflex.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">George Armhold</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-06T17:56:00-05:00" pubdate data-updated="true">Mar 6<span>th</span>, 2010</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/" title="Previous Post: No More Russian Dolls- Respecting the Law of Demeter">&laquo; No More Russian Dolls- Respecting the Law of Demeter</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/03/07/why-no-here-documents-for-java/" title="Next Post: Why no "Here" Documents for Java?">Why no "Here" Documents for Java? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/armhold">@armhold</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'armhold',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("CaffeineComa", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/CaffeineComa" class="twitter-follow-button" data-show-count="false">Follow @CaffeineComa</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - George Armhold -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

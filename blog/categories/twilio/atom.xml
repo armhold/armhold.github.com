@@ -4,7 +4,7 @@
   <title><![CDATA[Category: twilio | George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/blog/categories/twilio/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T17:55:44-04:00</updated>
+  <updated>2012-08-19T18:50:37-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Twilio and Adobe Flash]]></title>
-    <link href="http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash/"/>
+    <link href="http://armhold.github.com/2012/02/19/twilio-and-adobe-flash/"/>
     <updated>2012-02-19T09:26:22-05:00</updated>
-    <id>http://armhold.github.com/blog/2012/02/19/twilio-and-adobe-flash</id>
+    <id>http://armhold.github.com/2012/02/19/twilio-and-adobe-flash</id>
     <content type="html"><![CDATA[<p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
 
 <p><img src="/images/2012/02/flash.png" alt="image" /></p>

@@ -70,7 +70,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</a></h1>
     
     
       <p class="meta">
@@ -105,23 +105,29 @@
 
 <p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
 
-<pre><code>&lt;span style="color:#eeeeee;" class="Apple-style-span"&gt;final java.awt.Graphics2D graphics = mockery.mock(java.awt.Graphics2D.class); mockery.checking(new Expectations() );&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
 
 <p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
 
-<pre><code>&lt;span style="font-family:Times;" class="Apple-style-span"&gt;&lt;span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"&gt;&lt;span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:small;" class="Apple-style-span"&gt;&lt;span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span"&gt;final MyComplicatedDAO dao = mockery.mock(MyComplicatedDAO.class); mockery.checking(new Expectations() );&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
 
 <p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
 
 <p>But use interfaces with reason, and not by reflex.</p>
-
-<p><img src="https://blogger.googleusercontent.com/tracker/3562558747791280858-188479247636856538?l=garmhold.blogspot.com" alt="" /></p>
 </div>
   
   
@@ -146,23 +152,23 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/02/15/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
+        <a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
       </li>
     
   </ul>
