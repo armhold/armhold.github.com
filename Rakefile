@@ -401,15 +401,16 @@ def convert_file(infile, outfile)
 
   File.open(outfile, 'w') do |out|
 
-    content.split('\n').each do |line|
+    content.split(/\n/).each do |line|
 
       if line =~ /\((http:\/\/armhold.files.wordpress.com\/.*)\)\]\(http:\/\/armhold.files.wordpress.com\/.*\)/
+
         url = $1
 
-        url =~ /http:\/\/armhold.files.wordpress.com\/(20\d\d)\/(\d\d)\/([a-z,0-9\.\-]+).*/
+        url =~ /http:\/\/armhold.files.wordpress.com\/(20\d\d)\/(\d\d)\/([a-z,0-9\.\-_]+).*/
         year, month, name = $1, $2, $3
 
-        #puts "need to download image: '#{url}', year: #{year}, month: #{month}, name: #{name}"
+        puts "need to download image: '#{url}', year: #{year}, month: #{month}, name: #{name}"
 
         dir = "source/images/#{year}/#{month}"
         FileUtils.mkdir_p dir
@@ -421,9 +422,9 @@ def convert_file(infile, outfile)
 
         # [![](http://armhold.files.wordpress.com/2010/05/stillloading2.png?w=300)](http://armhold.files.wordpress.com/2010/05/stillloading2.png)
 
-        line.gsub! /\((http:\/\/armhold.files.wordpress.com\/.*)\)\]\(http:\/\/armhold.files.wordpress.com\/.*\)/, "[image](/#{file})"
-      else
-
+        if ! year.nil?  && ! month.nil? && ! name.nil?
+          line.gsub! /\[!\[\]\((http:\/\/armhold.files.wordpress.com\/.*)\)\]\(http:\/\/armhold.files.wordpress.com\/.*\)/, "![image](/images/#{year}/#{month}/#{name})"
+        end
       end
 
       out.puts line

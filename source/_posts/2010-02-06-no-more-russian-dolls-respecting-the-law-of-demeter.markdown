@@ -10,7 +10,7 @@ wordpress_id: 31
 
 
 
-[![](http://armhold.files.wordpress.com/2010/02/russiandolls.jpg?w=300)](http://armhold.files.wordpress.com/2010/02/russiandolls.jpg)
+![image](/images/2010/02/russiandolls.jpg)
 
 
 

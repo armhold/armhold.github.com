@@ -12,7 +12,7 @@ categories:
 
 I started doing some [Twilio development](http://www.twilio.com/api/sms) recently and ran into a problem with Adobe Flash. [Twilio Client](http://www.twilio.com/api/client) (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:
 
-[![](http://armhold.files.wordpress.com/2012/02/flash.png)](http://armhold.files.wordpress.com/2012/02/flash.png)
+![image](/images/2012/02/flash.png)
 
 The problem is that on Chrome, **it won't let you actually click any of those buttons**- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.
 

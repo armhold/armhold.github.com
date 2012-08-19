@@ -26,4 +26,3 @@ So here's some code:
 ```
 
 Beautiful!
-

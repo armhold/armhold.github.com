@@ -9,7 +9,7 @@ categories:
 - apple tech
 ---
 
-[![](http://armhold.files.wordpress.com/2009/11/bluetoothmac.jpg?w=225)](http://armhold.files.wordpress.com/2009/11/bluetoothmac.jpg)
+![image](/images/2009/11/bluetoothmac.jpg)
 Before I get started, let me say that I've been a big Apple fan for a number of years now. I've purchased enough Macbooks, iMacs, iPods, iPhones, and iTunes content that I sometimes feel that maybe I should just go ahead and have a portion of my salary direct-deposited to Apple. I've even turned down job offers from companies that "don't do Mac". So publishing this blog entry feels almost like a betrayal of sorts.
 
 

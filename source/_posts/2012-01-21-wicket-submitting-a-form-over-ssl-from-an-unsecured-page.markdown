@@ -12,7 +12,7 @@ categories:
 
 Lots of folks are making great use of [Twitter Bootstrap](http://twitter.github.com/bootstrap/), which includes a handy login button right at the top:
 
-[![](http://armhold.files.wordpress.com/2012/01/twitter-bootstrap-wicket1.png)](http://armhold.files.wordpress.com/2012/01/twitter-bootstrap-wicket1.png)
+![image](/images/2012/01/twitter-bootstrap-wicket1.png)
 
 To protect your users' privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don't secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on _all your pages_, how can you secure the form?
 

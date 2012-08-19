@@ -12,7 +12,4 @@ For a few days [Google Maps](http://maps.google.com/) stopped working for me. I 
 Today I figured it out- I had paused my [web history](https://www.google.com/history/) some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.
 
 
-[![](http://armhold.files.wordpress.com/2010/05/stillloading2.png?w=300)](http://armhold.files.wordpress.com/2010/05/stillloading2.png)
-
-
-
+![image](/images/2010/05/stillloading2.png)

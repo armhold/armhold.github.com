@@ -53,4 +53,4 @@ You'll be asked to re-start Intellij, and then you should be in business. The pl
 Enjoy!
 
 
-[![](http://armhold.files.wordpress.com/2012/02/wicket-source.png)](http://armhold.files.wordpress.com/2012/02/wicket-source.png)
+![image](/images/2012/02/wicket-source.png)

@@ -7,7 +7,7 @@ title: 'Apple''s iPad: One Ring to Rule Them All ?'
 wordpress_id: 23
 ---
 
-[![](http://armhold.files.wordpress.com/2010/01/noflash.png?w=300)](http://armhold.files.wordpress.com/2010/01/noflash.png)
+![image](/images/2010/01/noflash.png)
 
 
 Like any Apple fan, I want to run out and buy an iPad today. I've wanted an eReader for quite some time now, and have been dragging my feet on getting a Kindle only because I wanted to see if Apple could produce something better. Notwithstanding the current lack of reviews of its text quality, the iPad certainly seems to be the more compelling device.

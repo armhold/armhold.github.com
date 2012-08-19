@@ -33,4 +33,3 @@ I was a little disappointed to learn that GWT doesn't [seem to support automatic
 
 
 Another approach is to [use a JSP](http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html). Despite this, I think it turned out pretty well.
-
