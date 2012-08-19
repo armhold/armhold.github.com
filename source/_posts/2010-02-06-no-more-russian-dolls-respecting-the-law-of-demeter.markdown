@@ -27,9 +27,9 @@ My colleagues and I were struggling with some test ugliness- having to construct
 
 
 
-    
-    <span style="font-family:Times;" class="Apple-style-span"><span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"><span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"><span style="font-size:small;" class="Apple-style-span"><span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span">a.getB().getC().getSomeField()</span></span></span></span></span>
-
+``` java
+a.getB().getC().getSomeField()
+```
 
 
 
@@ -46,35 +46,28 @@ But then when we realized what this [inappropriate intimacy](http://c2.com/cgi/w
 
 
 
+``` java
+class A {
+    private B b;
 
-
-
-
-    
-    <span style="font-family:Times;" class="Apple-style-span"><span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"><span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"><span style="font-size:small;" class="Apple-style-span"><span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span">class A { private B b; public String getSomeField() { return b.getC().getSomeField(); }}</span></span></span></span></span>
-
-
-
-
-
+    public String getSomeField() {
+        return b.getC().getSomeField();
+    }
+}
+```
 
 
 Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:
 
 
-
-
-
-
-
-
-
-
-
-
-    
-    <span style="font-family:Times;" class="Apple-style-span"><span style="font-size:medium;line-height:normal;white-space:normal;" class="Apple-style-span"><span style="color:#eeeeee;font-family:'andale mono', 'lucida console', monospace;font-size:small;" class="Apple-style-span"><span style="font-size:small;" class="Apple-style-span"><span style="font-size:14px;line-height:19px;white-space:pre-wrap;" class="Apple-style-span">A mockedA = new A() { @Override public String getSomeField() { return "mockedResult"; }}</span></span></span></span></span>
-
+``` java
+A mockedA = new A() {
+    @Override
+    public String getSomeField() {
+         return "mockedResult";
+    }
+}
+```
 
 
 
