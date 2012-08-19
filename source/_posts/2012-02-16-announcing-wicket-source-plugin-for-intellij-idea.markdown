@@ -1,6 +1,6 @@
 ---
 comments: true
-date: 2012-02-16 00:06:07
+date: 2012-02-16 12:06:07
 layout: post
 slug: announcing-wicket-source-plugin-for-intellij-idea
 title: 'Announcing: Wicket-Source plugin for Intellij IDEA'
