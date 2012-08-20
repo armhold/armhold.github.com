@@ -9,8 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the &hellip;">
+  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly format code with the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,7 +78,7 @@ format code with the &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/08/19/trying-out-octopress/">Trying Out Octopress</a></h1>
+      <h1 class="entry-title"><a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a></h1>
     
     
       <p class="meta">
@@ -102,9 +101,10 @@ format code with the &hellip;">
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly
-format code with the Wordpress editor, so I&#8217;ve moved my blog from Wordpress (which originally started out
-on blogger) to Jekyll + Octopress, hosted on Github.</p>
+  <div class="entry-content"><p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement.</p>
+
+<p>I&#8217;ve grown tired of trying to properly format code with the Wordpress editor, so I&#8217;ve moved my blog from
+Wordpress (and before that Blogger) to Jekyll + Octopress, hosted on <a href="http://github.com">Github</a>.</p>
 
 <p>Let&#8217;s see how code formats under Octopress:</p>
 
@@ -141,6 +141,105 @@ on blogger) to Jekyll + Octopress, hosted on Github.</p>
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-19T09:26:22-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
+
+<p><img src="/images/2012/02/flash.png" alt="image" /></p>
+
+<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
+
+<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
+
+<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source Plugin for Intellij IDEA</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-16T07:06:07-05:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The folks at <a href="https://www.42lines.net/">42lines</a> have released an awesome <a href="https://www.42lines.net/2012/01/31/announcing-wicket-source/">Firefox plugin</a> called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser to the corresponding Wicket source code.</p>
+
+<p>Since their plugin is Eclipse-based, I wrote up a compatible plugin for Intellij IDEA. You can install it from <a href="http://plugins.intellij.net/plugin/?idea&amp;id=6846">the repository</a>, or build it yourself from the <a href="https://github.com/armhold/wicket-source-intellij">source on Github</a>.</p>
+
+<p>There are two parts to this plugin: the Firefox extension (provided by 42lines) and the IDE plugin; you need both. To install the Firefox plugin, follow the <a href="https://github.com/42Lines/wicket-source/wiki">directions from 42lines</a>. Then to install the Intellij plugin do the following:</p>
+
+<ol>
+<li><p>Open the Preferences dialog (Intellij IDEA menu -> Preferences)</p></li>
+<li><p>Under &#8220;IDE Settings&#8221; select &#8220;Plugins&#8221;</p></li>
+<li><p>Click the &#8220;Browse Repositories&#8221; button.</p></li>
+<li><p>In the search box type &#8220;wicket&#8221;, which should narrow the results significantly.</p></li>
+<li><p>Right-click &#8220;Wicket Source&#8221;, and select &#8220;Download and Install&#8221;.</p></li>
+</ol>
+
+
+<p>You&#8217;ll be asked to re-start Intellij, and then you should be in business. The plugin uses port  9123 and no password by default (same as the Firefox plugin defaults). To change this, open the IDE Settings dialog and click &#8220;Wicket Source&#8221; to enter a password.</p>
+
+<p>Enjoy!</p>
+
+<p><img src="/images/2012/02/wicket-source.png" alt="image" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -156,7 +255,7 @@ on blogger) to Jekyll + Octopress, hosted on Github.</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
       </li>
     
       <li class="post">

@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I started doing some Twilio development recently and ran into a problem with Adobe Flash. Twilio Client (which lets you make phone calls right from &hellip;">
+  <meta name="description" content="Lots of folks are making great use of Twitter Bootstrap, which includes a handy login button right at the top: To protect your users&#8217; privacy, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a></h1>
+      <h1 class="entry-title"><a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: Submitting a Form Over SSL From an Unsecured Page</a></h1>
     
     
       <p class="meta">
@@ -94,22 +94,215 @@
   
 
 
-<time datetime="2012-02-19T09:26:22-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
+<time datetime="2012-01-21T13:54:37-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
+  <div class="entry-content"><p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
 
-<p><img src="/images/2012/02/flash.png" alt="image" /></p>
+<p><img src="/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
 
-<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
+<p>To protect your users&#8217; privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don&#8217;t secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on <em>all your pages</em>, how can you secure the form?</p>
 
-<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
+<p>The first step is to manually adjust the form&#8217;s <strong>action</strong> attribute to ensure that the form submission happens over https, rather than http.</p>
 
-<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
+<p>But this is where we run into a problem with Wicket- if the hosting page is http, and you have also installed an HttpsMapper in your WicketApplication like this:</p>
+
+<pre><code>setRootRequestMapper(new HttpsMapper(getRootRequestMapper(), new HttpsConfig(HTTP_PORT, HTTPS_PORT)));
+</code></pre>
+
+<p>then Wicket will not allow your form to be sent over https; the mapper will notice the http/https mismatch, and instead of calling your form&#8217;s onSubmit() method, it will simply serve up the hosting page again, discarding your form submission.</p>
+
+<p>The solution is to manually post your form to a different, secure page that is marked for https via @RequireHttps. Then the HttpsMapper will allow the form submission to take place.</p>
+
+<p>First, we need a LoginForm that will adjust the form&#8217;s <strong>action</strong> attribute to point to our secure page:</p>
+
+<pre><code>public class LoginForm extends StatelessForm
+{
+    public LoginForm(String id)
+    {
+        super(id);
+        add(new TextField("username").setRequired(true));
+        add(new PasswordTextField("password").setRequired(true));
+    }
+
+   @Override
+   protected void onComponentTag(ComponentTag tag)
+   {
+       super.onComponentTag(tag);
+       String action = urlFor(LoginFormHandlerPage.class, null).toString();
+       tag.put("action", action);
+   }
+}
+</code></pre>
+
+<p>Now we&#8217;ll need to create a page to handle the form submission:</p>
+
+<pre><code>@RequireHttps
+public class LoginFormHandlerPage extends WebPage
+{
+    public LoginFormHandlerPage(PageParameters parameters)
+    {
+        HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (loginSuccessful(username, password))
+        {
+             if (! continueToOriginalDestination());
+             {
+                 setResponsePage(AccountPage.class);
+             }
+        }
+        else
+        {
+            getSession().error("login failed"));
+            // on failure send user to our regular login page
+            setResponsePage(LoginPage.class);
+        }
+    }
+}
+</code></pre>
+
+<p>Note that if you&#8217;re using Wicket 1.5.3 <a href="https://issues.apache.org/jira/browse/WICKET-4338">there is a bug</a> that prevents the processing of form POST parameters (that&#8217;s why we&#8217;re reading the params manually from the HttpServletRequest). Fixed in Wicket 1.5.4.</p>
+
+<p>The LoginFormHandlerPage will process the submitted form data over https, and if successful, log the user in, else send them to a page where then can re-enter their password.</p>
+
+<p>You can get all the code (and quite a bit more useful login-related stuff) from <a href="https://github.com/armhold/justaddwater">github</a>.</p>
+
+<p>Credit where it&#8217;s due: the real gem here (submitting the form to a secure url) comes from this <a href="http://www.petrikainulainen.net/programming/tips-and-tricks/wicket-https-tutorial-part-three-creating-a-secure-form-submit-from-a-non-secure-page/">blog posting</a> by Petri Kainulainen.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to Get JNDI Working With Wicket 1.5 and Jetty 7.5</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-27T22:29:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&#8217;s how I put things right again.</p>
+
+<p>First of all, the imports have all been moved in 7.x.  Here&#8217;s where they landed:</p>
+
+<pre><code>import org.eclipse.jetty.plus.webapp.EnvConfiguration;
+import org.eclipse.jetty.webapp.WebInfConfiguration;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
+</code></pre>
+
+<p>Next, you&#8217;ll need a jetty-env.xml.</p>
+
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
+
+&lt;Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext"&gt;
+    &lt;New class="org.eclipse.jetty.plus.jndi.EnvEntry"&gt;
+    &lt;Arg&gt;jdbc/mydatasource&lt;/Arg&gt;
+    &lt;Arg&gt;
+        &lt;New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"&gt;
+            &lt;Set name="Url"&gt;jdbc:mysql://localhost/mydatabase?characterEncoding=utf8&lt;/Set&gt;
+            &lt;Set name="User"&gt;username&lt;/Set&gt;
+            &lt;Set name="Password"&gt;password&lt;/Set&gt;
+        &lt;/New&gt;
+    &lt;/Arg&gt;
+    &lt;/New&gt;
+&lt;/Configure&gt;
+</code></pre>
+
+<p>Normally this goes into src/main/webapp/WEB-INF, but you probably don&#8217;t want to deploy that with your app in your production war file. So instead I put mine in src/test/jetty/jetty-env.xml. You&#8217;ll need to modify your Start.java to tell Jetty to find the relocated config file.</p>
+
+<pre><code>EnvConfiguration envConfiguration = new EnvConfiguration();
+URL url = new File("src/test/jetty/jetty-env.xml").toURI().toURL();
+envConfiguration.setJettyEnvXml(url);
+bb.setConfigurations(new Configuration[]{
+    new WebInfConfiguration(),
+    envConfiguration,
+    new WebXmlConfiguration()
+});
+</code></pre>
+
+<p>I found that I also had to set a couple of environment properties:</p>
+
+<pre><code>System.setProperty("java.naming.factory.url.pkgs",
+                   "org.eclipse.jetty.jndi");
+System.setProperty("java.naming.factory.initial",
+                   "org.eclipse.jetty.jndi.InitialContextFactory");
+</code></pre>
+
+<p>With this, I can finally access my JNDI datasource happily from Wicket/Jetty.</p>
+
+<p>Update: I&#8217;ve created a <a href="https://gist.github.com/1539302">gist with the full source code.</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/09/03/automatically-generate-maven-dependency-coordinates-for-random-jar-files/">Automatically Generate Maven Dependency Coordinates for Random Jar Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-03T12:07:38-04:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Have you just inherited an Ant project that you&#8217;re trying to convert to Maven? Maybe it came with a &#8220;lib&#8221; directory full or random jar files. And worse, some thoughtless developer neglected to include version strings in the filenames?</p>
+
+<p>Fear not! The Sonatype <a href="https://repository.sonatype.org/service/local/lucene/search?sha1=%22;">checksum search</a> REST service can give you the Maven coordinates based on the jar&#8217;s SHA1 hash.</p>
+
+<p>Still too much work? Not to worry, I just wrote a quick program to make it even easier for you. <a href="https://github.com/armhold/Provenance">Provenance</a> will take a directory full of jar files and write out the XML dependency information for every jar it finds. You can then copy/paste this right into the <code>&lt;dependencies&gt;</code> section of your pom.xml.</p>
+
+<p>Enjoy.</p>
 </div>
   
   
@@ -134,7 +327,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
       </li>
     
       <li class="post">

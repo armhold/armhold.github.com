@@ -9,7 +9,8 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="Lots of folks are making great use of Twitter Bootstrap, which includes a handy login button right at the top: To protect your users&#8217; privacy, &hellip;">
+  <meta name="description" content="My fascination with GWT and Google App Engine continues. This weekend I created a
+multi-lingual memorable password generator. In order to create &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +79,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: Submitting a Form Over SSL From an Unsecured Page</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/">A Multilingual Password Generator Using GWT and Google App Engine</a></h1>
     
     
       <p class="meta">
@@ -94,86 +95,151 @@
   
 
 
-<time datetime="2012-01-21T13:54:37-05:00" pubdate data-updated="true">Jan 21<span>st</span>, 2012</time>
+<time datetime="2010-03-22T00:43:00-04:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Lots of folks are making great use of <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>, which includes a handy login button right at the top:</p>
+  <div class="entry-content"><p>My fascination with GWT and Google App Engine continues. This weekend I created a
+<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
 
-<p><img src="/images/2012/01/twitter-bootstrap-wicket1.png" alt="image" /></p>
+<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
 
-<p>To protect your users&#8217; privacy, you should make sure that form is sent over SSL. If the hosting page is https that happens automatically, but most domains don&#8217;t secure their entire site; only a subset of pages are typically secured with SSL. But since this header likely appears on <em>all your pages</em>, how can you secure the form?</p>
-
-<p>The first step is to manually adjust the form&#8217;s <strong>action</strong> attribute to ensure that the form submission happens over https, rather than http.</p>
-
-<p>But this is where we run into a problem with Wicket- if the hosting page is http, and you have also installed an HttpsMapper in your WicketApplication like this:</p>
-
-<pre><code>setRootRequestMapper(new HttpsMapper(getRootRequestMapper(), new HttpsConfig(HTTP_PORT, HTTPS_PORT)));
+<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
 </code></pre>
 
-<p>then Wicket will not allow your form to be sent over https; the mapper will notice the http/https mismatch, and instead of calling your form&#8217;s onSubmit() method, it will simply serve up the hosting page again, discarding your form submission.</p>
+<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
 
-<p>The solution is to manually post your form to a different, secure page that is marked for https via @RequireHttps. Then the HttpsMapper will allow the form submission to take place.</p>
+<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
 
-<p>First, we need a LoginForm that will adjust the form&#8217;s <strong>action</strong> attribute to point to our secure page:</p>
+<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
 
-<pre><code>public class LoginForm extends StatelessForm
-{
-    public LoginForm(String id)
-    {
-        super(id);
-        add(new TextField("username").setRequired(true));
-        add(new PasswordTextField("password").setRequired(true));
-    }
+<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
 
-   @Override
-   protected void onComponentTag(ComponentTag tag)
-   {
-       super.onComponentTag(tag);
-       String action = urlFor(LoginFormHandlerPage.class, null).toString();
-       tag.put("action", action);
-   }
-}
+<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
+
+<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
+
+<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
 </code></pre>
 
-<p>Now we&#8217;ll need to create a page to handle the form submission:</p>
+<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
+</div>
+  
+  
 
-<pre><code>@RequireHttps
-public class LoginFormHandlerPage extends WebPage
-{
-    public LoginFormHandlerPage(PageParameters parameters)
-    {
-        HttpServletRequest req = (HttpServletRequest) getRequest().getContainerRequest();
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
 
-        if (loginSuccessful(username, password))
-        {
-             if (! continueToOriginalDestination());
-             {
-                 setResponsePage(AccountPage.class);
-             }
-        }
-        else
-        {
-            getSession().error("login failed"));
-            // on failure send user to our regular login page
-            setResponsePage(LoginPage.class);
-        }
-    }
-}
-</code></pre>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/15/the-weekend-hack-13-14-march-2010/">The Weekend Hack: 13-14 March, 2010</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>Note that if you&#8217;re using Wicket 1.5.3 <a href="https://issues.apache.org/jira/browse/WICKET-4338">there is a bug</a> that prevents the processing of form POST parameters (that&#8217;s why we&#8217;re reading the params manually from the HttpServletRequest). Fixed in Wicket 1.5.4.</p>
 
-<p>The LoginFormHandlerPage will process the submitted form data over https, and if successful, log the user in, else send them to a page where then can re-enter their password.</p>
 
-<p>You can get all the code (and quite a bit more useful login-related stuff) from <a href="https://github.com/armhold/justaddwater">github</a>.</p>
 
-<p>Credit where it&#8217;s due: the real gem here (submitting the form to a secure url) comes from this <a href="http://www.petrikainulainen.net/programming/tips-and-tricks/wicket-https-tutorial-part-three-creating-a-secure-form-submit-from-a-non-secure-page/">blog posting</a> by Petri Kainulainen.</p>
+
+
+
+
+  
+
+
+<time datetime="2010-03-15T09:21:00-04:00" pubdate data-updated="true">Mar 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Inspired by <a href="http://news.ycombinator.com/item?id=1133613">this recent post</a> over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following:</p>
+
+<ul>
+<li><p>be small &amp; well-defined- doable in a weekend</p></li>
+<li><p>produce something useful for <em>someone</em></p></li>
+<li><p>give my rusty Google App Engine and GWT skills a workout</p></li>
+</ul>
+
+
+<p>I use <a href="http://wicket.apache.org/">Wicket</a> for my livelihood these days, but <a href="http://code.google.com/webtoolkit/">GWT</a> is my true love. I miss working with it.</p>
+
+<p>So I decided to create a searchable database of Weight Watchers &#8220;food points&#8221; values.  Last year, the company that I was working for held weekly WW meetings in our lunch room.  For about 6 months it was all but impossible to avoid hearing &#8220;how many points for X?&#8221; type questions several times daily.</p>
+
+<p>There are a lot of existing sites for this kind of thing, but I found the interfaces somewhat lacking (are we really still producing sites with MIDI soundtracks in 2010?)</p>
+
+<p>Thus was born <a href="http://slimpoints.appspot.com/">this weekend&#8217;s project</a>. At least until WW decides to shut it down. Here&#8217;s the breakdown of where the time went:</p>
+
+<ul>
+<li><p>2 hours brainstorming</p></li>
+<li><p>4 hours getting Intellij, GWT and Google App Engine to all play nicely (this was the most painful part, really)</p></li>
+<li><p>3 hours basic coding, page layout, getting the tabs to work</p></li>
+<li><p>45 minutes with an Emacs macro converting HTML tables with food point values into a nice, CSV-style GWT properties file</p></li>
+<li><p>2 hours playing around with font sizes and colors.  I&#8217;m still not 100% happy with this, but the project was time-limited by definition.</p></li>
+<li><p>1/2 hour enabling AdSense, getting things to look relatively nice</p></li>
+</ul>
+
+
+<p>A grand total of 260 lines of code.  GWT&#8217;s SuggestBox made autocomplete so much easier than Wicket Extensions&#8217; AutoCompleteTextField, which I had to use recently.</p>
+
+<p>The project is &#8220;done&#8221; in the sense that I am happy with it, and would feel content if I never spent another hour of time on it; that was part of my criteria for something doable in a weekend.  But that doesn&#8217;t mean I&#8217;ll never revisit it.</p>
+
+<p>One potential idea is to make an iPhone-friendlier version of it, with some big calculator-style buttons right on the page to facilitate data entry.  I might come back to this idea in the future if the site analytics tell me it&#8217;s worthwhile.  (As a side note, compared to the time and effort required to get an <a href="http://itunes.apple.com/us/app/another-tip-calculator-yatc/id316488754?mt=8">iPhone app of equivalent complexity</a> published, this was a piece of cake.)</p>
+
+<p>So, what fun projects are you working on?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/14/how-to-disable-top-sites-in-safari/">How to Disable Top Sites in Safari</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-14T00:56:00-05:00" pubdate data-updated="true">Mar 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote></blockquote>
+
+<p><img src="/images/2010/03/topsitesdemo.png" alt="image" />
+Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or window, and Safari sits there spinning while loading a bunch of web sites you may or may not be interested in going to. I find Safari to be a whole lot faster with the feature turned off.</p>
+
+<p>It&#8217;s simple.  Open Preferences, and tweak the settings for &#8220;New windows open with&#8221; and &#8220;New tabs open with&#8221; to be either an <strong>Empty Page</strong>, or whatever <strong>Home Page</strong> you prefer.</p>
+
+<p><img src="http://armhold.files.wordpress.com/2010/03/disabletopsites.png?w=269" alt="" /></p>
+
+<p><img src="" alt="" /></p>
 </div>
   
   
@@ -198,7 +264,7 @@ public class LoginFormHandlerPage extends WebPage
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
       </li>
     
       <li class="post">

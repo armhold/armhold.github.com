@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="The folks at 42lines have released an awesome Firefox plugin called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser &hellip;">
+  <meta name="description" content="If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source Plugin for Intellij IDEA</a></h1>
+      <h1 class="entry-title"><a href="/2011/08/04/adding-git-shas-to-wicket-pages-automatically/">Adding Git SHAs to Wicket Pages Automatically</a></h1>
     
     
       <p class="meta">
@@ -94,33 +94,193 @@
   
 
 
-<time datetime="2012-02-16T07:06:07-05:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2011-08-04T15:58:34-04:00" pubdate data-updated="true">Aug 4<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>The folks at <a href="https://www.42lines.net/">42lines</a> have released an awesome <a href="https://www.42lines.net/2012/01/31/announcing-wicket-source/">Firefox plugin</a> called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser to the corresponding Wicket source code.</p>
+  <div class="entry-content"><p>If you have a non-trivial project, it&#8217;s handy to be able to tell what code was used to build a particular release once it&#8217;s been deployed. Especially if you&#8217;ve recently discovered the joys of branching and merging with Git.</p>
 
-<p>Since their plugin is Eclipse-based, I wrote up a compatible plugin for Intellij IDEA. You can install it from <a href="http://plugins.intellij.net/plugin/?idea&amp;id=6846">the repository</a>, or build it yourself from the <a href="https://github.com/armhold/wicket-source-intellij">source on Github</a>.</p>
+<p>Here&#8217;s a handy way to <strong>add a Git SHA</strong> to all your app&#8217;s pages via <strong>Wicket and Maven</strong>.</p>
 
-<p>There are two parts to this plugin: the Firefox extension (provided by 42lines) and the IDE plugin; you need both. To install the Firefox plugin, follow the <a href="https://github.com/42Lines/wicket-source/wiki">directions from 42lines</a>. Then to install the Intellij plugin do the following:</p>
+<h1>Maven</h1>
 
-<ol>
-<li><p>Open the Preferences dialog (Intellij IDEA menu -> Preferences)</p></li>
-<li><p>Under &#8220;IDE Settings&#8221; select &#8220;Plugins&#8221;</p></li>
-<li><p>Click the &#8220;Browse Repositories&#8221; button.</p></li>
-<li><p>In the search box type &#8220;wicket&#8221;, which should narrow the results significantly.</p></li>
-<li><p>Right-click &#8220;Wicket Source&#8221;, and select &#8220;Download and Install&#8221;.</p></li>
-</ol>
+<p>First, we&#8217;ll use the exec-maven-plugin to create a git.properties file for us. Add this to the <plugins> section in your pom.xml:</p>
+
+<pre><code>&lt;plugin&gt;
+   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+   &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+   &lt;version&gt;1.1&lt;/version&gt;
+   &lt;executions&gt;
+       &lt;execution&gt;
+          &lt;phase&gt;compile&lt;/phase&gt;
+          &lt;goals&gt;
+             &lt;goal&gt;exec&lt;/goal&gt;
+          &lt;/goals&gt;
+       &lt;/execution&gt;
+   &lt;/executions&gt;
+   &lt;configuration&gt;
+       &lt;executable&gt;git&lt;/executable&gt;
+       &lt;arguments&gt;
+            &lt;argument&gt;log&lt;/argument&gt;
+            &lt;argument&gt;--pretty=format:gitsha=%H %ci&lt;/argument&gt;
+            &lt;argument&gt;-n1&lt;/argument&gt;
+       &lt;/arguments&gt;
+       &lt;outputFile&gt;target/classes/git.properties&lt;/outputFile&gt;
+   &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>This will create a git.properties file containing the Git SHA, along with the commit timestamp whenever your code is compiled. You can learn how to further customize this <a href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html">here</a>.</p>
+
+<h1>Wicket Application Subclass</h1>
+
+<p>Now we&#8217;ll need to read in the git.properties file when our application starts up.</p>
+
+<pre><code>public class Application extends WebApplication
+{
+    private String gitSHA;
+
+    public AppgravityApplication()
+    {
+        java.util.Properties props = new java.util.Properties();
+        try
+        {
+            props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("git.properties"));
+            gitSHA = props.getProperty("gitsha");
+            log.info("gitsha: " + gitSHA);
+        }
+        catch (IOException e)
+        {
+            log.severe(e.getMessage());
+            gitSHA = "unknown";
+        }
+    }
+
+    public String getGitSHA()
+    {
+        return gitSHA;
+    }
+</code></pre>
+
+<h1>Wicket WebPage Subclass</h1>
+
+<p>Now we&#8217;ll create a WebPage subclass that renders the Git SHA into a <meta> tag when the page is rendered.</p>
+
+<pre><code>public abstract class MyPage extends WebPage
+{
+    @Override
+    protected void onBeforeRender()
+    {
+        Label metaGitSHA = new Label("metaGitSHA", "");
+        metaGitSHA.add(new AttributeModifier("content", Model.of(((Application) getApplication()).getGitSHA())));
+        addOrReplace(metaGitSHA);
+        super.onBeforeRender();
+    }
+}
+</code></pre>
+
+<p>You&#8217;ll want to extend MyPage for each of your pages. You&#8217;ll need to add the placeholder meta tag to each of your HTML pages like this:</p>
+
+<pre><code>&lt;head&gt;
+    &lt;meta wicket:id="metaGitSHA" id="metaGitSHA" name="metaGitSHA" content=""/&gt;
+&lt;/head&gt;
+</code></pre>
+
+<p>And you&#8217;re done!</p>
+</div>
+  
+  
 
 
-<p>You&#8217;ll be asked to re-start Intellij, and then you should be in business. The plugin uses port  9123 and no password by default (same as the Firefox plugin defaults). To change this, open the IDE Settings dialog and click &#8220;Wicket Source&#8221; to enter a password.</p>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/06/06/pixlshare-an-image-sharing-app/">Pixlshare- an Image Sharing App</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<p>Enjoy!</p>
 
-<p><img src="/images/2012/02/wicket-source.png" alt="image" /></p>
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-06T18:27:00-04:00" pubdate data-updated="true">Jun 6<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://pixlshare.com/">Pixlshare</a> is a new image-sharing webapp that I just started working on. It&#8217;s intended to be a low-friction way to do simple image sharing- upload an image and instantly get a URL that you can share with others. No accounts or logins needed- just click upload and you&#8217;re done.</p>
+
+<p><a href="http://pixlshare.com/images/trzlX8"><img src="http://pixlshare.com/images/trzlX8" alt="" /></a></p>
+
+<p>It&#8217;s built in Wicket and tiny bit of JQuery. It&#8217;s fairly basic, but it has one fairly novel feature- you can add textual annotations to your uploaded images; the annotations appear as actual searchable text, rather than merely being part of the image bits.</p>
+
+<p>I&#8217;m planning to add features like:</p>
+
+<ul>
+<li><p>HTML5 drag-n-drop for uploads</p></li>
+<li><p>upload multiple pictures at once to create an album</p></li>
+<li><p>user comments</p></li>
+</ul>
+
+
+<p><a href="http://pixlshare.com/">Give it a try!</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/05/05/pause-your-web-history-break-google-maps/">Pause Your Web History- Break Google Maps</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-05T08:50:00-04:00" pubdate data-updated="true">May 5<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For a few days <a href="http://maps.google.com/">Google Maps</a> stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page would just sit there with &#8220;Still loading&#8230;&#8221; forever. I thought it was a momentary glitch, but 2 days later it was still happening. I fired up Chrome on the same machine, which worked fine. Back in Safari, I tried clearing the cache, restarting the browser, etc. all to no avail.</p>
+
+<p>Today I figured it out- I had paused my <a href="https://www.google.com/history/">web history</a> some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.</p>
+
+<p><img src="/images/2010/05/stillloading2.png" alt="image" /></p>
 </div>
   
   
@@ -145,7 +305,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Trying out Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
       </li>
     
       <li class="post">
