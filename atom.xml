@@ -4,7 +4,7 @@
   <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T20:02:40-04:00</updated>
+  <updated>2012-08-19T20:27:33-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -18,7 +18,7 @@
     <link href="http://armhold.github.com/2012/08/19/trying-out-octopress/"/>
     <updated>2012-08-19T12:24:00-04:00</updated>
     <id>http://armhold.github.com/2012/08/19/trying-out-octopress</id>
-    <content type="html"><![CDATA[<p>I&#8217;m experimenting with Octopress as a potential Wordpress replacement.</p>
+    <content type="html"><![CDATA[<p>I&#8217;m experimenting with <a href="http://octopress.org">Octopress</a> as a potential Wordpress replacement.</p>
 
 <p>I&#8217;ve grown tired of trying to properly format code with the Wordpress editor, so I&#8217;ve moved my blog from
 Wordpress (and before that Blogger) to Jekyll + Octopress, hosted on <a href="http://github.com">Github</a>.</p>
@@ -51,6 +51,22 @@ Wordpress (and before that Blogger) to Jekyll + Octopress, hosted on <a href="ht
 
 
 <p>Beautiful!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Pixlshare-Rebooted]]></title>
+    <link href="http://armhold.github.com/2012/05/23/pixlshare-rebooted/"/>
+    <updated>2012-05-23T20:06:00-04:00</updated>
+    <id>http://armhold.github.com/2012/05/23/pixlshare-rebooted</id>
+    <content type="html"><![CDATA[<p>In order to dive into Ruby, I decided to convert <a href="http://pixlshare.com">Pixlshare</a> from Java+Wicket to Ruby on Rails.</p>
+
+<p>It&#8217;s an admittedly small project, but I was surprised how easy it was. I had it basically working in under a day, and
+polished enough for production use in under 2 days.</p>
+
+<p>But the best part was the code size: a reduction of <strong>6 to 1</strong> going from Java -> Ruby.</p>
+
+<p><a href="http://pixlshare.com"><img src="http://armhold.github.com/images/2012-08-19/pixlshare.png" alt="pixlshare" /></a></p>
 ]]></content>
   </entry>
   
@@ -694,60 +710,6 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
 <p>I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that <a href="http://francewithbenefits.blogspot.com/2008/01/cleveland-rouen-sister-city-agreement.html">Cleveland and Rouen became sister cities in 2008</a>. Small world!</p>
 
 <p><img src="" alt="" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Apple Fails at Customer Service]]></title>
-    <link href="http://armhold.github.com/2009/11/15/apple-fails-at-customer-service/"/>
-    <updated>2009-11-15T19:31:00-05:00</updated>
-    <id>http://armhold.github.com/2009/11/15/apple-fails-at-customer-service</id>
-    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2009/11/bluetoothmac.jpg" alt="image" />
-Before I get started, let me say that I&#8217;ve been a big Apple fan for a number of years now. I&#8217;ve purchased enough Macbooks, iMacs, iPods, iPhones, and iTunes content that I sometimes feel that maybe I should just go ahead and have a portion of my salary direct-deposited to Apple. I&#8217;ve even turned down job offers from companies that &#8220;don&#8217;t do Mac&#8221;. So publishing this blog entry feels almost like a betrayal of sorts.</p>
-
-<p>In November, I started a new job. They were kind enough to buy me pretty much whatever kind of top-of-the-line computer equipment I wanted. I settled on a Mac Pro tower with quad core 2.93GHz, 8GB and 1TB. A beast of a machine, with a hefty price tag of over $3.5K. It arrived, and I was thrilled with it. Until the second day, when it developed a problem with its fans.</p>
-
-<p>DOA #1</p>
-
-<p>For some reason the fans just started going full-tilt all the time, on a completely unloaded CPU. Even from a totally cold-restart. It was loud enough for my wife to inquire from another room, &#8220;what&#8217;s that noise?&#8221; I tried all the obvious things you might think of, and then some not-so-obvious things that the Apple tech support had me try over the phone.</p>
-
-<p>Nothing seemed to help, so the tech support offered to do a replacement, but told me that I&#8217;d have to box the machine up, ship it back to them, and then wait for them to receive it before sending me back a replacement. Since I was starting a new job in a couple of days and I <strong>needed</strong> this computer, this wouldn&#8217;t work for me. They suggested I bring it in to my local Apple Store and see if they could fix it. The tech support guy was even kind enough to schedule me an appointment with a &#8220;Genius&#8221;.</p>
-
-<p>So I lugged the tower (all 65 pounds of it) down to the Apple Store. The tech there was nice, took the machine in the back for a while and ran a few diagnostics on it. Eventually he came out and told me <strong>he could not reproduce the problem,</strong> and that <strong>all the diagnostics were normal</strong>. He admitted that it was a &#8220;little&#8221; loud, but not enough that he could isolate any particular component to replace.</p>
-
-<p>Now before I fell in love with Apple, I had been building my own PCs for years, and I can tell you that this was <strong>not normal fan behavior</strong>. It&#8217;s certainly not normal to be able to hear your computer from the other side of the house. And it didn&#8217;t do this on day one; this anomalous behavior began on day two, so it just didn&#8217;t make any sense that this was &#8220;normal&#8221;.</p>
-
-<p>So I guessed that maybe it was just too loud in the back room for the Genius to really appreciate the sound this thing was making. Or maybe he just didn&#8217;t know how to fix it. Whatever. I figured he&#8217;d just DOA it, and hand me a replacement on the spot. Nope- Apple would certainly DOA it for me, <strong>but since it was bought online, and not at the local store, I had to ship it back to Apple.</strong> WTF? So I had to lug all 65 pounds of it back home, defeated.</p>
-
-<p>I called Apple back up, and tried to negotiate for some kind of &#8220;ship ahead replacement&#8221;, whereby they could send me a replacement ASAP, and I would return the loud-but-functional machine once its replacement arrived (and then I could easy transfer my data, too). Nope. &#8220;But we paid extra for AppleCare!&#8221; Nope. I really needed a working computer for my upcoming start date, so I had to get my boss involved.</p>
-
-<p>He ended up spending over 70 minutes on the phone with them, and managed to &#8220;negotiate&#8221; a situation whereby he would purchase <strong>another</strong>, identical Mac Pro, they would ship it, and after it arrived I&#8217;d send back the original machine for a refund. So yes, they charged him for both machines, and the 2 x $3500 was on the company credit card until I shipped the defective unit back. Ugh!</p>
-
-<p>So I sent a polite, but to-the-point letter to Apple explaining the situation, and how it was not very professional, that Dell does better, etc. etc. The next day I get a call back from a very pleasant fellow named Ryan. He explained that my email had reached &#8220;the executive level&#8221;, that the lack of a &#8220;ship ahead&#8221; for defective units keeps coming up in customer service, and that he was happy to have my feedback. He gave me his email address and direct phone number, and told me to get in touch if I needed anything. This was a nice touch, even if he was just trying to make me feel better.</p>
-
-<p>A week or so later, the new Mac arrives. And it was blessedly silent. My wife was happy, I was happy. I transferred my data over, packed the old Mac up and shipped it back.</p>
-
-<p>Bluetooth Blues, aka DOA #2</p>
-
-<p>Happy to finally have a machine that I could stand to be in the same room with, I went down to the Apple Store again and bought myself a shiny new <strong>Magic Mouse</strong>, for $69. Went home and tried to use it, but found that the mouse just stuttered all over the screen. Tried it with my MacBook Pro, and it worked fine. For some reason it just did not like the tower.</p>
-
-<p>Again, I tried all the obvious things like software update, checking the battery, etc. No good. Finally I noticed that the mouse would work if I brought it to within about 8 inches of the Mac Pro- any farther than that, and it stopped working. So yeah you guessed it, a bad Bluetooth system on the new computer. Ugh! It turns out this is a <a href="http://2718.us/blog/2009/10/26/mac-pro-2007-bluetooth/">fairly</a> <a href="http://www.macosxhints.com/article.php?story=20060928062014272">common</a> <a href="http://www.mcelhearn.com/2007/04/19/apple-bungles-bluetooth-in-mac-pro/">problem</a>, going back to at least 2006 on the Mac Pro tower. I called Apple tech support, they had me try a bunch of things, and eventually confirmed my diagnosis.</p>
-
-<p>So this is <strong>a second DOA unit</strong>. You would think that maybe I had finally crossed some threshold where Apple would take pity on me, and just send me a new machine ASAP already, without making me go through all the &#8220;send us your bad unit first, and then we&#8217;ll replace it&#8221; bullshit. And you&#8217;d be wrong.</p>
-
-<p>So again, they offered to have it repaired at my local Apple Store, and <strong>assured me</strong> that they&#8217;d be able to fix it then and there, and not have to ship it away. They even made the appointment for me. I intentionally chose an appointment slot 4 days away, so that any parts they might need would be available, etc.</p>
-
-<p>So my Genius appointment arrives on Friday, and I lug the 65 pound box to the store one more time. My appointment was for 9:30am. They call my name, and I explain the long and sordid story. Then Genius tells me &#8220;oh, but my tech won&#8217;t be here until 11&#8221;. What? But my appointment is at 9:30! Turns out that Apple tech support did not communicate to the store that this would be a repair. Oh, and another thing- they don&#8217;t have the parts they need to fix the bluetooth- they&#8217;ll have to order it, and it&#8217;ll be another 1-3 days before it arrives. Are you serious? You want me to lug this computer back here <strong>a third time</strong>? Needless to say, I was pretty pissed off. I explained to the guy that I understood that it wasn&#8217;t <em>his</em> fault, per se, but Apple needs to get its act together. He offered to make me an appointment for next week, but I declined. Frankly I had had enough.</p>
-
-<p>So I fired off an email to Ryan explaining what happened. I get a call back from him, and incredibly, he tries to tell me that Apple has &#8220;gone above and beyond&#8221; in this situation. Really? How so? He says that by <strong>letting us purchase a second computer </strong>before sending the defective one back, Apple has more than fulfilled its obligation to us. Are you serious? Are you standing within range of Steve Jobs&#8217; Reality Distortion Field or something? I told him that I wasn&#8217;t really sure why he was calling me, because if the point of his call was to make me feel better, he&#8217;s just pissed me off even more. I say &#8220;thanks&#8221; and we hang up.</p>
-
-<p>Capitulation</p>
-
-<p>I am so annoyed at this point that I don&#8217;t even want to continue trying to get the computer fixed. I went and bought a $50 Bluetooth USB adapter, and my mouse now works fine. Considering the hassle it would take to ship the damn thing back to Apple again, this is clearly the path of least resistance.</p>
-
-<p>Apple- if this is how you treat business customers, customers who are tech-savvy and can diagnose problems with your equipment, what hope is there for anyone else? What&#8217;s the point of buying AppleCare? After all, <strong>even Dell will do a &#8220;ship ahead&#8221; </strong>for a defective part, even to a non-business home user.</p>
-
-<p>Think Different indeed.</p>
 ]]></content>
   </entry>
   

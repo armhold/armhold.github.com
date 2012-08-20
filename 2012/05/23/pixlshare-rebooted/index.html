@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>A Multilingual Password Generator using GWT and Google App Engine - George Armhold's Blog</title>
+  <title>Pixlshare-Rebooted - George Armhold's Blog</title>
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="My fascination with GWT and Google App Engine continues. This weekend I created a
-multi-lingual memorable password generator. In order to create &hellip;">
+  <meta name="description" content="In order to dive into Ruby, I decided to convert Pixlshare from Java+Wicket to Ruby on Rails. It&#8217;s an admittedly small project, but I was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ multi-lingual memorable password generator. In order to create &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/">
+  <link rel="canonical" href="http://armhold.github.com/2012/05/23/pixlshare-rebooted/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,7 +75,7 @@ multi-lingual memorable password generator. In order to create &hellip;">
   
   <header>
     
-      <h1 class="entry-title">A Multilingual Password Generator Using GWT and Google App Engine</h1>
+      <h1 class="entry-title">Pixlshare-Rebooted</h1>
     
     
       <p class="meta">
@@ -92,37 +91,21 @@ multi-lingual memorable password generator. In order to create &hellip;">
   
 
 
-<time datetime="2010-03-22T00:43:00-04:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
+<time datetime="2012-05-23T20:06:00-04:00" pubdate data-updated="true">May 23<span>rd</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>My fascination with GWT and Google App Engine continues. This weekend I created a
-<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
+<div class="entry-content"><p>In order to dive into Ruby, I decided to convert <a href="http://pixlshare.com">Pixlshare</a> from Java+Wicket to Ruby on Rails.</p>
 
-<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
+<p>It&#8217;s an admittedly small project, but I was surprised how easy it was. I had it basically working in under a day, and
+polished enough for production use in under 2 days.</p>
 
-<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
-</code></pre>
+<p>But the best part was the code size: a reduction of <strong>6 to 1</strong> going from Java -> Ruby.</p>
 
-<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
-
-<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
-
-<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
-
-<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
-
-<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
-
-<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
-
-<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
-</code></pre>
-
-<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
+<p><a href="http://pixlshare.com"><img src="/images/2012-08-19/pixlshare.png" alt="pixlshare" /></a></p>
 </div>
 
 
@@ -145,7 +128,7 @@ multi-lingual memorable password generator. In order to create &hellip;">
   
 
 
-<time datetime="2010-03-22T00:43:00-04:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
+<time datetime="2012-05-23T20:06:00-04:00" pubdate data-updated="true">May 23<span>rd</span>, 2012</time>
       
 
 
@@ -153,7 +136,7 @@ multi-lingual memorable password generator. In order to create &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/2012/05/23/pixlshare-rebooted/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/2012/05/23/pixlshare-rebooted/" >Tweet</a>
   
   
   
@@ -162,10 +145,10 @@ multi-lingual memorable password generator. In order to create &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2010/03/15/the-weekend-hack-13-14-march-2010/" title="Previous Post: The Weekend Hack: 13-14 March, 2010">&laquo; The Weekend Hack: 13-14 March, 2010</a>
+        <a class="basic-alignment left" href="/2012/02/19/twilio-and-adobe-flash/" title="Previous Post: Twilio and Adobe Flash">&laquo; Twilio and Adobe Flash</a>
       
       
-        <a class="basic-alignment right" href="/2010/05/05/pause-your-web-history-break-google-maps/" title="Next Post: Pause your Web History- break Google Maps">Pause your Web History- break Google Maps &raquo;</a>
+        <a class="basic-alignment right" href="/2012/08/19/trying-out-octopress/" title="Next Post: Blog Moved to Octopress">Blog Moved to Octopress &raquo;</a>
       
     </p>
   </footer>

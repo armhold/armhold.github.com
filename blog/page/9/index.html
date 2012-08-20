@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I moved to Cleveland recently. Today I encountered my first Buckeye while walking my dog. After it narrowly missed beaming me in the head, it still &hellip;">
+  <meta name="description" content="I often lament the slow speed of the datastore used by Google&#8217;s App Engine, relative to an old-fashioned RDBMS. While Google&#8217;s datastore &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,50 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/">Make Your Ajax Apps Seem Snappier With a Faster Animated Gif</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-29T13:58:00-04:00" pubdate data-updated="true">Sep 29<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I often lament the slow speed of the <a href="http://code.google.com/appengine/docs/java/gettingstarted/usingdatastore.html">datastore</a> used by Google&#8217;s App Engine, relative to an old-fashioned RDBMS. While Google&#8217;s datastore is designed to scale well for many, many simultaneous requests, it&#8217;s a bit pokey on day-to-day CRUD operations.</p>
+
+<p>To deal with this, I implemented a standard &#8220;loading&#8221; icon that my app displays when accessing the datastore. This way my users will know that something is happening behind the scenes, and not assume that my app has simply stopped responding.</p>
+
+<p>Recently I decided to pretty things up a bit, and so I used the <a href="http://www.ajaxload.info/">GIF Generator</a> at Ajaxload to create a gif that better matched <a href="http://recipeminder.appspot.com">my app&#8217;s</a> color scheme. I installed it, and quickly forgot about it.</p>
+
+<p>Later that same day, I went back to my site and was pleasantly surprised at how quickly App Engine was serving things up- things were noticeably snappier. Initially I chalked it up to the vagaries of the load on App Engine, but then I remembered the updated GIF I had installed. In addition to matching my site&#8217;s color scheme, it also happened to &#8220;spin&#8221; faster than the old one. I was shocked at what a huge difference this made! Even though the actual wall-clock time spent is roughly the same, a faster-spinning icon made a huge difference in the <em>perceived</em> wait time. And that&#8217;s what really matters most, isn&#8217;t it?</p>
+
+<p>PS: I wanted to include examples of the spinners, but Blogspot does not seem to support animated gifs. :-(</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2009/09/27/buckeyes-are-dangerous-weapons/">Buckeyes Are Dangerous Weapons</a></h1>
     
     
@@ -133,6 +177,10 @@
       </li>
     
       <li class="post">
+        <a href="/2012/05/23/pixlshare-rebooted/">Pixlshare-Rebooted</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
       </li>
     
@@ -142,10 +190,6 @@
     
       <li class="post">
         <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
       </li>
     
   </ul>

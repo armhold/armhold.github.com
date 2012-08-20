@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content=" I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that Cleveland and Rouen became sister cities in 2008. Small world! ">
+  <meta name="description" content="I&#8217;ve been a fan of Intellij IDEA for years, since a friend introduced me to it. It&#8217;s by far the best Java IDE around (this coming from a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/">Intellij Needs to Support More Than a Single Editor Window</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-24T10:50:00-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
+
+<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
+
+<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
+
+<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
+
+<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
+
+<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -194,62 +240,6 @@ Before I get started, let me say that I&#8217;ve been a big Apple fan for a numb
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/10/28/snow-leopard-migration-assistant-fail/">Snow Leopard Migration Assistant Fail</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-10-28T06:26:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="/images/2009/10/macpro.jpg" alt="image" /></p>
-
-<p>I&#8217;ve been using a Mac almost exclusively since about 2006. Unsurprisingly, I have quite a lot of data on my system, and on its Time Machine backups. Until recently I have been quite impressed with Apple&#8217;s Migration Assistant- the tool that (used to!) seamlessly migrate your apps and data from an old machine to a new one. It&#8217;s one of those things that us smug Mac users brag about to our PC-using friends. Recently however, I&#8217;ve been disappointed by it.</p>
-
-<p>First, my wife got a new MBPro from her job, which replaced her 3 year old MBPro. I told her the migration would be a piece of cake. I expected to do the usual trick where you boot the old machine into Firewire Target Mode, and the new machine sees the old one as a Firewire volume. No such luck- Apple changed the Firewire port on the newer MBPro, so she had to make a trip down to the Apple Store to get a new cable. Turns out they sold her the wrong one, so at this point I opted for doing the migration using our WiFi. Despite entering all the appropriate network configuration, the two computers couldn&#8217;t talk to each other.</p>
-
-<p>So I ran a Cat5 cable between the two machines. I was able to connect this time, but I kept getting thrown into an endless loop where you are prompted to enter a PIN to give the new computer access to the old one- it would connect for an instant, and then loop back to the beginning all over again.</p>
-
-<p>Wife, sensing my frustration level, decided to bring it into her office and have the IT guys deal with it. They had the appropriate Firewire cable and did the transfer without a hitch.</p>
-
-<p>So fast forward to me getting a new job, and the requisite new toy: a totally decked-out quad-core MacPro with all the bells and whistles. Time to migrate from my old MBPro to this new tower. I&#8217;m about 4 hours into the transfer using Migration Assistant (we have the right cable now!) and it&#8217;s still telling me that there are 10+ hours left in the transfer. This doesn&#8217;t look good. So I pop open the Console tool, and lo and behold, I see that MigrateTool has in fact crashed, <strong>despite the lack of any error messages on the screen.</strong> I quit Migration Assistant, and start over. Same deal.</p>
-
-<p><img src="/images/2009/10/migrationassistant.png" alt="image" /></p>
-
-<p>So I try erasing the Mac Pro&#8217;s HD and starting with a fresh OS install from DVD. Migration Assistant <strong>still</strong> silently crashes.</p>
-
-<p>So I try doing a migration from my Time Machine volume as the source volume in Migration Assistant. Same deal. So I try doing a &#8220;manual&#8221; installation using Time Machine. A few hours in, I finally get a somewhat helpful error message indicating that it cannot continue because <strong>the source volume is case-sensitive, the target volume is case-insensitive</strong>, and there is a pair of conflicting files on the source drive &#8220;3.3.1.ga&#8221; and &#8220;3.3.1.GA&#8221; (Hibernate, my favorite!)</p>
-
-<p>This is not totally surprising, and is what I suspected might be the problem- back in 2006 I had made the poor decision to install my MBPro as case-sensitive, since that&#8217;s what most Unixes use. That&#8217;s finally come back to bite me. Anyway, I remove the duplicate file from the source machine, and carry on. Several hours later, Migration Assistant crashes again. And since it doesn&#8217;t print any helpful error message, I can&#8217;t locate what is likely another duplicate file. Ugh!</p>
-
-<p>Obviously one solution might be to re-install the machine as case-sensitive, but I don&#8217;t want to go through this kind of hell again during some future migration; I&#8217;d rather pay the piper now and be done with it. I have a call into Apple Tech Support (you get 90 days free support on any new machine, even without Apple Care.. did you know that?) I will update as things progress. Any suggestions for solving this are greatly welcome.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -271,6 +261,10 @@ Before I get started, let me say that I&#8217;ve been a big Apple fan for a numb
       </li>
     
       <li class="post">
+        <a href="/2012/05/23/pixlshare-rebooted/">Pixlshare-Rebooted</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
       </li>
     
@@ -280,10 +274,6 @@ Before I get started, let me say that I&#8217;ve been a big Apple fan for a numb
     
       <li class="post">
         <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to get JNDI working with Wicket 1.5 and Jetty 7.5</a>
       </li>
     
   </ul>
