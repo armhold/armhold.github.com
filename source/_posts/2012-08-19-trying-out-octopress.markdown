@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-I'm experimenting with Octopress as a potential Wordpress replacement.
+I'm experimenting with [Octopress](http://octopress.org) as a potential Wordpress replacement.
 
 
 I've grown tired of trying to properly format code with the Wordpress editor, so I've moved my blog from
