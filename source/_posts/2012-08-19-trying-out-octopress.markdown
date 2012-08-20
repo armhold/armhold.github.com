@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Blog Moved to Octopress"
+title: "Blog Moved to Github/Octopress"
 date: 2012-08-19 12:24
 comments: true
 categories: 
