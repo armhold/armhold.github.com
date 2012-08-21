@@ -13,7 +13,7 @@ categories:
 
 The [best typing tutor on the web](http://www.quickbrownfrog.com) is now available for sale in the [Chrome Web Store](https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn).
 
-[![](http://quickbrownfrog.files.wordpress.com/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png?w=300)](https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn)
+[![](/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png)](https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn)
 
 It was surprisingly easy to [get into the store](http://code.google.com/chrome/webstore/docs/get_started_simple.html) if you've got an existing webapp running:
 
