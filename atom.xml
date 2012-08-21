@@ -4,7 +4,7 @@
   <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-19T20:27:33-04:00</updated>
+  <updated>2012-08-21T11:39:59-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Blog Moved to Octopress]]></title>
+    <title type="html"><![CDATA[Blog Moved to Github/Octopress]]></title>
     <link href="http://armhold.github.com/2012/08/19/trying-out-octopress/"/>
     <updated>2012-08-19T12:24:00-04:00</updated>
     <id>http://armhold.github.com/2012/08/19/trying-out-octopress</id>
@@ -393,323 +393,480 @@ System.setProperty("java.naming.factory.initial",
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Pause your Web History- break Google Maps]]></title>
-    <link href="http://armhold.github.com/2010/05/05/pause-your-web-history-break-google-maps/"/>
-    <updated>2010-05-05T08:50:00-04:00</updated>
-    <id>http://armhold.github.com/2010/05/05/pause-your-web-history-break-google-maps</id>
-    <content type="html"><![CDATA[<p>For a few days <a href="http://maps.google.com/">Google Maps</a> stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page would just sit there with &#8220;Still loading&#8230;&#8221; forever. I thought it was a momentary glitch, but 2 days later it was still happening. I fired up Chrome on the same machine, which worked fine. Back in Safari, I tried clearing the cache, restarting the browser, etc. all to no avail.</p>
+    <title type="html"><![CDATA[How to make Ajax links crawlable with GWT and Google App Engine]]></title>
+    <link href="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/"/>
+    <updated>2011-01-07T13:18:11-05:00</updated>
+    <id>http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine</id>
+    <content type="html"><![CDATA[<p>If you care about <a href="http://en.wikipedia.org/wiki/Search_engine_optimization">SEO</a> you know that using GWT has a downside: much of your app&#8217;s content is generated dynamically via Javascript, and is therefore invisible to search engines. You might have dozens of pages of awesome content, but all the Googlebot sees is the static HTML page that hosts your app. This can be a real problem.</p>
 
-<p>Today I figured it out- I had paused my <a href="https://www.google.com/history/">web history</a> some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.</p>
-
-<p><img src="http://armhold.github.com/images/2010/05/stillloading2.png" alt="image" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A Multilingual Password Generator using GWT and Google App Engine]]></title>
-    <link href="http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/"/>
-    <updated>2010-03-22T00:43:00-04:00</updated>
-    <id>http://armhold.github.com/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine</id>
-    <content type="html"><![CDATA[<p>My fascination with GWT and Google App Engine continues. This weekend I created a
-<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
-
-<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
-
-<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
-</code></pre>
-
-<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
-
-<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
-
-<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
-
-<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
-
-<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
-
-<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
-
-<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
-</code></pre>
-
-<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Weekend Hack: 13-14 March, 2010]]></title>
-    <link href="http://armhold.github.com/2010/03/15/the-weekend-hack-13-14-march-2010/"/>
-    <updated>2010-03-15T09:21:00-04:00</updated>
-    <id>http://armhold.github.com/2010/03/15/the-weekend-hack-13-14-march-2010</id>
-    <content type="html"><![CDATA[<p>Inspired by <a href="http://news.ycombinator.com/item?id=1133613">this recent post</a> over at Hacker News, I was itching for a fun weekend project.  My criteria for the project were the following:</p>
+<p>Fortunately, Google has proposed a <a href="http://code.google.com/web/ajaxcrawling/docs/getting-started.html">solution</a> for crawling ajax content:</p>
 
 <ul>
-<li><p>be small &amp; well-defined- doable in a weekend</p></li>
-<li><p>produce something useful for <em>someone</em></p></li>
-<li><p>give my rusty Google App Engine and GWT skills a workout</p></li>
+<li><p>change your hrefs to support &#8220;bang notation&#8221;:  www.example.com/ajax.html<strong>#!key=value</strong></p></li>
+<li><p><strong>when Googlebot makes requests of the form: </strong>www.example.com/ajax.html<strong>?<em>escaped_fragment</em>=key=value </strong><strong>, you return a static HTML version of the Ajax content</strong></p></li>
 </ul>
 
 
-<p>I use <a href="http://wicket.apache.org/">Wicket</a> for my livelihood these days, but <a href="http://code.google.com/webtoolkit/">GWT</a> is my true love. I miss working with it.</p>
+<p>So then the problem becomes one of generating static content from your Ajax links. You could do that by hand if your site is small and changes infrequently. More likely you&#8217;ll want a way to automate this.</p>
 
-<p>So I decided to create a searchable database of Weight Watchers &#8220;food points&#8221; values.  Last year, the company that I was working for held weekly WW meetings in our lunch room.  For about 6 months it was all but impossible to avoid hearing &#8220;how many points for X?&#8221; type questions several times daily.</p>
+<p>Google recommends using a &#8220;headless browser&#8221; approach, i.e. using something like <a href="http://htmlunit.sourceforge.net/">HtmlUnit</a>. That&#8217;s a fine solution, but if you&#8217;re running on App Engine <em>it&#8217;s almost guaranteed not to work</em> because of the request timeout.  So if you want to run on App Engine, you&#8217;re probably going to have to spider your own pages and pre-generate your HTML content.</p>
 
-<p>There are a lot of existing sites for this kind of thing, but I found the interfaces somewhat lacking (are we really still producing sites with MIDI soundtracks in 2010?)</p>
+<p>My solution to this problem is to break the spidering up into small chunks, and farm them out as tasks on App Engine&#8217;s <a href="http://code.google.com/appengine/docs/java/taskqueue/overview.html">Task Queues</a>. Whenever I update my app&#8217;s content, I submit a job that spiders the landing page looking for Ajax links. For each link that&#8217;s found, I submit a task that recursively spiders the link (taking care not to get into loops). Each task saves the HTML content into the data store, which is then returned as cached static content to Googlebot.</p>
 
-<p>Thus was born <a href="http://slimpoints.appspot.com/">this weekend&#8217;s project</a>. At least until WW decides to shut it down. Here&#8217;s the breakdown of where the time went:</p>
+<p>Suddenly my &#8220;simple&#8221; solution is sounding quite complicated, but it gets the job done reliably. Here&#8217;s some code to make it clearer.</p>
+
+<p>I use a CachedAjaxLink data object to persist the static content:</p>
+
+<pre><code>public class CachedAjaxLink implements Serializable
+{
+    @Id
+    private String href;
+    private String cachedContent;
+    private Date dateCached;
+}
+</code></pre>
+
+<p>Then I use an AjaxCacher which crawls a given link, stores the results as CachedAjaxLinks, and queues Task Queue tasks for each link that it finds:</p>
+
+<pre><code>public class AjaxCacher
+{
+    protected static final Logger log = Logger.getLogger(AjaxCacher.class.getName());
+    protected static final DAO dao = new DAO();
+
+    public static final long PUMP_TIME = 5000;
+    protected WebClient webClient;
+    protected String crawlServletUrl;
+
+    public AjaxCacher(String crawlServletUrl)
+    {
+        this.crawlServletUrl = crawlServletUrl;
+        webClient = Holder.get();
+    }
+
+    public void crawl(URL urlToCrawl, Date crawlRequestTimestamp)
+    {
+        // URLs we've already queued
+        Set queuedURLs = new HashSet();
+        queuedURLs.add(urlToCrawl);
+
+        try
+        {
+            HtmlPage page = webClient.getPage(urlToCrawl);
+
+            // appengine hack because it's single threaded
+            webClient.getJavaScriptEngine().pumpEventLoop(PUMP_TIME);
+
+            String pageContent = page.asXml();
+
+            CachedAjaxLink cachedAjaxLink = new CachedAjaxLink();
+            cachedAjaxLink.setHref(urlToCrawl.getRef());
+            cachedAjaxLink.setCachedContent(pageContent);
+            cachedAjaxLink.setDateCached(new Date());  // time actually cached
+            dao.updateCachedAjaxLink(cachedAjaxLink);
+
+            List anchors = page.getAnchors();
+            for (HtmlAnchor anchor : anchors)
+            {
+                // only care about ajax links
+                if (! anchor.getHrefAttribute().startsWith("#")) continue;
+
+                URL newUrl = new URL(urlToCrawl, anchor.getHrefAttribute());
+
+                // don't queue multiple requests for the same URL
+                if (queuedURLs.contains(newUrl)) continue;
+
+                queuedURLs.add(newUrl);
+
+                // prevent loops
+                CachedAjaxLink link = dao.getCachedAjaxLink(newUrl.getRef());
+                if (link == null || link.getDateCached().getTime() &lt; crawlRequestTimestamp.getTime())
+                {
+                    queueCrawlRequest(newUrl.toString(), crawlRequestTimestamp);
+                }
+            }
+
+        } catch (IOException e)
+        {
+            log.log(Level.SEVERE, e.getMessage(), e);
+        }
+        finally
+        {
+            webClient.closeAllWindows();
+        }
+    }
+
+    /**
+     * submits a crawl request to the queue; TaskQueueServlet will then handle the request asynchronously
+     */
+    public void queueCrawlRequest(String urlToCrawl, Date timeStamp)
+    {
+        Queue queue = QueueFactory.getDefaultQueue();
+        TaskOptions options = TaskOptions.Builder.url(crawlServletUrl);
+        options.param("encodedUrl", ServerUtils.encodeURL(urlToCrawl));
+        options.param("timeStamp", ServerUtils.fromDate(timeStamp));
+        options.method(TaskOptions.Method.GET);
+        queue.add(options);
+    }
+
+    /**
+     * try to cache a copy of the WebClient in ThreadLocal for faster startups on Google App Engine
+     */
+    public static class Holder
+    {
+        private static ThreadLocal holder = new ThreadLocal()
+        {
+            protected synchronized WebClient initialValue()
+            {
+                WebClient result = new WebClient(BrowserVersion.FIREFOX_3);
+                result.setWebConnection(new UrlFetchWebConnection(result));
+                return result;
+            }
+        };
+
+        public static WebClient get()
+        {
+            return holder.get();
+        }
+    }
+}
+</code></pre>
+
+<p>Finally, I use a TaskQueueServlet to handle the queued tasks:</p>
+
+<pre><code>public class TaskQueueServlet extends HttpServlet
+{
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        doPost(req, res);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        String encodedUrl = req.getParameter("encodedUrl");
+        if (encodedUrl == null)
+        {
+            throw new IllegalArgumentException("missing param: encodedUrl");
+        }
+
+        String timeStamp = req.getParameter("timeStamp");
+        if (timeStamp == null)
+        {
+            throw new IllegalArgumentException("missing param: timeStamp");
+        }
+
+        String decodedUrl = ServerUtils.decodeURL(encodedUrl);
+        URL urlToCrawl = new URL(decodedUrl);
+
+        getServletContext().getInitParameter("taskQueuePath");
+        AjaxCacher cacher = new AjaxCacher(getServletContext().getInitParameter("taskQueuePath"));
+        cacher.crawl(urlToCrawl, ServerUtils.toDate(timeStamp));
+    }
+}
+</code></pre>
+
+<p>Thanks Google, for making it so easy. ;-)</p>
+
+<p>You can grab all of this code from my <a href="http://code.quickbrownfrog.com/">gwtquickstarter</a> library. It&#8217;s the library that powers the <a href="http://www.quickbrownfrog.com">best typing tutor</a> on the web.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Add a badge to your blog with your typing score!]]></title>
+    <link href="http://armhold.github.com/2010/12/28/add-a-badge-to-your-blog-with-your-typing-score/"/>
+    <updated>2010-12-28T10:45:09-05:00</updated>
+    <id>http://armhold.github.com/2010/12/28/add-a-badge-to-your-blog-with-your-typing-score</id>
+    <content type="html"><![CDATA[<p>Did you get an awesome word-per-minute score on your Quick Brown Frog typing speed test? Well now you can share it with the world by posting a Quick Brown Frog badge on your blog or website:
+<a href="http://quickbrownfrog.com#!practice:"><img src="http://armhold.github.com/images/2010/12/typing-badge.png" alt="" /></a></p>
+
+<p>We just added a <a href="http://quickbrownfrog.com#!practice:">new feature</a> to all our typing practice sessions- at the end of the lesson you&#8217;ll be shown the badge and the HTML code that generates it. Simply copy and paste the blue HTML code into your blog or website to add the badge for all to see.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Feature: create a typing practice from random English words]]></title>
+    <link href="http://armhold.github.com/2010/12/28/new-feature-create-a-typing-practice-from-random-english-words/"/>
+    <updated>2010-12-28T10:30:10-05:00</updated>
+    <id>http://armhold.github.com/2010/12/28/new-feature-create-a-typing-practice-from-random-english-words</id>
+    <content type="html"><![CDATA[<p>We&#8217;ve been busy adding new features over the Christmas holidays. The first of these is already available for you to use: you can now create a practice typing session from a set of <a href="http://www.quickbrownfrog.com/#!practice:">random English words</a>:</p>
+
+<p><a href="http://quickbrownfrog.com#!practice:"><img src="http://armhold.github.com/images/2010/12/type-random-words1.png" alt="type random words" /></a></p>
+
+<p>We&#8217;ve had numerous requests from users for a feature that would generate random typing lessons based on actual words. You can now generate instant typing practices, simply by choosing the number of words you wish to type.</p>
+
+<p><a href="http://quickbrownfrog.com#!practice:"><img src="http://armhold.github.com/images/2010/12/random-word-lesson.png" alt="Random word typing practice" /></a></p>
+
+<p>We&#8217;re planning to extend this feature in the future to create automatically create lessons targeting letters that you need to practice (the ones you make the most typos with).</p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog is now available in the Chrome Web Store]]></title>
+    <link href="http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store/"/>
+    <updated>2010-12-09T11:46:25-05:00</updated>
+    <id>http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.quickbrownfrog.com">best typing tutor on the web</a> is now available for sale in the <a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn">Chrome Web Store</a>.</p>
+
+<p><a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn"><img src="http://armhold.github.com/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png" alt="" /></a></p>
+
+<p>It was surprisingly easy to <a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html">get into the store</a> if you&#8217;ve got an existing webapp running:</p>
 
 <ul>
-<li><p>2 hours brainstorming</p></li>
-<li><p>4 hours getting Intellij, GWT and Google App Engine to all play nicely (this was the most painful part, really)</p></li>
-<li><p>3 hours basic coding, page layout, getting the tabs to work</p></li>
-<li><p>45 minutes with an Emacs macro converting HTML tables with food point values into a nice, CSV-style GWT properties file</p></li>
-<li><p>2 hours playing around with font sizes and colors.  I&#8217;m still not 100% happy with this, but the project was time-limited by definition.</p></li>
-<li><p>1/2 hour enabling AdSense, getting things to look relatively nice</p></li>
+<li><p>pay Google $5 (one-time developer fee; <strong>not</strong> per-app)</p></li>
+<li><p>create a 16-line JSON manifest file</p></li>
+<li><p>take some screen shots and create an icon (the hardest part, really)</p></li>
+<li><p>bundle it into a zip</p></li>
+<li><p>checkmark a few boxes, add some descriptive text, click &#8220;publish&#8221;</p></li>
 </ul>
 
 
-<p>A grand total of 260 lines of code.  GWT&#8217;s SuggestBox made autocomplete so much easier than Wicket Extensions&#8217; AutoCompleteTextField, which I had to use recently.</p>
+<p>All you are really doing is bundling up some meta-data so that Chrome users can see your app as being &#8220;installed&#8221;. Even though my app is very much server-dependent, and has its own concept of user accounts and payments, Google is happy to have it in the store. And I&#8217;m happy for the potential extra customers.</p>
 
-<p>The project is &#8220;done&#8221; in the sense that I am happy with it, and would feel content if I never spent another hour of time on it; that was part of my criteria for something doable in a weekend.  But that doesn&#8217;t mean I&#8217;ll never revisit it.</p>
+<p>It&#8217;s obvious that the Chrome Web Store is a great boon for developers. However it&#8217;s unclear whether users will actually find this useful, much less flock to it.</p>
 
-<p>One potential idea is to make an iPhone-friendlier version of it, with some big calculator-style buttons right on the page to facilitate data entry.  I might come back to this idea in the future if the site analytics tell me it&#8217;s worthwhile.  (As a side note, compared to the time and effort required to get an <a href="http://itunes.apple.com/us/app/another-tip-calculator-yatc/id316488754?mt=8">iPhone app of equivalent complexity</a> published, this was a piece of cake.)</p>
-
-<p>So, what fun projects are you working on?</p>
+<p>My guess is that once we start seeing more apps that <em>really</em> use HTML5 features like local storage, it might take off. I hope it does.</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How to Disable Top Sites in Safari]]></title>
-    <link href="http://armhold.github.com/2010/03/14/how-to-disable-top-sites-in-safari/"/>
-    <updated>2010-03-14T00:56:00-05:00</updated>
-    <id>http://armhold.github.com/2010/03/14/how-to-disable-top-sites-in-safari</id>
-    <content type="html"><![CDATA[<blockquote></blockquote>
+    <title type="html"><![CDATA[Patrick McKenzie launches Appointment Reminder]]></title>
+    <link href="http://armhold.github.com/2010/12/06/patrick-mckenzie-launches-appointment-reminder/"/>
+    <updated>2010-12-06T05:43:37-05:00</updated>
+    <id>http://armhold.github.com/2010/12/06/patrick-mckenzie-launches-appointment-reminder</id>
+    <content type="html"><![CDATA[<p>Patrick McKenzie, a solo entrepreneur whom I admire greatly has launched his second project: <a href="https://www.appointmentreminder.org/">Appointment Reminder</a>.</p>
 
-<p><img src="http://armhold.github.com/images/2010/03/topsitesdemo.png" alt="image" />
-Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or window, and Safari sits there spinning while loading a bunch of web sites you may or may not be interested in going to. I find Safari to be a whole lot faster with the feature turned off.</p>
+<p>Appointment Reminder is a service for personal business services (think: hair salons, medical offices, law firms, or anyone that regularly schedules appointments with clients). Appointment Reminder sends out reminders to clients automatically, via phone, SMS or email. Fewer forgotten appointments = increased revenue.</p>
 
-<p>It&#8217;s simple.  Open Preferences, and tweak the settings for &#8220;New windows open with&#8221; and &#8220;New tabs open with&#8221; to be either an <strong>Empty Page</strong>, or whatever <strong>Home Page</strong> you prefer.</p>
+<p>He&#8217;s leveraging <a href="http://www.twilio.com/">Twilio</a>, and API that I&#8217;m just dying to find an excuse to use.</p>
 
-<p><img src="http://armhold.files.wordpress.com/2010/03/disabletopsites.png?w=269" alt="" /></p>
-
-<p><img src="" alt="" /></p>
+<p>Congrats Patrick, and good luck!</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Why no "Here" Documents for Java?]]></title>
-    <link href="http://armhold.github.com/2010/03/07/why-no-here-documents-for-java/"/>
-    <updated>2010-03-07T20:50:00-05:00</updated>
-    <id>http://armhold.github.com/2010/03/07/why-no-here-documents-for-java</id>
-    <content type="html"><![CDATA[<p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
+    <title type="html"><![CDATA[UI Refresh- new logo and other eye candy]]></title>
+    <link href="http://armhold.github.com/2010/11/30/ui-refresh-new-logo-and-other-eye-candy/"/>
+    <updated>2010-11-30T11:31:35-05:00</updated>
+    <id>http://armhold.github.com/2010/11/30/ui-refresh-new-logo-and-other-eye-candy</id>
+    <content type="html"><![CDATA[<p>I spent some time (and some $$) prettying up the <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> user interface.
+I bought a logo from <a href="http://www.logosamurai.com/">Logosamurai</a>.  Not bad for $67.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
-</span><span class='line'>cat &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
-</span><span class='line'>Here is some text, embedded
-</span><span class='line'>
-</span><span class='line'>   <span class="s2">&quot;right in the middle&quot;</span>
-</span><span class='line'>
-</span><span class='line'>of my Bourne shell script.
-</span><span class='line'>EOF
-</span></code></pre></td></tr></table></div></figure>
+<p><a href="http://armhold.github.com/images/2010/11/alternate-edit.jpg"><img src="http://armhold.github.com/images/2010/11/alternate-edit.jpg" alt="Quick Brown Frog logo" /></a></p>
 
+<p>Then I added some gauges to display WPM and accuracy in real-time. They&#8217;re part of the <a href="http://code.google.com/apis/visualization/documentation/gadgetgallery.html">Google Visualization API</a>, and they&#8217;re awesome.  That is, when they work. They don&#8217;t seem to work in IE8, so I&#8217;ve disabled them for that browser.</p>
 
-<p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
+<p>And they have some pretty odd resizing behavior: if you don&#8217;t explicitly specify a width attribute, the gauges will <em>shrink</em> every time you update the gauge value. It took me quite a bit of experimentation to figure that one out, but thankfully it seems to be working now.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Here is some text, embedded\n&quot;</span> <span class="o">+</span><span class="s">&quot; \&quot;right in the middle\&quot;\n&quot;</span> <span class="o">+</span><span class="s">&quot;of my Java program.\n&quot;</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<p><a href="http://armhold.github.com/images/2010/11/gauges.png"><img src="http://armhold.github.com/images/2010/11/gauges.png" alt="speed test gauges" /></a></p>
 
-
-<p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
-
-<p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
+<p>You can check out the changes in this <a href="http://www.quickbrownfrog.com/#!speedTest:">typing speed test</a>.</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Relax. You can (mostly) stop using Interfaces in Java now.]]></title>
-    <link href="http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/"/>
-    <updated>2010-03-06T17:56:00-05:00</updated>
-    <id>http://armhold.github.com/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now</id>
-    <content type="html"><![CDATA[<p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
+    <title type="html"><![CDATA[Quick Brown Frog Typing Tutor is launched!]]></title>
+    <link href="http://armhold.github.com/2010/11/25/quick-brown-frog-is-launched/"/>
+    <updated>2010-11-25T04:34:18-05:00</updated>
+    <id>http://armhold.github.com/2010/11/25/quick-brown-frog-is-launched</id>
+    <content type="html"><![CDATA[<p>After lots of helpful feedback from beta testers and Hacker News, my <a href="http://www.quickbrownfrog.com">typing tutor</a> app &#8220;Quick Brown Frog&#8221; is live and open for business!</p>
 
-<p>Why do we do this?</p>
+<p>Some of the things I changed in response to feedback include:</p>
 
-<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
-
-<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
-
-<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
-
-<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><p><a href="http://www.quickbrownfrog.com/#!store:">price reduction</a> from $29.95 -> $9.95</p></li>
+<li><p>support both Google Checkout and Paypal options for payment</p></li>
+<li><p><a href="http://www.quickbrownfrog.com/#!progress:">stats reporting</a> (WPM/Accuracy improvement over time)</p></li>
+<li><p>report on frequently mis-typed keys after practice lessons</p></li>
+<li><p>allow automatic single/double spacing after end of sentences (<em>very</em> frequently requested)</p></li>
+<li><p>implemented crawlable Ajax links for SEO</p></li>
+<li><p>plus many bug fixes for cross-browser compatibility</p></li>
+</ul>
 
 
-<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
+<p>I consider this an <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP-level</a> release, which means that it still needs lots of work and polish (in particular, the look-and-feel of the UI).</p>
 
-<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
-
-<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
-
-<p>But use interfaces with reason, and not by reflex.</p>
+<p>The important thing is to get it out there, and start getting feedback from actual customers. Absent that, I&#8217;d just be spinning my wheels.</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[No More Russian Dolls- Respecting the Law of Demeter]]></title>
-    <link href="http://armhold.github.com/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/"/>
-    <updated>2010-02-06T17:09:00-05:00</updated>
-    <id>http://armhold.github.com/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter</id>
-    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/02/russiandolls.jpg" alt="image" /></p>
+    <title type="html"><![CDATA[Measuring Typing Accuracy]]></title>
+    <link href="http://armhold.github.com/2010/11/22/measuring-typing-accuracy/"/>
+    <updated>2010-11-22T05:38:25-05:00</updated>
+    <id>http://armhold.github.com/2010/11/22/measuring-typing-accuracy</id>
+    <content type="html"><![CDATA[<p>It turns out that measuring typing accuracy (how accurately you hit the intended keys) is non-trivial. A quick survey
+of the online typing courses out there shows that there is considerable confusion over how to correctly measure typing
+accuracy. One site actually gives a <em>negative percentage</em> if you backspace too many times!</p>
 
-<p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
+<p>This was kind of surprising to me. I figured it would take me perhaps 10 minutes to implement. It ended up taking
+a day and a half of my time, $10 spent on an ACM article, and some quality time with a recent CS grad&#8217;s
+<a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">PhD thesis</a>. No joke.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">a</span><span class="o">.</span><span class="na">getB</span><span class="o">().</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Well, to be completely honest, in the end, the implementation <em>was</em> in fact fairly trivial. What was hard was
+figuring out <em>what to measure</em>. It&#8217;s more of a human problem than a technical one.</p>
 
+<h3>Why is this hard?</h3>
 
-<p>So in order to test something that used A, we&#8217;d need to also construct instances of B and C, and wire them all together like a stack of Russian dolls.  For many of our tests, the test <em>scaffolding</em> dwarfed the test proper, making it hard to tell what was really being tested.</p>
+<p>Your intuition might be to simply measure the ratio of correct characters to total characters typed. At first glance
+this seems OK, but consider the following case:</p>
 
-<p>To address this, many of our tests were using the <a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> to build up these graphs.  This helped somewhat, by centralizing the construction of the objects, and it also led to some some re-use of the scaffolding code. But it still didn&#8217;t address the underlying problem of having to build up crazy amounts of superfluous objects for the test.</p>
-
-<p>Anyone who&#8217;s read Refactoring, or the Pragmatic Programmer series will recognize that the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> is in play here.  A, B, and C are too tightly coupled. We all know this is &#8220;bad&#8221;, but somehow this never really bothered me much in production code.  In the age of modern IDEs, it&#8217;s really easy to track down who is calling whom, and to re-work the code when you feel things have gotten out of hand.</p>
-
-<p>The typical remedy for fixing overly tight coupling is to use encapsulation or a delegate to hide the call chain. This never really struck me as much of an improvement, as it piled <strong>yet another interface</strong> on top of the code.  Having spent too much time toiling with J2EE megaliths, I was wary of adding yet another layer.</p>
-
-<p>But then when we realized what this <a href="http://c2.com/cgi/wiki?InappropriateIntimacy">inappropriate intimacy</a> was doing to our tests, a light bulb went off. Adding a really small interface to class <strong>A</strong> doesn&#8217;t really bloat the code, and most importantly- it gives the test code a hook where it can <strong>mock out the single call that it really cares about</strong>, ignoring the rest.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">B</span> <span class="n">b</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre style="font-family:Monospace; font-size: 14pt;">
+    intended: The quick brown frog jumped over the lazy fox.<br/>
+    actual  : The qu<span style="color:#993300">ck brown frog jumped over the lazy fox.</span>
+</pre>
 
 
-<p>Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:</p>
+<p>If we match up the typed characters with what was expected, the accuracy of this typed statement is a very low 15 %. But looking at it from a human perspective, what were the actual errors here? The typist missed the &#8220;i&#8221; character in the word &#8220;quick&#8221;, and as a result the rest of the line was offset by one.  It seems like there ought to be a way to more accurately capture the fact that the user made a single typo. There is.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">A</span> <span class="n">mockedA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>         <span class="k">return</span> <span class="s">&quot;mockedResult&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<h3>Edit Distance</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Edit_distance">Edit Distance</a> is the number of operations required to transform one
+string into another. The operations include <em>insertion</em>, <em>deletion</em> and <em>substitution</em>. In this example, it requires
+only a single edit- &#8216;insert an i&#8217;.</p>
+
+<p>Soukoreff&#8217;s <a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">thesis</a> describes
+a <em>Minimum String Distance Error Rate</em> as the Edit Distance divided by the maximum of the lengths of the presented
+vs typed text, times 100%. For our &#8220;off by one&#8221; example above, the error rate is a mere 2%, i.e. 98% accurate.
+That seems more reasonable!</p>
+
+<p>So for a while I was using the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance algorithm</a>
+to compute the edit distance, and hence the accuracy. This certainly worked better than my initial naive algorithm,
+but it still had a problem- What if the typist made <em>lots</em> of errors, but was fastidious about backspacing over the
+mistakes and correcting them? His error rate would be zero in this case, with an accuracy of 100%.</p>
+
+<p>While correcting all your mistakes is admirable, it seems wrong to award a &#8220;100% accurate&#8221; rating to a typist
+sporting a bruised backspace key. Somehow, we&#8217;ve got to take the mistakes into account, even if they&#8217;ve been corrected.</p>
+
+<h3>Text-Entry Taxonomy</h3>
+
+<p>Soukoreff&#8217;s PhD thesis again provides a solution. Classify each of the keystrokes into one of the following categories:</p>
+
+<ul>
+<li><p><strong>C</strong> - Correctly typed</p></li>
+<li><p><strong>IF</strong> - Incorrect, but Fixed</p></li>
+<li><p><strong>INF</strong> - Incorrect, Not Fixed</p></li>
+<li><p><strong>F</strong> - Fixes, i.e. backspace or cursor movement used to correct mistakes</p></li>
+</ul>
 
 
-<p>Yes, class <strong>B</strong>is still sharing too much information here, but unless it&#8217;s causing a problem, you can leave it alone for now, and apply the same fix to it only if it becomes an issue (maybe YAGNI).</p>
+<p>Using these classifications, he proposes a <em>Total Error Rate</em> defined as:</p>
 
-<p>Obviously, this isn&#8217;t some new industry-changing technique; it&#8217;s been around forever.  But as a result of applying it judiciously, our test scaffolding has been drastically reduced, and tests are easier to write and understand.</p>
+<blockquote><p>(INF + IF) / (C + INF + IF) * 100%</p></blockquote>
 
-<p>No more Russian dolls.</p>
+<p>So, going back to our &#8220;off by one&#8221; example, if the typist noticed immediately that he missed the &#8216;i&#8217; in &#8216;quick&#8217;,
+and backspaced to correct it,</p>
 
-<p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">c</span>⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>the breakdown would be C: 47, F: 1, IF: 1,. INF: 0, for a total error rate of (0 + 1) / (47 + 0 + 1) = 2%, or 98%
+accurate. Same as using the Edit Distance alone, in this example.</p>
+
+<p>But what if the user didn&#8217;t notice the mistake until 10 characters later? The input stream would look something
+like this:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">ck brown f</span>⌫⌫⌫⌫⌫⌫⌫⌫⌫⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>What&#8217;s the error rate now? C:47, F:10, IF: 10, INF: 0, or (0 + 10) / (47 + 0 + 10) * 100% = 17.5%, or roughly
+82% accurate. Aha!</p>
+
+<p>I plugged this formula into <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> and watched the error rate go up and
+down while typing. <em>Finally</em>, it seemed to be doing the right thing- rewarding accurate, deliberate typing, and taking
+off points for outright mistakes as well expensive corrections.</p>
+
+<p>Yet another example of why it&#8217;s hard to estimate software schedules- sometimes the &#8216;trivial&#8217; is anything but.</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[R.I.P., Mr. Salinger]]></title>
-    <link href="http://armhold.github.com/2010/01/28/r-i-p-mr-salinger/"/>
-    <updated>2010-01-28T13:46:00-05:00</updated>
-    <id>http://armhold.github.com/2010/01/28/r-i-p-mr-salinger</id>
-    <content type="html"><![CDATA[<blockquote><p>&#8220;What I have to do, I have to catch everybody if they start to go over the cliff— I mean if they’re running and they don’t look where they’re going I have to come out from somewhere and catch them. That’s all I’d do all day. I’d just be the catcher in the rye and all.&#8221;</p></blockquote>
+    <title type="html"><![CDATA[Quick Brown Frog featured on StartupLift!]]></title>
+    <link href="http://armhold.github.com/2010/11/17/quick-brown-frog-featured-on-startuplift/"/>
+    <updated>2010-11-17T16:05:34-05:00</updated>
+    <id>http://armhold.github.com/2010/11/17/quick-brown-frog-featured-on-startuplift</id>
+    <content type="html"><![CDATA[<p>I&#8217;m happy to report that <a href="http://StartupLift.com">StartUpLift.com</a>, an awesome new site for promoting new startups, is featuring Quick Brown Frog.</p>
+
+<p><a href="http://startuplift.com/quick-brown-frog-learn-to-touch-type/">http://startuplift.com/quick-brown-frog-learn-to-touch-type/</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Apple's iPad: One Ring to Rule Them All ?]]></title>
-    <link href="http://armhold.github.com/2010/01/28/apples-ipad-one-ring-to-rule-them-all/"/>
-    <updated>2010-01-28T08:07:00-05:00</updated>
-    <id>http://armhold.github.com/2010/01/28/apples-ipad-one-ring-to-rule-them-all</id>
-    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/noflash.png" alt="image" /></p>
+    <title type="html"><![CDATA[how to resolve App Engine timeouts when parsing web.xml]]></title>
+    <link href="http://armhold.github.com/2010/11/17/how-to-resolve-app-engine-timeouts-when-parsing-web-xml/"/>
+    <updated>2010-11-17T12:09:48-05:00</updated>
+    <id>http://armhold.github.com/2010/11/17/how-to-resolve-app-engine-timeouts-when-parsing-web-xml</id>
+    <content type="html"><![CDATA[<p>For a few weeks now I&#8217;ve been plagued with timeouts while updating my App Engine apps. At first I thought it was a problem in the Intellij EAP beta I was running, but today I spent some time digging into it.</p>
 
-<p>Like any Apple fan, I want to run out and buy an iPad today. I&#8217;ve wanted an eReader for quite some time now, and have been dragging my feet on getting a Kindle only because I wanted to see if Apple could produce something better. Notwithstanding the current lack of reviews of its text quality, the iPad certainly seems to be the more compelling device.</p>
+<p>It seems to be unrelated to the EAP, as I get the same behavior with the App Engine command-line tools- timeout failure parsing web.xml roughly 75% of the time. It looks like this:</p>
 
-<p>But there is a serious question you should ask yourself before taking the plunge. How would you feel if someone took your current computer (laptop, desktop- whatever it is you use on a daily basis) and told you that you could only install software on it that the manufacturer authorized? Do you currently check with Dell to see if it&#8217;s OK to install Photoshop or Chrome on your machine? With the iPad, that will be your Brave New World. Want to install the latest beta of your favorite program? Well, <strong>unless Apple makes radical changes to the App Store, you won&#8217;t be able to do that</strong>.</p>
+<blockquote><p>Nov 17, 2010 4:32:54 PM com.google.apphosting.utils.config.AbstractConfigXmlReader readConfigXml
+SEVERE: Received exception processing /Users/armhold/work/git-mega-repo/mystore/out/artifacts/Typing_Web_exploded/WEB-INF/web.xml
+com.google.apphosting.utils.config.AppEngineConfigException: Received IOException parsing the input stream for /Users/armhold/work/git-mega-repo/mystore/out/artifacts/Typing_Web_exploded/WEB-INF/web.xml
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.getTopLevelNode(AbstractConfigXmlReader.java:210)
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.parse(AbstractConfigXmlReader.java:228)
+at com.google.apphosting.utils.config.WebXmlReader.processXml(WebXmlReader.java:142)
+at com.google.apphosting.utils.config.WebXmlReader.processXml(WebXmlReader.java:22)
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.readConfigXml(AbstractConfigXmlReader.java:111)
+at com.google.apphosting.utils.config.WebXmlReader.readWebXml(WebXmlReader.java:73)
+at com.google.appengine.tools.admin.Application.(Application.java:105)
+at com.google.appengine.tools.admin.Application.readApplication(Application.java:151)
+at com.google.appengine.tools.admin.AppCfg.(AppCfg.java:115)
+at com.google.appengine.tools.admin.AppCfg.(AppCfg.java:61)
+at com.google.appengine.tools.admin.AppCfg.main(AppCfg.java:57)
+Caused by: java.net.ConnectException: Operation timed out
+After some <a href="http://code.google.com/p/googleappengine/issues/detail?id=1235#c15">digging around</a>, it seems to be related to a timeout deep in the bowels of Java&#8217;s XML libs while trying to validate the DTD for web.xml.</p></blockquote>
 
-<p>As an iPhone user, I was willing to make <em>some</em> concessions to Apple regarding what apps could and could not do on the device. It is after all a phone, and I want my phone to work when I use it. I don&#8217;t want the battery to die unexpectedly because some app was running in the background, or to lose my data because another app decided to scribble all over the file system. A phone is an appliance, and by and large you want an appliance to behave predictably and reliably.</p>
+<p>The fix is simple: elide the DTD declaration from the top of your web.xml:</p>
 
-<p>But a tablet computer isn&#8217;t quite the same thing. It sits vaguely between &#8220;ebook reader&#8221; and &#8220;laptop computer&#8221;. As time goes on, I expect that laptops in general will start to look more and more like tablets. As Jobs said,</p>
-
-<blockquote><blockquote><p><em><strong>&#8220;Browsing, Email, Photos, Video, Music, Games, eBooks&#8230; if there&#8217;s gonna be a third category of device, it&#8217;s gonna have to be better at these kinds of tasks than a laptop or a smartphone, otherwise it has no reason for being.&#8221;</strong></em></p></blockquote></blockquote>
-
-<p>Right now you might use the iPad to read the New York Times while waiting for your bus, or to check your email while sitting in a café. But will you eventually use it for actual work? If the technology gets good enough, will you leave your laptop behind and starting using your tablet for everything? <strong>Once you really come to rely on it for your work, will you still be comfortable with Apple exerting total control over every piece of software you install on it?</strong></p>
-
-<p>Did you notice during the demo that when Steve Jobs went to the NY Times website, there were lots of &#8220;missing plugin&#8221; icons where the Flash ads should have been? At first I thought this was just an embarrassing mistake in delivery, but the more I think about it, the more I&#8217;ve come to believe that this was entirely intentional- <strong>a message to the NY Times directly from Mr Jobs, saying that their website will look like crap on the device until they dump Flash</strong>.</p>
-
-<p>Apple&#8217;s <a href="http://www.wired.com/gadgetlab/2008/11/adobe-flash-on/">antipathy towards Flash</a>, and <a href="http://news.cnet.com/2100-1012-5181434.html">Adobe in general</a>, is nothing new. And as much as I would love to see Flash banished from the web, this kind of complete control by Apple really worries me. Don&#8217;t get me wrong- I really want one of these devices. But I&#8217;m not so sure I&#8217;m ready to give up that much control to Apple just yet.</p>
+<blockquote><p>&lt;!DOCTYPE web-app    PUBLIC &#8220;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&#8221;    &#8221;http://java.sun.com/dtd/web-app_2_3.dtd&#8221;></p></blockquote>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Intellij needs to support more than a single editor window]]></title>
-    <link href="http://armhold.github.com/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/"/>
-    <updated>2010-01-24T10:50:00-05:00</updated>
-    <id>http://armhold.github.com/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
+    <title type="html"><![CDATA[Implementing a keyboard in CSS]]></title>
+    <link href="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/"/>
+    <updated>2010-11-14T08:53:37-05:00</updated>
+    <id>http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css</id>
+    <content type="html"><![CDATA[<p>The predictive keyboard in <a href="http://www.quickbrownfrog.com/#typing:scottish_terrier.xml:0">QuickBrownFrog</a> has gone through three major iterations so far. At first, I really didn&#8217;t expect to be able to implement a functional keyboard in GWT (i.e. Javascript+CSS), so I set about drawing the keyboard using Omnigraffle.</p>
 
-<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
+<h3>Round 1 - Static Images</h3>
 
-<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
+<p><a href="http://armhold.github.com/images/2010/11/h.png"><img src="http://armhold.github.com/images/2010/11/h.png" alt="static keyboard image from Omnigraffle" /></a></p>
 
-<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
+<p>It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.</p>
 
-<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
+<p>GWT provides a way to <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideUiImageBundles.html">bundle image resources</a>, and that helped keep the image size in check, but it was still a bit slow on the client until all the images were cached. Unfortunately this also meant that I had to create a mongo ImageResources.java interface, which listed every foo_key() foo_keyShifted(), etc.</p>
 
-<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cleveland and Rouen Are Sister-Cities]]></title>
-    <link href="http://armhold.github.com/2010/01/05/cleveland-and-rouen-are-sister-cities/"/>
-    <updated>2010-01-05T12:05:00-05:00</updated>
-    <id>http://armhold.github.com/2010/01/05/cleveland-and-rouen-are-sister-cities</id>
-    <content type="html"><![CDATA[<p><img src="http://armhold.github.com/images/2010/01/rouen_cathedrale.jpg" alt="image" /></p>
+<p>So this clearly wasn&#8217;t optimal, but it worked for a while. Then when I decided it was time to change the &#8220;selected&#8221; color, and I had to manually re-color every single PNG. Obviously, this was not going to scale, and it was time to re-think my approach. So I set about experimenting with ways to programmatically generate the keyboard.</p>
 
-<p>I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that <a href="http://francewithbenefits.blogspot.com/2008/01/cleveland-rouen-sister-city-agreement.html">Cleveland and Rouen became sister cities in 2008</a>. Small world!</p>
+<h3>Round 2 - SVG</h3>
 
-<p><img src="" alt="" /></p>
+<p>First up, I went with SVG. The SVG Canvas is not natively supported in every browser, but the <a href="http://code.google.com/p/gwt-graphics/">GWT-Graphics library</a> gracefully uses VML in Internet Explorer, making it effectively cross-platform. This worked pretty well, and after a day and a half tweaking the layout, I had a functional SVG keyboard. And finally I was able to change the look of the keys (color, shape, etc) very easily with a couple lines of code. I was thrilled!</p>
+
+<p>Unfortunately VML on IE was still kind of slow, and also had some occasional rendering problems. Still, this was far better than a huge set of static images, so I stuck with SVG for a while. When it came time to re-design the website with a new color scheme I was really thrilled to not have to update 100+ keyboard images in Omnigraffle again.!</p>
+
+<p>Round 3 - CSS</p>
+
+<p>With launch-time approaching, the speed issues with VML have really started to become a problem. Clearly, a <em>predictive</em> keyboard needs to be faster than the typist using it, and my keyboard was not keeping up. That led me to my third iteration- CSS.</p>
+
+<p>Since my SVGKeyboard.java was created as an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">AbsolutePanel</a> subclass, it was fairly straightforward to re-implement it in regular old GWT. Instead of an SVG rect, each key is now simply an AbsolutePanel, with <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">InlineLabels</a> for keycaps.</p>
+
+<p>Implementing the &#8220;selected&#8221; coloring is as simple as adding and removing a CSS style that specifies the color and background-color. I was even able to make the keys look rounded with the following bit of CSS magic:</p>
+
+<pre><code>-moz-border-radius: 4px;
+ border-radius: 4px;
+</code></pre>
+
+<p>It&#8217;s perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there&#8217;s the performance improvement- typing really flies now!</p>
+
+<p><a href="http://armhold.github.com/images/2010/11/css_keyboard.png"><img src="http://armhold.github.com/images/2010/11/css_keyboard.png?w=300" alt="CSS Keyboard" /></a></p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Implementing a keyboard in CSS - George Armhold's Blog</title>
+  <meta name="author" content="George Armhold">
+
+  
+  <meta name="description" content="The predictive keyboard in QuickBrownFrog has gone through three major iterations so far. At first, I really didn&#8217;t expect to be able to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="George Armhold's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+    <div style="float: right;">
+        <a href="http://armhold.com">
+            <img src="/images/ruby-programmer.jpg" width="100px" alt="Ruby Programmer/Developer" />
+        </a>
+
+    </div>
+
+    <h1><a href="/">George Armhold's Blog</a></h1>
+  
+    <h2>Data-driven webapps built with Ruby, Java & Wicket</h2>
+  
+
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:armhold.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Implementing a Keyboard in CSS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-14T08:53:37-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The predictive keyboard in <a href="http://www.quickbrownfrog.com/#typing:scottish_terrier.xml:0">QuickBrownFrog</a> has gone through three major iterations so far. At first, I really didn&#8217;t expect to be able to implement a functional keyboard in GWT (i.e. Javascript+CSS), so I set about drawing the keyboard using Omnigraffle.</p>
+
+<h3>Round 1 - Static Images</h3>
+
+<p><a href="/images/2010/11/h.png"><img src="/images/2010/11/h.png" alt="static keyboard image from Omnigraffle" /></a></p>
+
+<p>It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.</p>
+
+<p>GWT provides a way to <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideUiImageBundles.html">bundle image resources</a>, and that helped keep the image size in check, but it was still a bit slow on the client until all the images were cached. Unfortunately this also meant that I had to create a mongo ImageResources.java interface, which listed every foo_key() foo_keyShifted(), etc.</p>
+
+<p>So this clearly wasn&#8217;t optimal, but it worked for a while. Then when I decided it was time to change the &#8220;selected&#8221; color, and I had to manually re-color every single PNG. Obviously, this was not going to scale, and it was time to re-think my approach. So I set about experimenting with ways to programmatically generate the keyboard.</p>
+
+<h3>Round 2 - SVG</h3>
+
+<p>First up, I went with SVG. The SVG Canvas is not natively supported in every browser, but the <a href="http://code.google.com/p/gwt-graphics/">GWT-Graphics library</a> gracefully uses VML in Internet Explorer, making it effectively cross-platform. This worked pretty well, and after a day and a half tweaking the layout, I had a functional SVG keyboard. And finally I was able to change the look of the keys (color, shape, etc) very easily with a couple lines of code. I was thrilled!</p>
+
+<p>Unfortunately VML on IE was still kind of slow, and also had some occasional rendering problems. Still, this was far better than a huge set of static images, so I stuck with SVG for a while. When it came time to re-design the website with a new color scheme I was really thrilled to not have to update 100+ keyboard images in Omnigraffle again.!</p>
+
+<p>Round 3 - CSS</p>
+
+<p>With launch-time approaching, the speed issues with VML have really started to become a problem. Clearly, a <em>predictive</em> keyboard needs to be faster than the typist using it, and my keyboard was not keeping up. That led me to my third iteration- CSS.</p>
+
+<p>Since my SVGKeyboard.java was created as an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">AbsolutePanel</a> subclass, it was fairly straightforward to re-implement it in regular old GWT. Instead of an SVG rect, each key is now simply an AbsolutePanel, with <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">InlineLabels</a> for keycaps.</p>
+
+<p>Implementing the &#8220;selected&#8221; coloring is as simple as adding and removing a CSS style that specifies the color and background-color. I was even able to make the keys look rounded with the following bit of CSS magic:</p>
+
+<pre><code>-moz-border-radius: 4px;
+ border-radius: 4px;
+</code></pre>
+
+<p>It&#8217;s perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there&#8217;s the performance improvement- typing really flies now!</p>
+
+<p><a href="/images/2010/11/css_keyboard.png"><img src="/images/2010/11/css_keyboard.png?w=300" alt="CSS Keyboard" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">George Armhold</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-14T08:53:37-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gwt/'>GWT</a>, <a class='category' href='/blog/categories/technical/'>Technical</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/11/08/introducing-quick-brown-frog/" title="Previous Post: Introducing Quick Brown... Frog?">&laquo; Introducing Quick Brown... Frog?</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/11/17/how-to-resolve-app-engine-timeouts-when-parsing-web-xml/" title="Next Post: how to resolve App Engine timeouts when parsing web.xml">how to resolve App Engine timeouts when parsing web.xml &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/23/pixlshare-rebooted/">Pixlshare-Rebooted</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/armhold">@armhold</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'armhold',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("CaffeineComa", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/CaffeineComa" class="twitter-follow-button" data-show-count="true">Follow @CaffeineComa</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - George Armhold -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GWT | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/gwt/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-21T11:39:59-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to make Ajax links crawlable with GWT and Google App Engine]]></title>
+    <link href="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/"/>
+    <updated>2011-01-07T13:18:11-05:00</updated>
+    <id>http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine</id>
+    <content type="html"><![CDATA[<p>If you care about <a href="http://en.wikipedia.org/wiki/Search_engine_optimization">SEO</a> you know that using GWT has a downside: much of your app's content is generated dynamically via Javascript, and is therefore invisible to search engines. You might have dozens of pages of awesome content, but all the Googlebot sees is the static HTML page that hosts your app. This can be a real problem.</p>
+
+<p>Fortunately, Google has proposed a <a href="http://code.google.com/web/ajaxcrawling/docs/getting-started.html">solution</a> for crawling ajax content:</p>
+
+<ul>
+<li><p>change your hrefs to support "bang notation":  www.example.com/ajax.html<strong>#!key=value</strong></p></li>
+<li><p><strong>when Googlebot makes requests of the form: </strong>www.example.com/ajax.html<strong>?<em>escaped_fragment</em>=key=value </strong><strong>, you return a static HTML version of the Ajax content</strong></p></li>
+</ul>
+
+
+<p>So then the problem becomes one of generating static content from your Ajax links. You could do that by hand if your site is small and changes infrequently. More likely you'll want a way to automate this.</p>
+
+<p>Google recommends using a "headless browser" approach, i.e. using something like <a href="http://htmlunit.sourceforge.net/">HtmlUnit</a>. That's a fine solution, but if you're running on App Engine <em>it's almost guaranteed not to work</em> because of the request timeout.  So if you want to run on App Engine, you're probably going to have to spider your own pages and pre-generate your HTML content.</p>
+
+<p>My solution to this problem is to break the spidering up into small chunks, and farm them out as tasks on App Engine's <a href="http://code.google.com/appengine/docs/java/taskqueue/overview.html">Task Queues</a>. Whenever I update my app's content, I submit a job that spiders the landing page looking for Ajax links. For each link that's found, I submit a task that recursively spiders the link (taking care not to get into loops). Each task saves the HTML content into the data store, which is then returned as cached static content to Googlebot.</p>
+
+<p>Suddenly my "simple" solution is sounding quite complicated, but it gets the job done reliably. Here's some code to make it clearer.</p>
+
+<p>I use a CachedAjaxLink data object to persist the static content:</p>
+
+<pre><code>public class CachedAjaxLink implements Serializable
+{
+    @Id
+    private String href;
+    private String cachedContent;
+    private Date dateCached;
+}
+</code></pre>
+
+<p>Then I use an AjaxCacher which crawls a given link, stores the results as CachedAjaxLinks, and queues Task Queue tasks for each link that it finds:</p>
+
+<pre><code>public class AjaxCacher
+{
+    protected static final Logger log = Logger.getLogger(AjaxCacher.class.getName());
+    protected static final DAO dao = new DAO();
+
+    public static final long PUMP_TIME = 5000;
+    protected WebClient webClient;
+    protected String crawlServletUrl;
+
+    public AjaxCacher(String crawlServletUrl)
+    {
+        this.crawlServletUrl = crawlServletUrl;
+        webClient = Holder.get();
+    }
+
+    public void crawl(URL urlToCrawl, Date crawlRequestTimestamp)
+    {
+        // URLs we've already queued
+        Set queuedURLs = new HashSet();
+        queuedURLs.add(urlToCrawl);
+
+        try
+        {
+            HtmlPage page = webClient.getPage(urlToCrawl);
+
+            // appengine hack because it's single threaded
+            webClient.getJavaScriptEngine().pumpEventLoop(PUMP_TIME);
+
+            String pageContent = page.asXml();
+
+            CachedAjaxLink cachedAjaxLink = new CachedAjaxLink();
+            cachedAjaxLink.setHref(urlToCrawl.getRef());
+            cachedAjaxLink.setCachedContent(pageContent);
+            cachedAjaxLink.setDateCached(new Date());  // time actually cached
+            dao.updateCachedAjaxLink(cachedAjaxLink);
+
+            List anchors = page.getAnchors();
+            for (HtmlAnchor anchor : anchors)
+            {
+                // only care about ajax links
+                if (! anchor.getHrefAttribute().startsWith("#")) continue;
+
+                URL newUrl = new URL(urlToCrawl, anchor.getHrefAttribute());
+
+                // don't queue multiple requests for the same URL
+                if (queuedURLs.contains(newUrl)) continue;
+
+                queuedURLs.add(newUrl);
+
+                // prevent loops
+                CachedAjaxLink link = dao.getCachedAjaxLink(newUrl.getRef());
+                if (link == null || link.getDateCached().getTime() &lt; crawlRequestTimestamp.getTime())
+                {
+                    queueCrawlRequest(newUrl.toString(), crawlRequestTimestamp);
+                }
+            }
+
+        } catch (IOException e)
+        {
+            log.log(Level.SEVERE, e.getMessage(), e);
+        }
+        finally
+        {
+            webClient.closeAllWindows();
+        }
+    }
+
+    /**
+     * submits a crawl request to the queue; TaskQueueServlet will then handle the request asynchronously
+     */
+    public void queueCrawlRequest(String urlToCrawl, Date timeStamp)
+    {
+        Queue queue = QueueFactory.getDefaultQueue();
+        TaskOptions options = TaskOptions.Builder.url(crawlServletUrl);
+        options.param("encodedUrl", ServerUtils.encodeURL(urlToCrawl));
+        options.param("timeStamp", ServerUtils.fromDate(timeStamp));
+        options.method(TaskOptions.Method.GET);
+        queue.add(options);
+    }
+
+    /**
+     * try to cache a copy of the WebClient in ThreadLocal for faster startups on Google App Engine
+     */
+    public static class Holder
+    {
+        private static ThreadLocal holder = new ThreadLocal()
+        {
+            protected synchronized WebClient initialValue()
+            {
+                WebClient result = new WebClient(BrowserVersion.FIREFOX_3);
+                result.setWebConnection(new UrlFetchWebConnection(result));
+                return result;
+            }
+        };
+
+        public static WebClient get()
+        {
+            return holder.get();
+        }
+    }
+}
+</code></pre>
+
+<p>Finally, I use a TaskQueueServlet to handle the queued tasks:</p>
+
+<pre><code>public class TaskQueueServlet extends HttpServlet
+{
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        doPost(req, res);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        String encodedUrl = req.getParameter("encodedUrl");
+        if (encodedUrl == null)
+        {
+            throw new IllegalArgumentException("missing param: encodedUrl");
+        }
+
+        String timeStamp = req.getParameter("timeStamp");
+        if (timeStamp == null)
+        {
+            throw new IllegalArgumentException("missing param: timeStamp");
+        }
+
+        String decodedUrl = ServerUtils.decodeURL(encodedUrl);
+        URL urlToCrawl = new URL(decodedUrl);
+
+        getServletContext().getInitParameter("taskQueuePath");
+        AjaxCacher cacher = new AjaxCacher(getServletContext().getInitParameter("taskQueuePath"));
+        cacher.crawl(urlToCrawl, ServerUtils.toDate(timeStamp));
+    }
+}
+</code></pre>
+
+<p>Thanks Google, for making it so easy. ;-)</p>
+
+<p>You can grab all of this code from my <a href="http://code.quickbrownfrog.com/">gwtquickstarter</a> library. It's the library that powers the <a href="http://www.quickbrownfrog.com">best typing tutor</a> on the web.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Implementing a keyboard in CSS]]></title>
+    <link href="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/"/>
+    <updated>2010-11-14T08:53:37-05:00</updated>
+    <id>http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css</id>
+    <content type="html"><![CDATA[<p>The predictive keyboard in <a href="http://www.quickbrownfrog.com/#typing:scottish_terrier.xml:0">QuickBrownFrog</a> has gone through three major iterations so far. At first, I really didn't expect to be able to implement a functional keyboard in GWT (i.e. Javascript+CSS), so I set about drawing the keyboard using Omnigraffle.</p>
+
+<h3>Round 1 - Static Images</h3>
+
+<p><a href="/images/2010/11/h.png"><img src="/images/2010/11/h.png" alt="static keyboard image from Omnigraffle" /></a></p>
+
+<p>It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.</p>
+
+<p>GWT provides a way to <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideUiImageBundles.html">bundle image resources</a>, and that helped keep the image size in check, but it was still a bit slow on the client until all the images were cached. Unfortunately this also meant that I had to create a mongo ImageResources.java interface, which listed every foo_key() foo_keyShifted(), etc.</p>
+
+<p>So this clearly wasn't optimal, but it worked for a while. Then when I decided it was time to change the "selected" color, and I had to manually re-color every single PNG. Obviously, this was not going to scale, and it was time to re-think my approach. So I set about experimenting with ways to programmatically generate the keyboard.</p>
+
+<h3>Round 2 - SVG</h3>
+
+<p>First up, I went with SVG. The SVG Canvas is not natively supported in every browser, but the <a href="http://code.google.com/p/gwt-graphics/">GWT-Graphics library</a> gracefully uses VML in Internet Explorer, making it effectively cross-platform. This worked pretty well, and after a day and a half tweaking the layout, I had a functional SVG keyboard. And finally I was able to change the look of the keys (color, shape, etc) very easily with a couple lines of code. I was thrilled!</p>
+
+<p>Unfortunately VML on IE was still kind of slow, and also had some occasional rendering problems. Still, this was far better than a huge set of static images, so I stuck with SVG for a while. When it came time to re-design the website with a new color scheme I was really thrilled to not have to update 100+ keyboard images in Omnigraffle again.!</p>
+
+<p>Round 3 - CSS</p>
+
+<p>With launch-time approaching, the speed issues with VML have really started to become a problem. Clearly, a <em>predictive</em> keyboard needs to be faster than the typist using it, and my keyboard was not keeping up. That led me to my third iteration- CSS.</p>
+
+<p>Since my SVGKeyboard.java was created as an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">AbsolutePanel</a> subclass, it was fairly straightforward to re-implement it in regular old GWT. Instead of an SVG rect, each key is now simply an AbsolutePanel, with <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">InlineLabels</a> for keycaps.</p>
+
+<p>Implementing the "selected" coloring is as simple as adding and removing a CSS style that specifies the color and background-color. I was even able to make the keys look rounded with the following bit of CSS magic:</p>
+
+<pre><code>-moz-border-radius: 4px;
+ border-radius: 4px;
+</code></pre>
+
+<p>It's perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there's the performance improvement- typing really flies now!</p>
+
+<p><a href="/images/2010/11/css_keyboard.png"><img src="/images/2010/11/css_keyboard.png?w=300" alt="CSS Keyboard" /></a></p>
+]]></content>
+  </entry>
+  
+</feed>

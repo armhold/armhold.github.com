@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>George Armhold's Blog</title>
+  <meta name="author" content="George Armhold">
+
+  
+  <meta name="description" content="Is it the end of AI Winter? machineslikeus.com thinks Spring might be around the corner. An AI Winter is a collapse in the perception of artificial &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://armhold.github.com/blog/page/12/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="George Armhold's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+    <div style="float: right;">
+        <a href="http://armhold.com">
+            <img src="/images/ruby-programmer.jpg" width="100px" alt="Ruby Programmer/Developer" />
+        </a>
+
+    </div>
+
+    <h1><a href="/">George Armhold's Blog</a></h1>
+  
+    <h2>Data-driven webapps built with Ruby, Java & Wicket</h2>
+  
+
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:armhold.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/01/the-end-of-ai-winter/">>the End of AI Winter?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-01T16:26:00-04:00" pubdate data-updated="true">Oct 1<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote></blockquote>
+
+<p>Is it the <a href="http://machineslikeus.com/the-end-of-AI-winter.html">end of AI Winter</a>? machineslikeus.com thinks Spring might be around the corner.</p>
+
+<blockquote><p>An AI Winter is a collapse in the perception of artificial intelligence research. The term was coined by analogy with the relentless spiral of a nuclear winter: a chain reaction of pessimism in the AI community, followed by pessimism in the press, followed by a severe cutback in funding, followed by the end of serious research.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/">Make Your Ajax Apps Seem Snappier With a Faster Animated Gif</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-29T13:58:00-04:00" pubdate data-updated="true">Sep 29<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I often lament the slow speed of the <a href="http://code.google.com/appengine/docs/java/gettingstarted/usingdatastore.html">datastore</a> used by Google&#8217;s App Engine, relative to an old-fashioned RDBMS. While Google&#8217;s datastore is designed to scale well for many, many simultaneous requests, it&#8217;s a bit pokey on day-to-day CRUD operations.</p>
+
+<p>To deal with this, I implemented a standard &#8220;loading&#8221; icon that my app displays when accessing the datastore. This way my users will know that something is happening behind the scenes, and not assume that my app has simply stopped responding.</p>
+
+<p>Recently I decided to pretty things up a bit, and so I used the <a href="http://www.ajaxload.info/">GIF Generator</a> at Ajaxload to create a gif that better matched <a href="http://recipeminder.appspot.com">my app&#8217;s</a> color scheme. I installed it, and quickly forgot about it.</p>
+
+<p>Later that same day, I went back to my site and was pleasantly surprised at how quickly App Engine was serving things up- things were noticeably snappier. Initially I chalked it up to the vagaries of the load on App Engine, but then I remembered the updated GIF I had installed. In addition to matching my site&#8217;s color scheme, it also happened to &#8220;spin&#8221; faster than the old one. I was shocked at what a huge difference this made! Even though the actual wall-clock time spent is roughly the same, a faster-spinning icon made a huge difference in the <em>perceived</em> wait time. And that&#8217;s what really matters most, isn&#8217;t it?</p>
+
+<p>PS: I wanted to include examples of the spinners, but Blogspot does not seem to support animated gifs. :-(</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/27/buckeyes-are-dangerous-weapons/">Buckeyes Are Dangerous Weapons</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-27T12:54:00-04:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/2009/09/photo.jpg" alt="image" />
+<img src="/images/2009/09/img_0247.jpg" alt="image" /></p>
+
+<p>I moved to Cleveland recently. Today I encountered my first Buckeye while walking my dog. After it narrowly missed beaming me in the head, it still managed to draw blood when I picked it up and stuck myself on one of its thorns.</p>
+
+<p>Once safely disarmed, the inside appears quite edible. I took it home and was planning to eat it, until I read they were poisonous. How is this thing <em>not</em> a weapon?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/11/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/23/pixlshare-rebooted/">Pixlshare-Rebooted</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/armhold">@armhold</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'armhold',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("CaffeineComa", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/CaffeineComa" class="twitter-follow-button" data-show-count="true">Follow @CaffeineComa</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - George Armhold -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

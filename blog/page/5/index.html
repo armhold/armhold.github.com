@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or &hellip;">
+  <meta name="description" content="The best typing tutor on the web is now available for sale in the Chrome Web Store. It was surprisingly easy to get into the store if you&#8217;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/03/14/how-to-disable-top-sites-in-safari/">How to Disable Top Sites in Safari</a></h1>
+      <h1 class="entry-title"><a href="/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store/">Quick Brown Frog Is Now Available in the Chrome Web Store</a></h1>
     
     
       <p class="meta">
@@ -94,23 +94,33 @@
   
 
 
-<time datetime="2010-03-14T00:56:00-05:00" pubdate data-updated="true">Mar 14<span>th</span>, 2010</time>
+<time datetime="2010-12-09T11:46:25-05:00" pubdate data-updated="true">Dec 9<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote></blockquote>
+  <div class="entry-content"><p>The <a href="http://www.quickbrownfrog.com">best typing tutor on the web</a> is now available for sale in the <a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn">Chrome Web Store</a>.</p>
 
-<p><img src="/images/2010/03/topsitesdemo.png" alt="image" />
-Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or window, and Safari sits there spinning while loading a bunch of web sites you may or may not be interested in going to. I find Safari to be a whole lot faster with the feature turned off.</p>
+<p><a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn"><img src="/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png" alt="" /></a></p>
 
-<p>It&#8217;s simple.  Open Preferences, and tweak the settings for &#8220;New windows open with&#8221; and &#8220;New tabs open with&#8221; to be either an <strong>Empty Page</strong>, or whatever <strong>Home Page</strong> you prefer.</p>
+<p>It was surprisingly easy to <a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html">get into the store</a> if you&#8217;ve got an existing webapp running:</p>
 
-<p><img src="http://armhold.files.wordpress.com/2010/03/disabletopsites.png?w=269" alt="" /></p>
+<ul>
+<li><p>pay Google $5 (one-time developer fee; <strong>not</strong> per-app)</p></li>
+<li><p>create a 16-line JSON manifest file</p></li>
+<li><p>take some screen shots and create an icon (the hardest part, really)</p></li>
+<li><p>bundle it into a zip</p></li>
+<li><p>checkmark a few boxes, add some descriptive text, click &#8220;publish&#8221;</p></li>
+</ul>
 
-<p><img src="" alt="" /></p>
+
+<p>All you are really doing is bundling up some meta-data so that Chrome users can see your app as being &#8220;installed&#8221;. Even though my app is very much server-dependent, and has its own concept of user accounts and payments, Google is happy to have it in the store. And I&#8217;m happy for the potential extra customers.</p>
+
+<p>It&#8217;s obvious that the Chrome Web Store is a great boon for developers. However it&#8217;s unclear whether users will actually find this useful, much less flock to it.</p>
+
+<p>My guess is that once we start seeing more apps that <em>really</em> use HTML5 features like local storage, it might take off. I hope it does.</p>
 </div>
   
   
@@ -123,7 +133,7 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/03/07/why-no-here-documents-for-java/">Why No &#8220;Here&#8221; Documents for Java?</a></h1>
+      <h1 class="entry-title"><a href="/2010/12/06/patrick-mckenzie-launches-appointment-reminder/">Patrick McKenzie Launches Appointment Reminder</a></h1>
     
     
       <p class="meta">
@@ -139,44 +149,20 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
   
 
 
-<time datetime="2010-03-07T20:50:00-05:00" pubdate data-updated="true">Mar 7<span>th</span>, 2010</time>
+<time datetime="2010-12-06T05:43:37-05:00" pubdate data-updated="true">Dec 6<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
+  <div class="entry-content"><p>Patrick McKenzie, a solo entrepreneur whom I admire greatly has launched his second project: <a href="https://www.appointmentreminder.org/">Appointment Reminder</a>.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
-</span><span class='line'>cat &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
-</span><span class='line'>Here is some text, embedded
-</span><span class='line'>
-</span><span class='line'>   <span class="s2">&quot;right in the middle&quot;</span>
-</span><span class='line'>
-</span><span class='line'>of my Bourne shell script.
-</span><span class='line'>EOF
-</span></code></pre></td></tr></table></div></figure>
+<p>Appointment Reminder is a service for personal business services (think: hair salons, medical offices, law firms, or anyone that regularly schedules appointments with clients). Appointment Reminder sends out reminders to clients automatically, via phone, SMS or email. Fewer forgotten appointments = increased revenue.</p>
 
+<p>He&#8217;s leveraging <a href="http://www.twilio.com/">Twilio</a>, and API that I&#8217;m just dying to find an excuse to use.</p>
 
-<p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Here is some text, embedded\n&quot;</span> <span class="o">+</span><span class="s">&quot; \&quot;right in the middle\&quot;\n&quot;</span> <span class="o">+</span><span class="s">&quot;of my Java program.\n&quot;</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
-
-<p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
+<p>Congrats Patrick, and good luck!</p>
 </div>
   
   
@@ -189,7 +175,7 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/30/ui-refresh-new-logo-and-other-eye-candy/">UI Refresh- New Logo and Other Eye Candy</a></h1>
     
     
       <p class="meta">
@@ -205,48 +191,25 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
   
 
 
-<time datetime="2010-03-06T17:56:00-05:00" pubdate data-updated="true">Mar 6<span>th</span>, 2010</time>
+<time datetime="2010-11-30T11:31:35-05:00" pubdate data-updated="true">Nov 30<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
+  <div class="entry-content"><p>I spent some time (and some $$) prettying up the <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> user interface.
+I bought a logo from <a href="http://www.logosamurai.com/">Logosamurai</a>.  Not bad for $67.</p>
 
-<p>Why do we do this?</p>
+<p><a href="/images/2010/11/alternate-edit.jpg"><img src="/images/2010/11/alternate-edit.jpg" alt="Quick Brown Frog logo" /></a></p>
 
-<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
+<p>Then I added some gauges to display WPM and accuracy in real-time. They&#8217;re part of the <a href="http://code.google.com/apis/visualization/documentation/gadgetgallery.html">Google Visualization API</a>, and they&#8217;re awesome.  That is, when they work. They don&#8217;t seem to work in IE8, so I&#8217;ve disabled them for that browser.</p>
 
-<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
+<p>And they have some pretty odd resizing behavior: if you don&#8217;t explicitly specify a width attribute, the gauges will <em>shrink</em> every time you update the gauge value. It took me quite a bit of experimentation to figure that one out, but thankfully it seems to be working now.</p>
 
-<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
+<p><a href="/images/2010/11/gauges.png"><img src="/images/2010/11/gauges.png" alt="speed test gauges" /></a></p>
 
-<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
-
-<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
-
-<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
-
-<p>But use interfaces with reason, and not by reflex.</p>
+<p>You can check out the changes in this <a href="http://www.quickbrownfrog.com/#!speedTest:">typing speed test</a>.</p>
 </div>
   
   
@@ -271,7 +234,7 @@ Although it might be pretty eye-candy, I do not find the Top Sites feature in Sa
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
       <li class="post">

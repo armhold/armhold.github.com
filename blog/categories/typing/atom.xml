@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Typing | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/typing/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-21T11:39:59-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Add a badge to your blog with your typing score!]]></title>
+    <link href="http://armhold.github.com/2010/12/28/add-a-badge-to-your-blog-with-your-typing-score/"/>
+    <updated>2010-12-28T10:45:09-05:00</updated>
+    <id>http://armhold.github.com/2010/12/28/add-a-badge-to-your-blog-with-your-typing-score</id>
+    <content type="html"><![CDATA[<p>Did you get an awesome word-per-minute score on your Quick Brown Frog typing speed test? Well now you can share it with the world by posting a Quick Brown Frog badge on your blog or website:
+<a href="http://quickbrownfrog.com#!practice:"><img src="/images/2010/12/typing-badge.png" alt="" /></a></p>
+
+<p>We just added a <a href="http://quickbrownfrog.com#!practice:">new feature</a> to all our typing practice sessions- at the end of the lesson you'll be shown the badge and the HTML code that generates it. Simply copy and paste the blue HTML code into your blog or website to add the badge for all to see.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Feature: create a typing practice from random English words]]></title>
+    <link href="http://armhold.github.com/2010/12/28/new-feature-create-a-typing-practice-from-random-english-words/"/>
+    <updated>2010-12-28T10:30:10-05:00</updated>
+    <id>http://armhold.github.com/2010/12/28/new-feature-create-a-typing-practice-from-random-english-words</id>
+    <content type="html"><![CDATA[<p>We've been busy adding new features over the Christmas holidays. The first of these is already available for you to use: you can now create a practice typing session from a set of <a href="http://www.quickbrownfrog.com/#!practice:">random English words</a>:</p>
+
+<p><a href="http://quickbrownfrog.com#!practice:"><img src="/images/2010/12/type-random-words1.png" alt="type random words" /></a></p>
+
+<p>We've had numerous requests from users for a feature that would generate random typing lessons based on actual words. You can now generate instant typing practices, simply by choosing the number of words you wish to type.</p>
+
+<p><a href="http://quickbrownfrog.com#!practice:"><img src="/images/2010/12/random-word-lesson.png" alt="Random word typing practice" /></a></p>
+
+<p>We're planning to extend this feature in the future to create automatically create lessons targeting letters that you need to practice (the ones you make the most typos with).</p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Measuring Typing Accuracy]]></title>
+    <link href="http://armhold.github.com/2010/11/22/measuring-typing-accuracy/"/>
+    <updated>2010-11-22T05:38:25-05:00</updated>
+    <id>http://armhold.github.com/2010/11/22/measuring-typing-accuracy</id>
+    <content type="html"><![CDATA[<p>It turns out that measuring typing accuracy (how accurately you hit the intended keys) is non-trivial. A quick survey
+of the online typing courses out there shows that there is considerable confusion over how to correctly measure typing
+accuracy. One site actually gives a <em>negative percentage</em> if you backspace too many times!</p>
+
+<p>This was kind of surprising to me. I figured it would take me perhaps 10 minutes to implement. It ended up taking
+a day and a half of my time, $10 spent on an ACM article, and some quality time with a recent CS grad's
+<a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">PhD thesis</a>. No joke.</p>
+
+<p>Well, to be completely honest, in the end, the implementation <em>was</em> in fact fairly trivial. What was hard was
+figuring out <em>what to measure</em>. It's more of a human problem than a technical one.</p>
+
+<h3>Why is this hard?</h3>
+
+<p>Your intuition might be to simply measure the ratio of correct characters to total characters typed. At first glance
+this seems OK, but consider the following case:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+    intended: The quick brown frog jumped over the lazy fox.<br/>
+    actual  : The qu<span style="color:#993300">ck brown frog jumped over the lazy fox.</span>
+</pre>
+
+
+<p>If we match up the typed characters with what was expected, the accuracy of this typed statement is a very low 15 %. But looking at it from a human perspective, what were the actual errors here? The typist missed the "i" character in the word "quick", and as a result the rest of the line was offset by one.  It seems like there ought to be a way to more accurately capture the fact that the user made a single typo. There is.</p>
+
+<h3>Edit Distance</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Edit_distance">Edit Distance</a> is the number of operations required to transform one
+string into another. The operations include <em>insertion</em>, <em>deletion</em> and <em>substitution</em>. In this example, it requires
+only a single edit- 'insert an i'.</p>
+
+<p>Soukoreff's <a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">thesis</a> describes
+a <em>Minimum String Distance Error Rate</em> as the Edit Distance divided by the maximum of the lengths of the presented
+vs typed text, times 100%. For our "off by one" example above, the error rate is a mere 2%, i.e. 98% accurate.
+That seems more reasonable!</p>
+
+<p>So for a while I was using the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance algorithm</a>
+to compute the edit distance, and hence the accuracy. This certainly worked better than my initial naive algorithm,
+but it still had a problem- What if the typist made <em>lots</em> of errors, but was fastidious about backspacing over the
+mistakes and correcting them? His error rate would be zero in this case, with an accuracy of 100%.</p>
+
+<p>While correcting all your mistakes is admirable, it seems wrong to award a "100% accurate" rating to a typist
+sporting a bruised backspace key. Somehow, we've got to take the mistakes into account, even if they've been corrected.</p>
+
+<h3>Text-Entry Taxonomy</h3>
+
+<p>Soukoreff's PhD thesis again provides a solution. Classify each of the keystrokes into one of the following categories:</p>
+
+<ul>
+<li><p><strong>C</strong> - Correctly typed</p></li>
+<li><p><strong>IF</strong> - Incorrect, but Fixed</p></li>
+<li><p><strong>INF</strong> - Incorrect, Not Fixed</p></li>
+<li><p><strong>F</strong> - Fixes, i.e. backspace or cursor movement used to correct mistakes</p></li>
+</ul>
+
+
+<p>Using these classifications, he proposes a <em>Total Error Rate</em> defined as:</p>
+
+<blockquote><p>(INF + IF) / (C + INF + IF) * 100%</p></blockquote>
+
+<p>So, going back to our "off by one" example, if the typist noticed immediately that he missed the 'i' in 'quick',
+and backspaced to correct it,</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">c</span>⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>the breakdown would be C: 47, F: 1, IF: 1,. INF: 0, for a total error rate of (0 + 1) / (47 + 0 + 1) = 2%, or 98%
+accurate. Same as using the Edit Distance alone, in this example.</p>
+
+<p>But what if the user didn't notice the mistake until 10 characters later? The input stream would look something
+like this:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">ck brown f</span>⌫⌫⌫⌫⌫⌫⌫⌫⌫⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>What's the error rate now? C:47, F:10, IF: 10, INF: 0, or (0 + 10) / (47 + 0 + 10) * 100% = 17.5%, or roughly
+82% accurate. Aha!</p>
+
+<p>I plugged this formula into <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> and watched the error rate go up and
+down while typing. <em>Finally</em>, it seemed to be doing the right thing- rewarding accurate, deliberate typing, and taking
+off points for outright mistakes as well expensive corrections.</p>
+
+<p>Yet another example of why it's hard to estimate software schedules- sometimes the 'trivial' is anything but.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing Quick Brown... Frog?]]></title>
+    <link href="http://armhold.github.com/2010/11/08/introducing-quick-brown-frog/"/>
+    <updated>2010-11-08T09:21:21-05:00</updated>
+    <id>http://armhold.github.com/2010/11/08/introducing-quick-brown-frog</id>
+    <content type="html"><![CDATA[<p>I'm working on a new consumer-oriented webapp for touch-typing lessons. I've been very much inspired by
+<a href="http://www.kalzumeus.com/">Patrick McKenzie</a> of <a href="http://www.bingocardcreator.com/">Bingo Card Creator</a> fame, so you
+ will find some obvious similarities between our approaches and target audience. This blog will document both the
+ technical and business aspects of bringing Quick Brown Frog to market.</p>
+
+<h2>So, why typing software?</h2>
+
+<p>Typing software has been around forever, and there are some excellent, well-known packages for learning how to type.
+But most of them are shrink-wrap products that you have to physically purchase and install from CD. The idea that you
+need to have a round piece of plastic shipped to your home in order to install a piece of software is really an
+anachronism in 2010.</p>
+
+<p>Yes, there are some decent typing tutors on the web, but the ones that actually work half-decently are Flash or Java
+apps. I think I can do something in the modern browser, and without resorting to any plugins.</p>
+
+<h2>Tools</h2>
+
+<p>Additionally, once I've had a chance to go back and clean up and refactor my code, I hope to take the nuts-and-bolts
+scaffolding from my app and turn <em>that</em> into a product- a quick-starter way to create all the common things a
+consumer-oriented webapps needs, such as account creation, secure password hashing, "Buy Now" links,
+expiring downloads, etc.</p>
+
+<p>Stay tuned for more news on that front, as well as some "how it's built" type posts.</p>
+
+<h2>Quick Brown... Frog?</h2>
+
+<p>"Quick Brown Fox" was the obvious choice, but alas, there's already an (iPhone) app by that name.
+<a href="http://QuickBrownFrog.appspot.com">QuickBrownFrog.com</a> was unique and available, so there it is! It's still
+quite heavily under construction, but feel free to visit and leave me some (much appreciated) feedback.</p>
+]]></content>
+  </entry>
+  
+</feed>

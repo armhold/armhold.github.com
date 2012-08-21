@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;ve been a fan of Intellij IDEA for years, since a friend introduced me to it. It&#8217;s by far the best Java IDE around (this coming from a &hellip;">
+  <meta name="description" content="For a few weeks now I&#8217;ve been plagued with timeouts while updating my App Engine apps. At first I thought it was a problem in the Intellij EAP &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/">Intellij Needs to Support More Than a Single Editor Window</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/17/how-to-resolve-app-engine-timeouts-when-parsing-web-xml/">How to Resolve App Engine Timeouts When Parsing web.xml</a></h1>
     
     
       <p class="meta">
@@ -94,24 +94,37 @@
   
 
 
-<time datetime="2010-01-24T10:50:00-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2010</time>
+<time datetime="2010-11-17T12:09:48-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
+  <div class="entry-content"><p>For a few weeks now I&#8217;ve been plagued with timeouts while updating my App Engine apps. At first I thought it was a problem in the Intellij EAP beta I was running, but today I spent some time digging into it.</p>
 
-<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
+<p>It seems to be unrelated to the EAP, as I get the same behavior with the App Engine command-line tools- timeout failure parsing web.xml roughly 75% of the time. It looks like this:</p>
 
-<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
+<blockquote><p>Nov 17, 2010 4:32:54 PM com.google.apphosting.utils.config.AbstractConfigXmlReader readConfigXml
+SEVERE: Received exception processing /Users/armhold/work/git-mega-repo/mystore/out/artifacts/Typing_Web_exploded/WEB-INF/web.xml
+com.google.apphosting.utils.config.AppEngineConfigException: Received IOException parsing the input stream for /Users/armhold/work/git-mega-repo/mystore/out/artifacts/Typing_Web_exploded/WEB-INF/web.xml
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.getTopLevelNode(AbstractConfigXmlReader.java:210)
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.parse(AbstractConfigXmlReader.java:228)
+at com.google.apphosting.utils.config.WebXmlReader.processXml(WebXmlReader.java:142)
+at com.google.apphosting.utils.config.WebXmlReader.processXml(WebXmlReader.java:22)
+at com.google.apphosting.utils.config.AbstractConfigXmlReader.readConfigXml(AbstractConfigXmlReader.java:111)
+at com.google.apphosting.utils.config.WebXmlReader.readWebXml(WebXmlReader.java:73)
+at com.google.appengine.tools.admin.Application.(Application.java:105)
+at com.google.appengine.tools.admin.Application.readApplication(Application.java:151)
+at com.google.appengine.tools.admin.AppCfg.(AppCfg.java:115)
+at com.google.appengine.tools.admin.AppCfg.(AppCfg.java:61)
+at com.google.appengine.tools.admin.AppCfg.main(AppCfg.java:57)
+Caused by: java.net.ConnectException: Operation timed out
+After some <a href="http://code.google.com/p/googleappengine/issues/detail?id=1235#c15">digging around</a>, it seems to be related to a timeout deep in the bowels of Java&#8217;s XML libs while trying to validate the DTD for web.xml.</p></blockquote>
 
-<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
+<p>The fix is simple: elide the DTD declaration from the top of your web.xml:</p>
 
-<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
-
-<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
+<blockquote><p>&lt;!DOCTYPE web-app    PUBLIC &#8220;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&#8221;    &#8221;http://java.sun.com/dtd/web-app_2_3.dtd&#8221;></p></blockquote>
 </div>
   
   
@@ -124,7 +137,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/01/05/cleveland-and-rouen-are-sister-cities/">Cleveland and Rouen Are Sister-Cities</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/14/implementing-a-keyboard-in-css/">Implementing a Keyboard in CSS</a></h1>
     
     
       <p class="meta">
@@ -140,18 +153,46 @@
   
 
 
-<time datetime="2010-01-05T12:05:00-05:00" pubdate data-updated="true">Jan 5<span>th</span>, 2010</time>
+<time datetime="2010-11-14T08:53:37-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2010/01/rouen_cathedrale.jpg" alt="image" /></p>
+  <div class="entry-content"><p>The predictive keyboard in <a href="http://www.quickbrownfrog.com/#typing:scottish_terrier.xml:0">QuickBrownFrog</a> has gone through three major iterations so far. At first, I really didn&#8217;t expect to be able to implement a functional keyboard in GWT (i.e. Javascript+CSS), so I set about drawing the keyboard using Omnigraffle.</p>
 
-<p>I used to live in Rouen, France. I recently moved to Cleveland. Today I learned that <a href="http://francewithbenefits.blogspot.com/2008/01/cleveland-rouen-sister-city-agreement.html">Cleveland and Rouen became sister cities in 2008</a>. Small world!</p>
+<h3>Round 1 - Static Images</h3>
 
-<p><img src="" alt="" /></p>
+<p><a href="/images/2010/11/h.png"><img src="/images/2010/11/h.png" alt="static keyboard image from Omnigraffle" /></a></p>
+
+<p>It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.</p>
+
+<p>GWT provides a way to <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideUiImageBundles.html">bundle image resources</a>, and that helped keep the image size in check, but it was still a bit slow on the client until all the images were cached. Unfortunately this also meant that I had to create a mongo ImageResources.java interface, which listed every foo_key() foo_keyShifted(), etc.</p>
+
+<p>So this clearly wasn&#8217;t optimal, but it worked for a while. Then when I decided it was time to change the &#8220;selected&#8221; color, and I had to manually re-color every single PNG. Obviously, this was not going to scale, and it was time to re-think my approach. So I set about experimenting with ways to programmatically generate the keyboard.</p>
+
+<h3>Round 2 - SVG</h3>
+
+<p>First up, I went with SVG. The SVG Canvas is not natively supported in every browser, but the <a href="http://code.google.com/p/gwt-graphics/">GWT-Graphics library</a> gracefully uses VML in Internet Explorer, making it effectively cross-platform. This worked pretty well, and after a day and a half tweaking the layout, I had a functional SVG keyboard. And finally I was able to change the look of the keys (color, shape, etc) very easily with a couple lines of code. I was thrilled!</p>
+
+<p>Unfortunately VML on IE was still kind of slow, and also had some occasional rendering problems. Still, this was far better than a huge set of static images, so I stuck with SVG for a while. When it came time to re-design the website with a new color scheme I was really thrilled to not have to update 100+ keyboard images in Omnigraffle again.!</p>
+
+<p>Round 3 - CSS</p>
+
+<p>With launch-time approaching, the speed issues with VML have really started to become a problem. Clearly, a <em>predictive</em> keyboard needs to be faster than the typist using it, and my keyboard was not keeping up. That led me to my third iteration- CSS.</p>
+
+<p>Since my SVGKeyboard.java was created as an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">AbsolutePanel</a> subclass, it was fairly straightforward to re-implement it in regular old GWT. Instead of an SVG rect, each key is now simply an AbsolutePanel, with <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">InlineLabels</a> for keycaps.</p>
+
+<p>Implementing the &#8220;selected&#8221; coloring is as simple as adding and removing a CSS style that specifies the color and background-color. I was even able to make the keys look rounded with the following bit of CSS magic:</p>
+
+<pre><code>-moz-border-radius: 4px;
+ border-radius: 4px;
+</code></pre>
+
+<p>It&#8217;s perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there&#8217;s the performance improvement- typing really flies now!</p>
+
+<p><a href="/images/2010/11/css_keyboard.png"><img src="/images/2010/11/css_keyboard.png?w=300" alt="CSS Keyboard" /></a></p>
 </div>
   
   
@@ -164,7 +205,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/11/15/apple-fails-at-customer-service/">Apple Fails at Customer Service</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/08/introducing-quick-brown-frog/">Introducing Quick Brown&#8230; Frog?</a></h1>
     
     
       <p class="meta">
@@ -180,59 +221,42 @@
   
 
 
-<time datetime="2009-11-15T19:31:00-05:00" pubdate data-updated="true">Nov 15<span>th</span>, 2009</time>
+<time datetime="2010-11-08T09:21:21-05:00" pubdate data-updated="true">Nov 8<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2009/11/bluetoothmac.jpg" alt="image" />
-Before I get started, let me say that I&#8217;ve been a big Apple fan for a number of years now. I&#8217;ve purchased enough Macbooks, iMacs, iPods, iPhones, and iTunes content that I sometimes feel that maybe I should just go ahead and have a portion of my salary direct-deposited to Apple. I&#8217;ve even turned down job offers from companies that &#8220;don&#8217;t do Mac&#8221;. So publishing this blog entry feels almost like a betrayal of sorts.</p>
+  <div class="entry-content"><p>I&#8217;m working on a new consumer-oriented webapp for touch-typing lessons. I&#8217;ve been very much inspired by
+<a href="http://www.kalzumeus.com/">Patrick McKenzie</a> of <a href="http://www.bingocardcreator.com/">Bingo Card Creator</a> fame, so you
+ will find some obvious similarities between our approaches and target audience. This blog will document both the
+ technical and business aspects of bringing Quick Brown Frog to market.</p>
 
-<p>In November, I started a new job. They were kind enough to buy me pretty much whatever kind of top-of-the-line computer equipment I wanted. I settled on a Mac Pro tower with quad core 2.93GHz, 8GB and 1TB. A beast of a machine, with a hefty price tag of over $3.5K. It arrived, and I was thrilled with it. Until the second day, when it developed a problem with its fans.</p>
+<h2>So, why typing software?</h2>
 
-<p>DOA #1</p>
+<p>Typing software has been around forever, and there are some excellent, well-known packages for learning how to type.
+But most of them are shrink-wrap products that you have to physically purchase and install from CD. The idea that you
+need to have a round piece of plastic shipped to your home in order to install a piece of software is really an
+anachronism in 2010.</p>
 
-<p>For some reason the fans just started going full-tilt all the time, on a completely unloaded CPU. Even from a totally cold-restart. It was loud enough for my wife to inquire from another room, &#8220;what&#8217;s that noise?&#8221; I tried all the obvious things you might think of, and then some not-so-obvious things that the Apple tech support had me try over the phone.</p>
+<p>Yes, there are some decent typing tutors on the web, but the ones that actually work half-decently are Flash or Java
+apps. I think I can do something in the modern browser, and without resorting to any plugins.</p>
 
-<p>Nothing seemed to help, so the tech support offered to do a replacement, but told me that I&#8217;d have to box the machine up, ship it back to them, and then wait for them to receive it before sending me back a replacement. Since I was starting a new job in a couple of days and I <strong>needed</strong> this computer, this wouldn&#8217;t work for me. They suggested I bring it in to my local Apple Store and see if they could fix it. The tech support guy was even kind enough to schedule me an appointment with a &#8220;Genius&#8221;.</p>
+<h2>Tools</h2>
 
-<p>So I lugged the tower (all 65 pounds of it) down to the Apple Store. The tech there was nice, took the machine in the back for a while and ran a few diagnostics on it. Eventually he came out and told me <strong>he could not reproduce the problem,</strong> and that <strong>all the diagnostics were normal</strong>. He admitted that it was a &#8220;little&#8221; loud, but not enough that he could isolate any particular component to replace.</p>
+<p>Additionally, once I&#8217;ve had a chance to go back and clean up and refactor my code, I hope to take the nuts-and-bolts
+scaffolding from my app and turn <em>that</em> into a product- a quick-starter way to create all the common things a
+consumer-oriented webapps needs, such as account creation, secure password hashing, &#8220;Buy Now&#8221; links,
+expiring downloads, etc.</p>
 
-<p>Now before I fell in love with Apple, I had been building my own PCs for years, and I can tell you that this was <strong>not normal fan behavior</strong>. It&#8217;s certainly not normal to be able to hear your computer from the other side of the house. And it didn&#8217;t do this on day one; this anomalous behavior began on day two, so it just didn&#8217;t make any sense that this was &#8220;normal&#8221;.</p>
+<p>Stay tuned for more news on that front, as well as some &#8220;how it&#8217;s built&#8221; type posts.</p>
 
-<p>So I guessed that maybe it was just too loud in the back room for the Genius to really appreciate the sound this thing was making. Or maybe he just didn&#8217;t know how to fix it. Whatever. I figured he&#8217;d just DOA it, and hand me a replacement on the spot. Nope- Apple would certainly DOA it for me, <strong>but since it was bought online, and not at the local store, I had to ship it back to Apple.</strong> WTF? So I had to lug all 65 pounds of it back home, defeated.</p>
+<h2>Quick Brown&#8230; Frog?</h2>
 
-<p>I called Apple back up, and tried to negotiate for some kind of &#8220;ship ahead replacement&#8221;, whereby they could send me a replacement ASAP, and I would return the loud-but-functional machine once its replacement arrived (and then I could easy transfer my data, too). Nope. &#8220;But we paid extra for AppleCare!&#8221; Nope. I really needed a working computer for my upcoming start date, so I had to get my boss involved.</p>
-
-<p>He ended up spending over 70 minutes on the phone with them, and managed to &#8220;negotiate&#8221; a situation whereby he would purchase <strong>another</strong>, identical Mac Pro, they would ship it, and after it arrived I&#8217;d send back the original machine for a refund. So yes, they charged him for both machines, and the 2 x $3500 was on the company credit card until I shipped the defective unit back. Ugh!</p>
-
-<p>So I sent a polite, but to-the-point letter to Apple explaining the situation, and how it was not very professional, that Dell does better, etc. etc. The next day I get a call back from a very pleasant fellow named Ryan. He explained that my email had reached &#8220;the executive level&#8221;, that the lack of a &#8220;ship ahead&#8221; for defective units keeps coming up in customer service, and that he was happy to have my feedback. He gave me his email address and direct phone number, and told me to get in touch if I needed anything. This was a nice touch, even if he was just trying to make me feel better.</p>
-
-<p>A week or so later, the new Mac arrives. And it was blessedly silent. My wife was happy, I was happy. I transferred my data over, packed the old Mac up and shipped it back.</p>
-
-<p>Bluetooth Blues, aka DOA #2</p>
-
-<p>Happy to finally have a machine that I could stand to be in the same room with, I went down to the Apple Store again and bought myself a shiny new <strong>Magic Mouse</strong>, for $69. Went home and tried to use it, but found that the mouse just stuttered all over the screen. Tried it with my MacBook Pro, and it worked fine. For some reason it just did not like the tower.</p>
-
-<p>Again, I tried all the obvious things like software update, checking the battery, etc. No good. Finally I noticed that the mouse would work if I brought it to within about 8 inches of the Mac Pro- any farther than that, and it stopped working. So yeah you guessed it, a bad Bluetooth system on the new computer. Ugh! It turns out this is a <a href="http://2718.us/blog/2009/10/26/mac-pro-2007-bluetooth/">fairly</a> <a href="http://www.macosxhints.com/article.php?story=20060928062014272">common</a> <a href="http://www.mcelhearn.com/2007/04/19/apple-bungles-bluetooth-in-mac-pro/">problem</a>, going back to at least 2006 on the Mac Pro tower. I called Apple tech support, they had me try a bunch of things, and eventually confirmed my diagnosis.</p>
-
-<p>So this is <strong>a second DOA unit</strong>. You would think that maybe I had finally crossed some threshold where Apple would take pity on me, and just send me a new machine ASAP already, without making me go through all the &#8220;send us your bad unit first, and then we&#8217;ll replace it&#8221; bullshit. And you&#8217;d be wrong.</p>
-
-<p>So again, they offered to have it repaired at my local Apple Store, and <strong>assured me</strong> that they&#8217;d be able to fix it then and there, and not have to ship it away. They even made the appointment for me. I intentionally chose an appointment slot 4 days away, so that any parts they might need would be available, etc.</p>
-
-<p>So my Genius appointment arrives on Friday, and I lug the 65 pound box to the store one more time. My appointment was for 9:30am. They call my name, and I explain the long and sordid story. Then Genius tells me &#8220;oh, but my tech won&#8217;t be here until 11&#8221;. What? But my appointment is at 9:30! Turns out that Apple tech support did not communicate to the store that this would be a repair. Oh, and another thing- they don&#8217;t have the parts they need to fix the bluetooth- they&#8217;ll have to order it, and it&#8217;ll be another 1-3 days before it arrives. Are you serious? You want me to lug this computer back here <strong>a third time</strong>? Needless to say, I was pretty pissed off. I explained to the guy that I understood that it wasn&#8217;t <em>his</em> fault, per se, but Apple needs to get its act together. He offered to make me an appointment for next week, but I declined. Frankly I had had enough.</p>
-
-<p>So I fired off an email to Ryan explaining what happened. I get a call back from him, and incredibly, he tries to tell me that Apple has &#8220;gone above and beyond&#8221; in this situation. Really? How so? He says that by <strong>letting us purchase a second computer </strong>before sending the defective one back, Apple has more than fulfilled its obligation to us. Are you serious? Are you standing within range of Steve Jobs&#8217; Reality Distortion Field or something? I told him that I wasn&#8217;t really sure why he was calling me, because if the point of his call was to make me feel better, he&#8217;s just pissed me off even more. I say &#8220;thanks&#8221; and we hang up.</p>
-
-<p>Capitulation</p>
-
-<p>I am so annoyed at this point that I don&#8217;t even want to continue trying to get the computer fixed. I went and bought a $50 Bluetooth USB adapter, and my mouse now works fine. Considering the hassle it would take to ship the damn thing back to Apple again, this is clearly the path of least resistance.</p>
-
-<p>Apple- if this is how you treat business customers, customers who are tech-savvy and can diagnose problems with your equipment, what hope is there for anyone else? What&#8217;s the point of buying AppleCare? After all, <strong>even Dell will do a &#8220;ship ahead&#8221; </strong>for a defective part, even to a non-business home user.</p>
-
-<p>Think Different indeed.</p>
+<p>&#8220;Quick Brown Fox&#8221; was the obvious choice, but alas, there&#8217;s already an (iPhone) app by that name.
+<a href="http://QuickBrownFrog.appspot.com">QuickBrownFrog.com</a> was unique and available, so there it is! It&#8217;s still
+quite heavily under construction, but feel free to visit and leave me some (much appreciated) feedback.</p>
 </div>
   
   
@@ -257,7 +281,7 @@ Before I get started, let me say that I&#8217;ve been a big Apple fan for a numb
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
       <li class="post">

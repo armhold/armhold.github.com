@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How to make Ajax links crawlable with GWT and Google App Engine - George Armhold's Blog</title>
+  <meta name="author" content="George Armhold">
+
+  
+  <meta name="description" content="If you care about SEO you know that using GWT has a downside: much of your app&#8217;s content is generated dynamically via Javascript, and is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="George Armhold's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+    <div style="float: right;">
+        <a href="http://armhold.com">
+            <img src="/images/ruby-programmer.jpg" width="100px" alt="Ruby Programmer/Developer" />
+        </a>
+
+    </div>
+
+    <h1><a href="/">George Armhold's Blog</a></h1>
+  
+    <h2>Data-driven webapps built with Ruby, Java & Wicket</h2>
+  
+
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:armhold.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How to Make Ajax Links Crawlable With GWT and Google App Engine</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-07T13:18:11-05:00" pubdate data-updated="true">Jan 7<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you care about <a href="http://en.wikipedia.org/wiki/Search_engine_optimization">SEO</a> you know that using GWT has a downside: much of your app&#8217;s content is generated dynamically via Javascript, and is therefore invisible to search engines. You might have dozens of pages of awesome content, but all the Googlebot sees is the static HTML page that hosts your app. This can be a real problem.</p>
+
+<p>Fortunately, Google has proposed a <a href="http://code.google.com/web/ajaxcrawling/docs/getting-started.html">solution</a> for crawling ajax content:</p>
+
+<ul>
+<li><p>change your hrefs to support &#8220;bang notation&#8221;:  www.example.com/ajax.html<strong>#!key=value</strong></p></li>
+<li><p><strong>when Googlebot makes requests of the form: </strong>www.example.com/ajax.html<strong>?<em>escaped_fragment</em>=key=value </strong><strong>, you return a static HTML version of the Ajax content</strong></p></li>
+</ul>
+
+
+<p>So then the problem becomes one of generating static content from your Ajax links. You could do that by hand if your site is small and changes infrequently. More likely you&#8217;ll want a way to automate this.</p>
+
+<p>Google recommends using a &#8220;headless browser&#8221; approach, i.e. using something like <a href="http://htmlunit.sourceforge.net/">HtmlUnit</a>. That&#8217;s a fine solution, but if you&#8217;re running on App Engine <em>it&#8217;s almost guaranteed not to work</em> because of the request timeout.  So if you want to run on App Engine, you&#8217;re probably going to have to spider your own pages and pre-generate your HTML content.</p>
+
+<p>My solution to this problem is to break the spidering up into small chunks, and farm them out as tasks on App Engine&#8217;s <a href="http://code.google.com/appengine/docs/java/taskqueue/overview.html">Task Queues</a>. Whenever I update my app&#8217;s content, I submit a job that spiders the landing page looking for Ajax links. For each link that&#8217;s found, I submit a task that recursively spiders the link (taking care not to get into loops). Each task saves the HTML content into the data store, which is then returned as cached static content to Googlebot.</p>
+
+<p>Suddenly my &#8220;simple&#8221; solution is sounding quite complicated, but it gets the job done reliably. Here&#8217;s some code to make it clearer.</p>
+
+<p>I use a CachedAjaxLink data object to persist the static content:</p>
+
+<pre><code>public class CachedAjaxLink implements Serializable
+{
+    @Id
+    private String href;
+    private String cachedContent;
+    private Date dateCached;
+}
+</code></pre>
+
+<p>Then I use an AjaxCacher which crawls a given link, stores the results as CachedAjaxLinks, and queues Task Queue tasks for each link that it finds:</p>
+
+<pre><code>public class AjaxCacher
+{
+    protected static final Logger log = Logger.getLogger(AjaxCacher.class.getName());
+    protected static final DAO dao = new DAO();
+
+    public static final long PUMP_TIME = 5000;
+    protected WebClient webClient;
+    protected String crawlServletUrl;
+
+    public AjaxCacher(String crawlServletUrl)
+    {
+        this.crawlServletUrl = crawlServletUrl;
+        webClient = Holder.get();
+    }
+
+    public void crawl(URL urlToCrawl, Date crawlRequestTimestamp)
+    {
+        // URLs we've already queued
+        Set queuedURLs = new HashSet();
+        queuedURLs.add(urlToCrawl);
+
+        try
+        {
+            HtmlPage page = webClient.getPage(urlToCrawl);
+
+            // appengine hack because it's single threaded
+            webClient.getJavaScriptEngine().pumpEventLoop(PUMP_TIME);
+
+            String pageContent = page.asXml();
+
+            CachedAjaxLink cachedAjaxLink = new CachedAjaxLink();
+            cachedAjaxLink.setHref(urlToCrawl.getRef());
+            cachedAjaxLink.setCachedContent(pageContent);
+            cachedAjaxLink.setDateCached(new Date());  // time actually cached
+            dao.updateCachedAjaxLink(cachedAjaxLink);
+
+            List anchors = page.getAnchors();
+            for (HtmlAnchor anchor : anchors)
+            {
+                // only care about ajax links
+                if (! anchor.getHrefAttribute().startsWith("#")) continue;
+
+                URL newUrl = new URL(urlToCrawl, anchor.getHrefAttribute());
+
+                // don't queue multiple requests for the same URL
+                if (queuedURLs.contains(newUrl)) continue;
+
+                queuedURLs.add(newUrl);
+
+                // prevent loops
+                CachedAjaxLink link = dao.getCachedAjaxLink(newUrl.getRef());
+                if (link == null || link.getDateCached().getTime() &lt; crawlRequestTimestamp.getTime())
+                {
+                    queueCrawlRequest(newUrl.toString(), crawlRequestTimestamp);
+                }
+            }
+
+        } catch (IOException e)
+        {
+            log.log(Level.SEVERE, e.getMessage(), e);
+        }
+        finally
+        {
+            webClient.closeAllWindows();
+        }
+    }
+
+    /**
+     * submits a crawl request to the queue; TaskQueueServlet will then handle the request asynchronously
+     */
+    public void queueCrawlRequest(String urlToCrawl, Date timeStamp)
+    {
+        Queue queue = QueueFactory.getDefaultQueue();
+        TaskOptions options = TaskOptions.Builder.url(crawlServletUrl);
+        options.param("encodedUrl", ServerUtils.encodeURL(urlToCrawl));
+        options.param("timeStamp", ServerUtils.fromDate(timeStamp));
+        options.method(TaskOptions.Method.GET);
+        queue.add(options);
+    }
+
+    /**
+     * try to cache a copy of the WebClient in ThreadLocal for faster startups on Google App Engine
+     */
+    public static class Holder
+    {
+        private static ThreadLocal holder = new ThreadLocal()
+        {
+            protected synchronized WebClient initialValue()
+            {
+                WebClient result = new WebClient(BrowserVersion.FIREFOX_3);
+                result.setWebConnection(new UrlFetchWebConnection(result));
+                return result;
+            }
+        };
+
+        public static WebClient get()
+        {
+            return holder.get();
+        }
+    }
+}
+</code></pre>
+
+<p>Finally, I use a TaskQueueServlet to handle the queued tasks:</p>
+
+<pre><code>public class TaskQueueServlet extends HttpServlet
+{
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        doPost(req, res);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        String encodedUrl = req.getParameter("encodedUrl");
+        if (encodedUrl == null)
+        {
+            throw new IllegalArgumentException("missing param: encodedUrl");
+        }
+
+        String timeStamp = req.getParameter("timeStamp");
+        if (timeStamp == null)
+        {
+            throw new IllegalArgumentException("missing param: timeStamp");
+        }
+
+        String decodedUrl = ServerUtils.decodeURL(encodedUrl);
+        URL urlToCrawl = new URL(decodedUrl);
+
+        getServletContext().getInitParameter("taskQueuePath");
+        AjaxCacher cacher = new AjaxCacher(getServletContext().getInitParameter("taskQueuePath"));
+        cacher.crawl(urlToCrawl, ServerUtils.toDate(timeStamp));
+    }
+}
+</code></pre>
+
+<p>Thanks Google, for making it so easy. ;-)</p>
+
+<p>You can grab all of this code from my <a href="http://code.quickbrownfrog.com/">gwtquickstarter</a> library. It&#8217;s the library that powers the <a href="http://www.quickbrownfrog.com">best typing tutor</a> on the web.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">George Armhold</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-07T13:18:11-05:00" pubdate data-updated="true">Jan 7<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gwt/'>GWT</a>, <a class='category' href='/blog/categories/google-app-engine/'>Google App Engine</a>, <a class='category' href='/blog/categories/technical/'>Technical</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/" data-via="CaffeineComa" data-counturl="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2010/12/28/add-a-badge-to-your-blog-with-your-typing-score/" title="Previous Post: Add a badge to your blog with your typing score!">&laquo; Add a badge to your blog with your typing score!</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/06/06/pixlshare-an-image-sharing-app/" title="Next Post: Pixlshare- an image sharing app">Pixlshare- an image sharing app &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/23/pixlshare-rebooted/">Pixlshare-Rebooted</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/armhold">@armhold</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'armhold',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("CaffeineComa", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/CaffeineComa" class="twitter-follow-button" data-show-count="true">Follow @CaffeineComa</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - George Armhold -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

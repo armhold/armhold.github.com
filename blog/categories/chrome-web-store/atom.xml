@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Chrome Web Store | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/chrome-web-store/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-21T11:39:59-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog is now available in the Chrome Web Store]]></title>
+    <link href="http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store/"/>
+    <updated>2010-12-09T11:46:25-05:00</updated>
+    <id>http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.quickbrownfrog.com">best typing tutor on the web</a> is now available for sale in the <a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn">Chrome Web Store</a>.</p>
+
+<p><a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn"><img src="/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png" alt="" /></a></p>
+
+<p>It was surprisingly easy to <a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html">get into the store</a> if you've got an existing webapp running:</p>
+
+<ul>
+<li><p>pay Google $5 (one-time developer fee; <strong>not</strong> per-app)</p></li>
+<li><p>create a 16-line JSON manifest file</p></li>
+<li><p>take some screen shots and create an icon (the hardest part, really)</p></li>
+<li><p>bundle it into a zip</p></li>
+<li><p>checkmark a few boxes, add some descriptive text, click "publish"</p></li>
+</ul>
+
+
+<p>All you are really doing is bundling up some meta-data so that Chrome users can see your app as being "installed". Even though my app is very much server-dependent, and has its own concept of user accounts and payments, Google is happy to have it in the store. And I'm happy for the potential extra customers.</p>
+
+<p>It's obvious that the Chrome Web Store is a great boon for developers. However it's unclear whether users will actually find this useful, much less flock to it.</p>
+
+<p>My guess is that once we start seeing more apps that <em>really</em> use HTML5 features like local storage, it might take off. I hope it does.</p>
+]]></content>
+  </entry>
+  
+</feed>

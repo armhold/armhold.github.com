@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Technical | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/technical/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-21T11:39:59-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to make Ajax links crawlable with GWT and Google App Engine]]></title>
+    <link href="http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine/"/>
+    <updated>2011-01-07T13:18:11-05:00</updated>
+    <id>http://armhold.github.com/2011/01/07/how-to-make-ajax-links-crawlable-with-gwt-and-google-app-engine</id>
+    <content type="html"><![CDATA[<p>If you care about <a href="http://en.wikipedia.org/wiki/Search_engine_optimization">SEO</a> you know that using GWT has a downside: much of your app's content is generated dynamically via Javascript, and is therefore invisible to search engines. You might have dozens of pages of awesome content, but all the Googlebot sees is the static HTML page that hosts your app. This can be a real problem.</p>
+
+<p>Fortunately, Google has proposed a <a href="http://code.google.com/web/ajaxcrawling/docs/getting-started.html">solution</a> for crawling ajax content:</p>
+
+<ul>
+<li><p>change your hrefs to support "bang notation":  www.example.com/ajax.html<strong>#!key=value</strong></p></li>
+<li><p><strong>when Googlebot makes requests of the form: </strong>www.example.com/ajax.html<strong>?<em>escaped_fragment</em>=key=value </strong><strong>, you return a static HTML version of the Ajax content</strong></p></li>
+</ul>
+
+
+<p>So then the problem becomes one of generating static content from your Ajax links. You could do that by hand if your site is small and changes infrequently. More likely you'll want a way to automate this.</p>
+
+<p>Google recommends using a "headless browser" approach, i.e. using something like <a href="http://htmlunit.sourceforge.net/">HtmlUnit</a>. That's a fine solution, but if you're running on App Engine <em>it's almost guaranteed not to work</em> because of the request timeout.  So if you want to run on App Engine, you're probably going to have to spider your own pages and pre-generate your HTML content.</p>
+
+<p>My solution to this problem is to break the spidering up into small chunks, and farm them out as tasks on App Engine's <a href="http://code.google.com/appengine/docs/java/taskqueue/overview.html">Task Queues</a>. Whenever I update my app's content, I submit a job that spiders the landing page looking for Ajax links. For each link that's found, I submit a task that recursively spiders the link (taking care not to get into loops). Each task saves the HTML content into the data store, which is then returned as cached static content to Googlebot.</p>
+
+<p>Suddenly my "simple" solution is sounding quite complicated, but it gets the job done reliably. Here's some code to make it clearer.</p>
+
+<p>I use a CachedAjaxLink data object to persist the static content:</p>
+
+<pre><code>public class CachedAjaxLink implements Serializable
+{
+    @Id
+    private String href;
+    private String cachedContent;
+    private Date dateCached;
+}
+</code></pre>
+
+<p>Then I use an AjaxCacher which crawls a given link, stores the results as CachedAjaxLinks, and queues Task Queue tasks for each link that it finds:</p>
+
+<pre><code>public class AjaxCacher
+{
+    protected static final Logger log = Logger.getLogger(AjaxCacher.class.getName());
+    protected static final DAO dao = new DAO();
+
+    public static final long PUMP_TIME = 5000;
+    protected WebClient webClient;
+    protected String crawlServletUrl;
+
+    public AjaxCacher(String crawlServletUrl)
+    {
+        this.crawlServletUrl = crawlServletUrl;
+        webClient = Holder.get();
+    }
+
+    public void crawl(URL urlToCrawl, Date crawlRequestTimestamp)
+    {
+        // URLs we've already queued
+        Set queuedURLs = new HashSet();
+        queuedURLs.add(urlToCrawl);
+
+        try
+        {
+            HtmlPage page = webClient.getPage(urlToCrawl);
+
+            // appengine hack because it's single threaded
+            webClient.getJavaScriptEngine().pumpEventLoop(PUMP_TIME);
+
+            String pageContent = page.asXml();
+
+            CachedAjaxLink cachedAjaxLink = new CachedAjaxLink();
+            cachedAjaxLink.setHref(urlToCrawl.getRef());
+            cachedAjaxLink.setCachedContent(pageContent);
+            cachedAjaxLink.setDateCached(new Date());  // time actually cached
+            dao.updateCachedAjaxLink(cachedAjaxLink);
+
+            List anchors = page.getAnchors();
+            for (HtmlAnchor anchor : anchors)
+            {
+                // only care about ajax links
+                if (! anchor.getHrefAttribute().startsWith("#")) continue;
+
+                URL newUrl = new URL(urlToCrawl, anchor.getHrefAttribute());
+
+                // don't queue multiple requests for the same URL
+                if (queuedURLs.contains(newUrl)) continue;
+
+                queuedURLs.add(newUrl);
+
+                // prevent loops
+                CachedAjaxLink link = dao.getCachedAjaxLink(newUrl.getRef());
+                if (link == null || link.getDateCached().getTime() &lt; crawlRequestTimestamp.getTime())
+                {
+                    queueCrawlRequest(newUrl.toString(), crawlRequestTimestamp);
+                }
+            }
+
+        } catch (IOException e)
+        {
+            log.log(Level.SEVERE, e.getMessage(), e);
+        }
+        finally
+        {
+            webClient.closeAllWindows();
+        }
+    }
+
+    /**
+     * submits a crawl request to the queue; TaskQueueServlet will then handle the request asynchronously
+     */
+    public void queueCrawlRequest(String urlToCrawl, Date timeStamp)
+    {
+        Queue queue = QueueFactory.getDefaultQueue();
+        TaskOptions options = TaskOptions.Builder.url(crawlServletUrl);
+        options.param("encodedUrl", ServerUtils.encodeURL(urlToCrawl));
+        options.param("timeStamp", ServerUtils.fromDate(timeStamp));
+        options.method(TaskOptions.Method.GET);
+        queue.add(options);
+    }
+
+    /**
+     * try to cache a copy of the WebClient in ThreadLocal for faster startups on Google App Engine
+     */
+    public static class Holder
+    {
+        private static ThreadLocal holder = new ThreadLocal()
+        {
+            protected synchronized WebClient initialValue()
+            {
+                WebClient result = new WebClient(BrowserVersion.FIREFOX_3);
+                result.setWebConnection(new UrlFetchWebConnection(result));
+                return result;
+            }
+        };
+
+        public static WebClient get()
+        {
+            return holder.get();
+        }
+    }
+}
+</code></pre>
+
+<p>Finally, I use a TaskQueueServlet to handle the queued tasks:</p>
+
+<pre><code>public class TaskQueueServlet extends HttpServlet
+{
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        doPost(req, res);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
+    {
+        String encodedUrl = req.getParameter("encodedUrl");
+        if (encodedUrl == null)
+        {
+            throw new IllegalArgumentException("missing param: encodedUrl");
+        }
+
+        String timeStamp = req.getParameter("timeStamp");
+        if (timeStamp == null)
+        {
+            throw new IllegalArgumentException("missing param: timeStamp");
+        }
+
+        String decodedUrl = ServerUtils.decodeURL(encodedUrl);
+        URL urlToCrawl = new URL(decodedUrl);
+
+        getServletContext().getInitParameter("taskQueuePath");
+        AjaxCacher cacher = new AjaxCacher(getServletContext().getInitParameter("taskQueuePath"));
+        cacher.crawl(urlToCrawl, ServerUtils.toDate(timeStamp));
+    }
+}
+</code></pre>
+
+<p>Thanks Google, for making it so easy. ;-)</p>
+
+<p>You can grab all of this code from my <a href="http://code.quickbrownfrog.com/">gwtquickstarter</a> library. It's the library that powers the <a href="http://www.quickbrownfrog.com">best typing tutor</a> on the web.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog is now available in the Chrome Web Store]]></title>
+    <link href="http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store/"/>
+    <updated>2010-12-09T11:46:25-05:00</updated>
+    <id>http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.quickbrownfrog.com">best typing tutor on the web</a> is now available for sale in the <a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn">Chrome Web Store</a>.</p>
+
+<p><a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn"><img src="/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png" alt="" /></a></p>
+
+<p>It was surprisingly easy to <a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html">get into the store</a> if you've got an existing webapp running:</p>
+
+<ul>
+<li><p>pay Google $5 (one-time developer fee; <strong>not</strong> per-app)</p></li>
+<li><p>create a 16-line JSON manifest file</p></li>
+<li><p>take some screen shots and create an icon (the hardest part, really)</p></li>
+<li><p>bundle it into a zip</p></li>
+<li><p>checkmark a few boxes, add some descriptive text, click "publish"</p></li>
+</ul>
+
+
+<p>All you are really doing is bundling up some meta-data so that Chrome users can see your app as being "installed". Even though my app is very much server-dependent, and has its own concept of user accounts and payments, Google is happy to have it in the store. And I'm happy for the potential extra customers.</p>
+
+<p>It's obvious that the Chrome Web Store is a great boon for developers. However it's unclear whether users will actually find this useful, much less flock to it.</p>
+
+<p>My guess is that once we start seeing more apps that <em>really</em> use HTML5 features like local storage, it might take off. I hope it does.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Patrick McKenzie launches Appointment Reminder]]></title>
+    <link href="http://armhold.github.com/2010/12/06/patrick-mckenzie-launches-appointment-reminder/"/>
+    <updated>2010-12-06T05:43:37-05:00</updated>
+    <id>http://armhold.github.com/2010/12/06/patrick-mckenzie-launches-appointment-reminder</id>
+    <content type="html"><![CDATA[<p>Patrick McKenzie, a solo entrepreneur whom I admire greatly has launched his second project: <a href="https://www.appointmentreminder.org/">Appointment Reminder</a>.</p>
+
+<p>Appointment Reminder is a service for personal business services (think: hair salons, medical offices, law firms, or anyone that regularly schedules appointments with clients). Appointment Reminder sends out reminders to clients automatically, via phone, SMS or email. Fewer forgotten appointments = increased revenue.</p>
+
+<p>He's leveraging <a href="http://www.twilio.com/">Twilio</a>, and API that I'm just dying to find an excuse to use.</p>
+
+<p>Congrats Patrick, and good luck!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog Typing Tutor is launched!]]></title>
+    <link href="http://armhold.github.com/2010/11/25/quick-brown-frog-is-launched/"/>
+    <updated>2010-11-25T04:34:18-05:00</updated>
+    <id>http://armhold.github.com/2010/11/25/quick-brown-frog-is-launched</id>
+    <content type="html"><![CDATA[<p>After lots of helpful feedback from beta testers and Hacker News, my <a href="http://www.quickbrownfrog.com">typing tutor</a> app "Quick Brown Frog" is live and open for business!</p>
+
+<p>Some of the things I changed in response to feedback include:</p>
+
+<ul>
+<li><p><a href="http://www.quickbrownfrog.com/#!store:">price reduction</a> from $29.95 -> $9.95</p></li>
+<li><p>support both Google Checkout and Paypal options for payment</p></li>
+<li><p><a href="http://www.quickbrownfrog.com/#!progress:">stats reporting</a> (WPM/Accuracy improvement over time)</p></li>
+<li><p>report on frequently mis-typed keys after practice lessons</p></li>
+<li><p>allow automatic single/double spacing after end of sentences (<em>very</em> frequently requested)</p></li>
+<li><p>implemented crawlable Ajax links for SEO</p></li>
+<li><p>plus many bug fixes for cross-browser compatibility</p></li>
+</ul>
+
+
+<p>I consider this an <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP-level</a> release, which means that it still needs lots of work and polish (in particular, the look-and-feel of the UI).</p>
+
+<p>The important thing is to get it out there, and start getting feedback from actual customers. Absent that, I'd just be spinning my wheels.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Measuring Typing Accuracy]]></title>
+    <link href="http://armhold.github.com/2010/11/22/measuring-typing-accuracy/"/>
+    <updated>2010-11-22T05:38:25-05:00</updated>
+    <id>http://armhold.github.com/2010/11/22/measuring-typing-accuracy</id>
+    <content type="html"><![CDATA[<p>It turns out that measuring typing accuracy (how accurately you hit the intended keys) is non-trivial. A quick survey
+of the online typing courses out there shows that there is considerable confusion over how to correctly measure typing
+accuracy. One site actually gives a <em>negative percentage</em> if you backspace too many times!</p>
+
+<p>This was kind of surprising to me. I figured it would take me perhaps 10 minutes to implement. It ended up taking
+a day and a half of my time, $10 spent on an ACM article, and some quality time with a recent CS grad's
+<a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">PhD thesis</a>. No joke.</p>
+
+<p>Well, to be completely honest, in the end, the implementation <em>was</em> in fact fairly trivial. What was hard was
+figuring out <em>what to measure</em>. It's more of a human problem than a technical one.</p>
+
+<h3>Why is this hard?</h3>
+
+<p>Your intuition might be to simply measure the ratio of correct characters to total characters typed. At first glance
+this seems OK, but consider the following case:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+    intended: The quick brown frog jumped over the lazy fox.<br/>
+    actual  : The qu<span style="color:#993300">ck brown frog jumped over the lazy fox.</span>
+</pre>
+
+
+<p>If we match up the typed characters with what was expected, the accuracy of this typed statement is a very low 15 %. But looking at it from a human perspective, what were the actual errors here? The typist missed the "i" character in the word "quick", and as a result the rest of the line was offset by one.  It seems like there ought to be a way to more accurately capture the fact that the user made a single typo. There is.</p>
+
+<h3>Edit Distance</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Edit_distance">Edit Distance</a> is the number of operations required to transform one
+string into another. The operations include <em>insertion</em>, <em>deletion</em> and <em>substitution</em>. In this example, it requires
+only a single edit- 'insert an i'.</p>
+
+<p>Soukoreff's <a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">thesis</a> describes
+a <em>Minimum String Distance Error Rate</em> as the Edit Distance divided by the maximum of the lengths of the presented
+vs typed text, times 100%. For our "off by one" example above, the error rate is a mere 2%, i.e. 98% accurate.
+That seems more reasonable!</p>
+
+<p>So for a while I was using the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance algorithm</a>
+to compute the edit distance, and hence the accuracy. This certainly worked better than my initial naive algorithm,
+but it still had a problem- What if the typist made <em>lots</em> of errors, but was fastidious about backspacing over the
+mistakes and correcting them? His error rate would be zero in this case, with an accuracy of 100%.</p>
+
+<p>While correcting all your mistakes is admirable, it seems wrong to award a "100% accurate" rating to a typist
+sporting a bruised backspace key. Somehow, we've got to take the mistakes into account, even if they've been corrected.</p>
+
+<h3>Text-Entry Taxonomy</h3>
+
+<p>Soukoreff's PhD thesis again provides a solution. Classify each of the keystrokes into one of the following categories:</p>
+
+<ul>
+<li><p><strong>C</strong> - Correctly typed</p></li>
+<li><p><strong>IF</strong> - Incorrect, but Fixed</p></li>
+<li><p><strong>INF</strong> - Incorrect, Not Fixed</p></li>
+<li><p><strong>F</strong> - Fixes, i.e. backspace or cursor movement used to correct mistakes</p></li>
+</ul>
+
+
+<p>Using these classifications, he proposes a <em>Total Error Rate</em> defined as:</p>
+
+<blockquote><p>(INF + IF) / (C + INF + IF) * 100%</p></blockquote>
+
+<p>So, going back to our "off by one" example, if the typist noticed immediately that he missed the 'i' in 'quick',
+and backspaced to correct it,</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">c</span>⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>the breakdown would be C: 47, F: 1, IF: 1,. INF: 0, for a total error rate of (0 + 1) / (47 + 0 + 1) = 2%, or 98%
+accurate. Same as using the Edit Distance alone, in this example.</p>
+
+<p>But what if the user didn't notice the mistake until 10 characters later? The input stream would look something
+like this:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">ck brown f</span>⌫⌫⌫⌫⌫⌫⌫⌫⌫⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>What's the error rate now? C:47, F:10, IF: 10, INF: 0, or (0 + 10) / (47 + 0 + 10) * 100% = 17.5%, or roughly
+82% accurate. Aha!</p>
+
+<p>I plugged this formula into <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> and watched the error rate go up and
+down while typing. <em>Finally</em>, it seemed to be doing the right thing- rewarding accurate, deliberate typing, and taking
+off points for outright mistakes as well expensive corrections.</p>
+
+<p>Yet another example of why it's hard to estimate software schedules- sometimes the 'trivial' is anything but.</p>
+]]></content>
+  </entry>
+  
+</feed>

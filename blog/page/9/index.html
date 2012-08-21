@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I often lament the slow speed of the datastore used by Google&#8217;s App Engine, relative to an old-fashioned RDBMS. While Google&#8217;s datastore &hellip;">
+  <meta name="description" content="Many languages support the notion of  &#8221;here documents&#8221;.  This is a handy way of embedded string literals that would normally have to be &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/09/29/make-your-ajax-apps-seem-snappier-with-a-faster-animated-gif/">Make Your Ajax Apps Seem Snappier With a Faster Animated Gif</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/07/why-no-here-documents-for-java/">Why No &#8220;Here&#8221; Documents for Java?</a></h1>
     
     
       <p class="meta">
@@ -94,22 +94,44 @@
   
 
 
-<time datetime="2009-09-29T13:58:00-04:00" pubdate data-updated="true">Sep 29<span>th</span>, 2009</time>
+<time datetime="2010-03-07T20:50:00-05:00" pubdate data-updated="true">Mar 7<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>I often lament the slow speed of the <a href="http://code.google.com/appengine/docs/java/gettingstarted/usingdatastore.html">datastore</a> used by Google&#8217;s App Engine, relative to an old-fashioned RDBMS. While Google&#8217;s datastore is designed to scale well for many, many simultaneous requests, it&#8217;s a bit pokey on day-to-day CRUD operations.</p>
+  <div class="entry-content"><p>Many languages support the notion of  &#8221;<a href="http://en.wikipedia.org/wiki/Here_document">here documents</a>&#8221;.  This is a handy way of embedded string literals that would normally have to be escaped right into your program text.  </p>
 
-<p>To deal with this, I implemented a standard &#8220;loading&#8221; icon that my app displays when accessing the datastore. This way my users will know that something is happening behind the scenes, and not assume that my app has simply stopped responding.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'>cat &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
+</span><span class='line'>Here is some text, embedded
+</span><span class='line'>
+</span><span class='line'>   <span class="s2">&quot;right in the middle&quot;</span>
+</span><span class='line'>
+</span><span class='line'>of my Bourne shell script.
+</span><span class='line'>EOF
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Recently I decided to pretty things up a bit, and so I used the <a href="http://www.ajaxload.info/">GIF Generator</a> at Ajaxload to create a gif that better matched <a href="http://recipeminder.appspot.com">my app&#8217;s</a> color scheme. I installed it, and quickly forgot about it.</p>
 
-<p>Later that same day, I went back to my site and was pleasantly surprised at how quickly App Engine was serving things up- things were noticeably snappier. Initially I chalked it up to the vagaries of the load on App Engine, but then I remembered the updated GIF I had installed. In addition to matching my site&#8217;s color scheme, it also happened to &#8220;spin&#8221; faster than the old one. I was shocked at what a huge difference this made! Even though the actual wall-clock time spent is roughly the same, a faster-spinning icon made a huge difference in the <em>perceived</em> wait time. And that&#8217;s what really matters most, isn&#8217;t it?</p>
+<p>Having been a standard feature in the Unix shells for decades, this language structure is supported in many newer languages, such as Ruby. Python, PHP and Perl.  But not Java.  In Java, this program would look like:</p>
 
-<p>PS: I wanted to include examples of the spinners, but Blogspot does not seem to support animated gifs. :-(</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Here is some text, embedded\n&quot;</span> <span class="o">+</span><span class="s">&quot; \&quot;right in the middle\&quot;\n&quot;</span> <span class="o">+</span><span class="s">&quot;of my Java program.\n&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, the quoting and escaping required to reproduce this text is pretty ugly.</p>
+
+<p>Wouldn&#8217;t it be nice if we could do this kind of thing in Java too?  It would be great for things like XML and Unit Tests.   How did we get to 2010 without having this as a standard language feature?  Has it ever come up in a JSR?   I haven&#8217;t had much luck in digging up any information (the term &#8220;here document&#8221; is remarkably hard to search on.) If you know something about this, please leave a comment.</p>
 </div>
   
   
@@ -122,7 +144,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/09/27/buckeyes-are-dangerous-weapons/">Buckeyes Are Dangerous Weapons</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/06/relax-you-can-mostly-stop-using-interfaces-in-java-now/">Relax. You Can (Mostly) Stop Using Interfaces in Java Now.</a></h1>
     
     
       <p class="meta">
@@ -138,19 +160,143 @@
   
 
 
-<time datetime="2009-09-27T12:54:00-04:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+<time datetime="2010-03-06T17:56:00-05:00" pubdate data-updated="true">Mar 6<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2009/09/photo.jpg" alt="image" />
-<img src="/images/2009/09/img_0247.jpg" alt="image" /></p>
+  <div class="entry-content"><p>Detractors of Java are correct to point out a rather unfortunate trend in the Java world- there is a common tendency for developers to turn every non-trivial class into an Interface, and then create an &#8220;Impl&#8221; that actually does the work.  As a result, your codebase becomes littered with lots of superfluous interfaces that have only a single implementation.</p>
 
-<p>I moved to Cleveland recently. Today I encountered my first Buckeye while walking my dog. After it narrowly missed beaming me in the head, it still managed to draw blood when I picked it up and stuck myself on one of its thorns.</p>
+<p>Why do we do this?</p>
 
-<p>Once safely disarmed, the inside appears quite edible. I took it home and was planning to eat it, until I read they were poisonous. How is this thing <em>not</em> a weapon?</p>
+<p>Part of it is simple <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronautics</a>, but there is actually a very legitimate use case for creating interfaces even when there is only a single implementation- it allows you to mock out your objects so that other classes can be unit tested easily. This is really important in TDD, and so I&#8217;ve come to accept the fact that there will always be some extra &#8220;interface noise&#8221; in the codebase in order to support a good test infrastructure.  C&#8217;est la vie, right?</p>
+
+<p>Along comes JMock 2.5, with its <a href="http://www.jmock.org/mocking-classes.html">ClassImposterizer</a>, backed by cglib.</p>
+
+<blockquote><p><em>&#8220;The </em><code>_ClassImposteriser_</code><em> creates mock instances without calling the constructor of the mocked class. So classes with constructors that have arguments or call overideable methods of the object can be safely mocked.&#8221;</em></p></blockquote>
+
+<p>I should point out that this isn&#8217;t exactly new- JMock 2.5 came out in 2008, so I&#8217;m a little late to the game here.  But I haven&#8217;t seen much written about this.  It&#8217;s a really huge change.  It means that you can do things like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">awt</span><span class="o">.</span><span class="na">Graphics2D</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Of course this is great for testing code that uses libraries that weren&#8217;t designed with mocking in mind, but even better than that- you can use it against your own code, and save yourself from having to create interfaces.</p>
+
+<p>This means you can go ahead and create your concrete MyComplicatedDAO, without having to create MyComplicatedDAOIFace, MyComplicatedDAOImpl, MyComplicatedDAODummy, etc.  When you need to test code that uses it, you just do:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">MyComplicatedDAO</span> <span class="n">dao</span> <span class="o">=</span> <span class="n">mockery</span><span class="o">.</span><span class="na">mock</span><span class="o">(</span><span class="n">MyComplicatedDAO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockery</span><span class="o">.</span><span class="na">checking</span><span class="o">(</span><span class="k">new</span> <span class="n">Expectations</span><span class="o">()</span> <span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s really hard to overstate the significance of this.   It&#8217;s changed the way I write and test code. It&#8217;s very refreshing to be able to start out with a concrete class and <em>write code that does stuff,</em> rather than code that merely <em>talks</em> about doing stuff.</p>
+
+<p>Of course there are still very legitimate reasons for using interfaces. If you&#8217;re designing a library, using interfaces makes life easier on your users. Interfaces are also a great way to decouple code, to remove circular dependencies, and to support callbacks.  All of these are legitimate and appropriate uses, and you shouldn&#8217;t abandon them.</p>
+
+<p>But use interfaces with reason, and not by reflex.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/">No More Russian Dolls- Respecting the Law of Demeter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-06T17:09:00-05:00" pubdate data-updated="true">Feb 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/2010/02/russiandolls.jpg" alt="image" /></p>
+
+<p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">a</span><span class="o">.</span><span class="na">getB</span><span class="o">().</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So in order to test something that used A, we&#8217;d need to also construct instances of B and C, and wire them all together like a stack of Russian dolls.  For many of our tests, the test <em>scaffolding</em> dwarfed the test proper, making it hard to tell what was really being tested.</p>
+
+<p>To address this, many of our tests were using the <a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> to build up these graphs.  This helped somewhat, by centralizing the construction of the objects, and it also led to some some re-use of the scaffolding code. But it still didn&#8217;t address the underlying problem of having to build up crazy amounts of superfluous objects for the test.</p>
+
+<p>Anyone who&#8217;s read Refactoring, or the Pragmatic Programmer series will recognize that the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> is in play here.  A, B, and C are too tightly coupled. We all know this is &#8220;bad&#8221;, but somehow this never really bothered me much in production code.  In the age of modern IDEs, it&#8217;s really easy to track down who is calling whom, and to re-work the code when you feel things have gotten out of hand.</p>
+
+<p>The typical remedy for fixing overly tight coupling is to use encapsulation or a delegate to hide the call chain. This never really struck me as much of an improvement, as it piled <strong>yet another interface</strong> on top of the code.  Having spent too much time toiling with J2EE megaliths, I was wary of adding yet another layer.</p>
+
+<p>But then when we realized what this <a href="http://c2.com/cgi/wiki?InappropriateIntimacy">inappropriate intimacy</a> was doing to our tests, a light bulb went off. Adding a really small interface to class <strong>A</strong> doesn&#8217;t really bloat the code, and most importantly- it gives the test code a hook where it can <strong>mock out the single call that it really cares about</strong>, ignoring the rest.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">B</span> <span class="n">b</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">A</span> <span class="n">mockedA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>         <span class="k">return</span> <span class="s">&quot;mockedResult&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yes, class <strong>B</strong>is still sharing too much information here, but unless it&#8217;s causing a problem, you can leave it alone for now, and apply the same fix to it only if it becomes an issue (maybe YAGNI).</p>
+
+<p>Obviously, this isn&#8217;t some new industry-changing technique; it&#8217;s been around forever.  But as a result of applying it judiciously, our test scaffolding has been drastically reduced, and tests are easier to write and understand.</p>
+
+<p>No more Russian dolls.</p>
+
+<p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
 </div>
   
   
@@ -159,6 +305,8 @@
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/10/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -173,7 +321,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
       <li class="post">

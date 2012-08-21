@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test &hellip;">
+  <meta name="description" content="After lots of helpful feedback from beta testers and Hacker News, my typing tutor app &#8220;Quick Brown Frog&#8221; is live and open for business! &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/">No More Russian Dolls- Respecting the Law of Demeter</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/25/quick-brown-frog-is-launched/">Quick Brown Frog Typing Tutor Is Launched!</a></h1>
     
     
       <p class="meta">
@@ -94,73 +94,31 @@
   
 
 
-<time datetime="2010-02-06T17:09:00-05:00" pubdate data-updated="true">Feb 6<span>th</span>, 2010</time>
+<time datetime="2010-11-25T04:34:18-05:00" pubdate data-updated="true">Nov 25<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2010/02/russiandolls.jpg" alt="image" /></p>
+  <div class="entry-content"><p>After lots of helpful feedback from beta testers and Hacker News, my <a href="http://www.quickbrownfrog.com">typing tutor</a> app &#8220;Quick Brown Frog&#8221; is live and open for business!</p>
 
-<p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
+<p>Some of the things I changed in response to feedback include:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">a</span><span class="o">.</span><span class="na">getB</span><span class="o">().</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So in order to test something that used A, we&#8217;d need to also construct instances of B and C, and wire them all together like a stack of Russian dolls.  For many of our tests, the test <em>scaffolding</em> dwarfed the test proper, making it hard to tell what was really being tested.</p>
-
-<p>To address this, many of our tests were using the <a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> to build up these graphs.  This helped somewhat, by centralizing the construction of the objects, and it also led to some some re-use of the scaffolding code. But it still didn&#8217;t address the underlying problem of having to build up crazy amounts of superfluous objects for the test.</p>
-
-<p>Anyone who&#8217;s read Refactoring, or the Pragmatic Programmer series will recognize that the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> is in play here.  A, B, and C are too tightly coupled. We all know this is &#8220;bad&#8221;, but somehow this never really bothered me much in production code.  In the age of modern IDEs, it&#8217;s really easy to track down who is calling whom, and to re-work the code when you feel things have gotten out of hand.</p>
-
-<p>The typical remedy for fixing overly tight coupling is to use encapsulation or a delegate to hide the call chain. This never really struck me as much of an improvement, as it piled <strong>yet another interface</strong> on top of the code.  Having spent too much time toiling with J2EE megaliths, I was wary of adding yet another layer.</p>
-
-<p>But then when we realized what this <a href="http://c2.com/cgi/wiki?InappropriateIntimacy">inappropriate intimacy</a> was doing to our tests, a light bulb went off. Adding a really small interface to class <strong>A</strong> doesn&#8217;t really bloat the code, and most importantly- it gives the test code a hook where it can <strong>mock out the single call that it really cares about</strong>, ignoring the rest.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">B</span> <span class="n">b</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><p><a href="http://www.quickbrownfrog.com/#!store:">price reduction</a> from $29.95 -> $9.95</p></li>
+<li><p>support both Google Checkout and Paypal options for payment</p></li>
+<li><p><a href="http://www.quickbrownfrog.com/#!progress:">stats reporting</a> (WPM/Accuracy improvement over time)</p></li>
+<li><p>report on frequently mis-typed keys after practice lessons</p></li>
+<li><p>allow automatic single/double spacing after end of sentences (<em>very</em> frequently requested)</p></li>
+<li><p>implemented crawlable Ajax links for SEO</p></li>
+<li><p>plus many bug fixes for cross-browser compatibility</p></li>
+</ul>
 
 
-<p>Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:</p>
+<p>I consider this an <a href="http://en.wikipedia.org/wiki/Minimum_viable_product">MVP-level</a> release, which means that it still needs lots of work and polish (in particular, the look-and-feel of the UI).</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">A</span> <span class="n">mockedA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>         <span class="k">return</span> <span class="s">&quot;mockedResult&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Yes, class <strong>B</strong>is still sharing too much information here, but unless it&#8217;s causing a problem, you can leave it alone for now, and apply the same fix to it only if it becomes an issue (maybe YAGNI).</p>
-
-<p>Obviously, this isn&#8217;t some new industry-changing technique; it&#8217;s been around forever.  But as a result of applying it judiciously, our test scaffolding has been drastically reduced, and tests are easier to write and understand.</p>
-
-<p>No more Russian dolls.</p>
-
-<p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
+<p>The important thing is to get it out there, and start getting feedback from actual customers. Absent that, I&#8217;d just be spinning my wheels.</p>
 </div>
   
   
@@ -173,7 +131,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/01/28/r-i-p-mr-salinger/">R.I.P., Mr. Salinger</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/22/measuring-typing-accuracy/">Measuring Typing Accuracy</a></h1>
     
     
       <p class="meta">
@@ -189,14 +147,99 @@
   
 
 
-<time datetime="2010-01-28T13:46:00-05:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
+<time datetime="2010-11-22T05:38:25-05:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>&#8220;What I have to do, I have to catch everybody if they start to go over the cliff— I mean if they’re running and they don’t look where they’re going I have to come out from somewhere and catch them. That’s all I’d do all day. I’d just be the catcher in the rye and all.&#8221;</p></blockquote>
+  <div class="entry-content"><p>It turns out that measuring typing accuracy (how accurately you hit the intended keys) is non-trivial. A quick survey
+of the online typing courses out there shows that there is considerable confusion over how to correctly measure typing
+accuracy. One site actually gives a <em>negative percentage</em> if you backspace too many times!</p>
+
+<p>This was kind of surprising to me. I figured it would take me perhaps 10 minutes to implement. It ended up taking
+a day and a half of my time, $10 spent on an ACM article, and some quality time with a recent CS grad&#8217;s
+<a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">PhD thesis</a>. No joke.</p>
+
+<p>Well, to be completely honest, in the end, the implementation <em>was</em> in fact fairly trivial. What was hard was
+figuring out <em>what to measure</em>. It&#8217;s more of a human problem than a technical one.</p>
+
+<h3>Why is this hard?</h3>
+
+<p>Your intuition might be to simply measure the ratio of correct characters to total characters typed. At first glance
+this seems OK, but consider the following case:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+    intended: The quick brown frog jumped over the lazy fox.<br/>
+    actual  : The qu<span style="color:#993300">ck brown frog jumped over the lazy fox.</span>
+</pre>
+
+
+<p>If we match up the typed characters with what was expected, the accuracy of this typed statement is a very low 15 %. But looking at it from a human perspective, what were the actual errors here? The typist missed the &#8220;i&#8221; character in the word &#8220;quick&#8221;, and as a result the rest of the line was offset by one.  It seems like there ought to be a way to more accurately capture the fact that the user made a single typo. There is.</p>
+
+<h3>Edit Distance</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Edit_distance">Edit Distance</a> is the number of operations required to transform one
+string into another. The operations include <em>insertion</em>, <em>deletion</em> and <em>substitution</em>. In this example, it requires
+only a single edit- &#8216;insert an i&#8217;.</p>
+
+<p>Soukoreff&#8217;s <a href="http://www.dynamicnetservices.com/~will/academic/Soukoreff%20PhD%20Dissertation.pdf">thesis</a> describes
+a <em>Minimum String Distance Error Rate</em> as the Edit Distance divided by the maximum of the lengths of the presented
+vs typed text, times 100%. For our &#8220;off by one&#8221; example above, the error rate is a mere 2%, i.e. 98% accurate.
+That seems more reasonable!</p>
+
+<p>So for a while I was using the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance algorithm</a>
+to compute the edit distance, and hence the accuracy. This certainly worked better than my initial naive algorithm,
+but it still had a problem- What if the typist made <em>lots</em> of errors, but was fastidious about backspacing over the
+mistakes and correcting them? His error rate would be zero in this case, with an accuracy of 100%.</p>
+
+<p>While correcting all your mistakes is admirable, it seems wrong to award a &#8220;100% accurate&#8221; rating to a typist
+sporting a bruised backspace key. Somehow, we&#8217;ve got to take the mistakes into account, even if they&#8217;ve been corrected.</p>
+
+<h3>Text-Entry Taxonomy</h3>
+
+<p>Soukoreff&#8217;s PhD thesis again provides a solution. Classify each of the keystrokes into one of the following categories:</p>
+
+<ul>
+<li><p><strong>C</strong> - Correctly typed</p></li>
+<li><p><strong>IF</strong> - Incorrect, but Fixed</p></li>
+<li><p><strong>INF</strong> - Incorrect, Not Fixed</p></li>
+<li><p><strong>F</strong> - Fixes, i.e. backspace or cursor movement used to correct mistakes</p></li>
+</ul>
+
+
+<p>Using these classifications, he proposes a <em>Total Error Rate</em> defined as:</p>
+
+<blockquote><p>(INF + IF) / (C + INF + IF) * 100%</p></blockquote>
+
+<p>So, going back to our &#8220;off by one&#8221; example, if the typist noticed immediately that he missed the &#8216;i&#8217; in &#8216;quick&#8217;,
+and backspaced to correct it,</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">c</span>⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>the breakdown would be C: 47, F: 1, IF: 1,. INF: 0, for a total error rate of (0 + 1) / (47 + 0 + 1) = 2%, or 98%
+accurate. Same as using the Edit Distance alone, in this example.</p>
+
+<p>But what if the user didn&#8217;t notice the mistake until 10 characters later? The input stream would look something
+like this:</p>
+
+<pre style="font-family:Monospace; font-size: 14pt;">
+The qu<span style="color:#993300;">ck brown f</span>⌫⌫⌫⌫⌫⌫⌫⌫⌫⌫ick brown frog jumped over the lazy fox.
+</pre>
+
+
+<p>What&#8217;s the error rate now? C:47, F:10, IF: 10, INF: 0, or (0 + 10) / (47 + 0 + 10) * 100% = 17.5%, or roughly
+82% accurate. Aha!</p>
+
+<p>I plugged this formula into <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> and watched the error rate go up and
+down while typing. <em>Finally</em>, it seemed to be doing the right thing- rewarding accurate, deliberate typing, and taking
+off points for outright mistakes as well expensive corrections.</p>
+
+<p>Yet another example of why it&#8217;s hard to estimate software schedules- sometimes the &#8216;trivial&#8217; is anything but.</p>
 </div>
   
   
@@ -209,7 +252,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2010/01/28/apples-ipad-one-ring-to-rule-them-all/">Apple&#8217;s iPad: One Ring to Rule Them All ?</a></h1>
+      <h1 class="entry-title"><a href="/2010/11/17/quick-brown-frog-featured-on-startuplift/">Quick Brown Frog Featured on StartupLift!</a></h1>
     
     
       <p class="meta">
@@ -225,30 +268,16 @@
   
 
 
-<time datetime="2010-01-28T08:07:00-05:00" pubdate data-updated="true">Jan 28<span>th</span>, 2010</time>
+<time datetime="2010-11-17T16:05:34-05:00" pubdate data-updated="true">Nov 17<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2010/01/noflash.png" alt="image" /></p>
+  <div class="entry-content"><p>I&#8217;m happy to report that <a href="http://StartupLift.com">StartUpLift.com</a>, an awesome new site for promoting new startups, is featuring Quick Brown Frog.</p>
 
-<p>Like any Apple fan, I want to run out and buy an iPad today. I&#8217;ve wanted an eReader for quite some time now, and have been dragging my feet on getting a Kindle only because I wanted to see if Apple could produce something better. Notwithstanding the current lack of reviews of its text quality, the iPad certainly seems to be the more compelling device.</p>
-
-<p>But there is a serious question you should ask yourself before taking the plunge. How would you feel if someone took your current computer (laptop, desktop- whatever it is you use on a daily basis) and told you that you could only install software on it that the manufacturer authorized? Do you currently check with Dell to see if it&#8217;s OK to install Photoshop or Chrome on your machine? With the iPad, that will be your Brave New World. Want to install the latest beta of your favorite program? Well, <strong>unless Apple makes radical changes to the App Store, you won&#8217;t be able to do that</strong>.</p>
-
-<p>As an iPhone user, I was willing to make <em>some</em> concessions to Apple regarding what apps could and could not do on the device. It is after all a phone, and I want my phone to work when I use it. I don&#8217;t want the battery to die unexpectedly because some app was running in the background, or to lose my data because another app decided to scribble all over the file system. A phone is an appliance, and by and large you want an appliance to behave predictably and reliably.</p>
-
-<p>But a tablet computer isn&#8217;t quite the same thing. It sits vaguely between &#8220;ebook reader&#8221; and &#8220;laptop computer&#8221;. As time goes on, I expect that laptops in general will start to look more and more like tablets. As Jobs said,</p>
-
-<blockquote><blockquote><p><em><strong>&#8220;Browsing, Email, Photos, Video, Music, Games, eBooks&#8230; if there&#8217;s gonna be a third category of device, it&#8217;s gonna have to be better at these kinds of tasks than a laptop or a smartphone, otherwise it has no reason for being.&#8221;</strong></em></p></blockquote></blockquote>
-
-<p>Right now you might use the iPad to read the New York Times while waiting for your bus, or to check your email while sitting in a café. But will you eventually use it for actual work? If the technology gets good enough, will you leave your laptop behind and starting using your tablet for everything? <strong>Once you really come to rely on it for your work, will you still be comfortable with Apple exerting total control over every piece of software you install on it?</strong></p>
-
-<p>Did you notice during the demo that when Steve Jobs went to the NY Times website, there were lots of &#8220;missing plugin&#8221; icons where the Flash ads should have been? At first I thought this was just an embarrassing mistake in delivery, but the more I think about it, the more I&#8217;ve come to believe that this was entirely intentional- <strong>a message to the NY Times directly from Mr Jobs, saying that their website will look like crap on the device until they dump Flash</strong>.</p>
-
-<p>Apple&#8217;s <a href="http://www.wired.com/gadgetlab/2008/11/adobe-flash-on/">antipathy towards Flash</a>, and <a href="http://news.cnet.com/2100-1012-5181434.html">Adobe in general</a>, is nothing new. And as much as I would love to see Flash banished from the web, this kind of complete control by Apple really worries me. Don&#8217;t get me wrong- I really want one of these devices. But I&#8217;m not so sure I&#8217;m ready to give up that much control to Apple just yet.</p>
+<p><a href="http://startuplift.com/quick-brown-frog-learn-to-touch-type/">http://startuplift.com/quick-brown-frog-learn-to-touch-type/</a></p>
 </div>
   
   
@@ -273,7 +302,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
       <li class="post">

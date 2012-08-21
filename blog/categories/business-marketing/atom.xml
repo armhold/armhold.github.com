@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Business/Marketing | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/business-marketing/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-08-21T11:39:59-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog is now available in the Chrome Web Store]]></title>
+    <link href="http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store/"/>
+    <updated>2010-12-09T11:46:25-05:00</updated>
+    <id>http://armhold.github.com/2010/12/09/quick-brown-frog-is-now-available-in-the-chrome-web-store</id>
+    <content type="html"><![CDATA[<p>The <a href="http://www.quickbrownfrog.com">best typing tutor on the web</a> is now available for sale in the <a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn">Chrome Web Store</a>.</p>
+
+<p><a href="https://chrome.google.com/webstore/detail/cngicknllndfldloclinjdfgjdbagkfn"><img src="/images/2010/12/screen-shot-2010-12-09-at-4-33-25-pm.png" alt="" /></a></p>
+
+<p>It was surprisingly easy to <a href="http://code.google.com/chrome/webstore/docs/get_started_simple.html">get into the store</a> if you've got an existing webapp running:</p>
+
+<ul>
+<li><p>pay Google $5 (one-time developer fee; <strong>not</strong> per-app)</p></li>
+<li><p>create a 16-line JSON manifest file</p></li>
+<li><p>take some screen shots and create an icon (the hardest part, really)</p></li>
+<li><p>bundle it into a zip</p></li>
+<li><p>checkmark a few boxes, add some descriptive text, click "publish"</p></li>
+</ul>
+
+
+<p>All you are really doing is bundling up some meta-data so that Chrome users can see your app as being "installed". Even though my app is very much server-dependent, and has its own concept of user accounts and payments, Google is happy to have it in the store. And I'm happy for the potential extra customers.</p>
+
+<p>It's obvious that the Chrome Web Store is a great boon for developers. However it's unclear whether users will actually find this useful, much less flock to it.</p>
+
+<p>My guess is that once we start seeing more apps that <em>really</em> use HTML5 features like local storage, it might take off. I hope it does.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UI Refresh- new logo and other eye candy]]></title>
+    <link href="http://armhold.github.com/2010/11/30/ui-refresh-new-logo-and-other-eye-candy/"/>
+    <updated>2010-11-30T11:31:35-05:00</updated>
+    <id>http://armhold.github.com/2010/11/30/ui-refresh-new-logo-and-other-eye-candy</id>
+    <content type="html"><![CDATA[<p>I spent some time (and some $$) prettying up the <a href="http://www.quickbrownfrog.com">Quick Brown Frog</a> user interface.
+I bought a logo from <a href="http://www.logosamurai.com/">Logosamurai</a>.  Not bad for $67.</p>
+
+<p><a href="/images/2010/11/alternate-edit.jpg"><img src="/images/2010/11/alternate-edit.jpg" alt="Quick Brown Frog logo" /></a></p>
+
+<p>Then I added some gauges to display WPM and accuracy in real-time. They're part of the <a href="http://code.google.com/apis/visualization/documentation/gadgetgallery.html">Google Visualization API</a>, and they're awesome.  That is, when they work. They don't seem to work in IE8, so I've disabled them for that browser.</p>
+
+<p>And they have some pretty odd resizing behavior: if you don't explicitly specify a width attribute, the gauges will <em>shrink</em> every time you update the gauge value. It took me quite a bit of experimentation to figure that one out, but thankfully it seems to be working now.</p>
+
+<p><a href="/images/2010/11/gauges.png"><img src="/images/2010/11/gauges.png" alt="speed test gauges" /></a></p>
+
+<p>You can check out the changes in this <a href="http://www.quickbrownfrog.com/#!speedTest:">typing speed test</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quick Brown Frog featured on StartupLift!]]></title>
+    <link href="http://armhold.github.com/2010/11/17/quick-brown-frog-featured-on-startuplift/"/>
+    <updated>2010-11-17T16:05:34-05:00</updated>
+    <id>http://armhold.github.com/2010/11/17/quick-brown-frog-featured-on-startuplift</id>
+    <content type="html"><![CDATA[<p>I'm happy to report that <a href="http://StartupLift.com">StartUpLift.com</a>, an awesome new site for promoting new startups, is featuring Quick Brown Frog.</p>
+
+<p><a href="http://startuplift.com/quick-brown-frog-learn-to-touch-type/">http://startuplift.com/quick-brown-frog-learn-to-touch-type/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing Quick Brown... Frog?]]></title>
+    <link href="http://armhold.github.com/2010/11/08/introducing-quick-brown-frog/"/>
+    <updated>2010-11-08T09:21:21-05:00</updated>
+    <id>http://armhold.github.com/2010/11/08/introducing-quick-brown-frog</id>
+    <content type="html"><![CDATA[<p>I'm working on a new consumer-oriented webapp for touch-typing lessons. I've been very much inspired by
+<a href="http://www.kalzumeus.com/">Patrick McKenzie</a> of <a href="http://www.bingocardcreator.com/">Bingo Card Creator</a> fame, so you
+ will find some obvious similarities between our approaches and target audience. This blog will document both the
+ technical and business aspects of bringing Quick Brown Frog to market.</p>
+
+<h2>So, why typing software?</h2>
+
+<p>Typing software has been around forever, and there are some excellent, well-known packages for learning how to type.
+But most of them are shrink-wrap products that you have to physically purchase and install from CD. The idea that you
+need to have a round piece of plastic shipped to your home in order to install a piece of software is really an
+anachronism in 2010.</p>
+
+<p>Yes, there are some decent typing tutors on the web, but the ones that actually work half-decently are Flash or Java
+apps. I think I can do something in the modern browser, and without resorting to any plugins.</p>
+
+<h2>Tools</h2>
+
+<p>Additionally, once I've had a chance to go back and clean up and refactor my code, I hope to take the nuts-and-bolts
+scaffolding from my app and turn <em>that</em> into a product- a quick-starter way to create all the common things a
+consumer-oriented webapps needs, such as account creation, secure password hashing, "Buy Now" links,
+expiring downloads, etc.</p>
+
+<p>Stay tuned for more news on that front, as well as some "how it's built" type posts.</p>
+
+<h2>Quick Brown... Frog?</h2>
+
+<p>"Quick Brown Fox" was the obvious choice, but alas, there's already an (iPhone) app by that name.
+<a href="http://QuickBrownFrog.appspot.com">QuickBrownFrog.com</a> was unique and available, so there it is! It's still
+quite heavily under construction, but feel free to visit and leave me some (much appreciated) feedback.</p>
+]]></content>
+  </entry>
+  
+</feed>

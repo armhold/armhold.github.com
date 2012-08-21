@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;ve been using a Mac almost exclusively since about 2006. Unsurprisingly, I have quite a lot of data on my system, and on its Time Machine &hellip;">
+  <meta name="description" content="For a few days Google Maps stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,7 +78,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/10/28/snow-leopard-migration-assistant-fail/">Snow Leopard Migration Assistant Fail</a></h1>
+      <h1 class="entry-title"><a href="/2010/05/05/pause-your-web-history-break-google-maps/">Pause Your Web History- Break Google Maps</a></h1>
     
     
       <p class="meta">
@@ -94,34 +94,18 @@
   
 
 
-<time datetime="2009-10-28T06:26:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2009</time>
+<time datetime="2010-05-05T08:50:00-04:00" pubdate data-updated="true">May 5<span>th</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="/images/2009/10/macpro.jpg" alt="image" /></p>
+  <div class="entry-content"><p>For a few days <a href="http://maps.google.com/">Google Maps</a> stopped working for me. I first noticed it while trying to get directions to the airport. I use Safari, and the Maps page would just sit there with &#8220;Still loading&#8230;&#8221; forever. I thought it was a momentary glitch, but 2 days later it was still happening. I fired up Chrome on the same machine, which worked fine. Back in Safari, I tried clearing the cache, restarting the browser, etc. all to no avail.</p>
 
-<p>I&#8217;ve been using a Mac almost exclusively since about 2006. Unsurprisingly, I have quite a lot of data on my system, and on its Time Machine backups. Until recently I have been quite impressed with Apple&#8217;s Migration Assistant- the tool that (used to!) seamlessly migrate your apps and data from an old machine to a new one. It&#8217;s one of those things that us smug Mac users brag about to our PC-using friends. Recently however, I&#8217;ve been disappointed by it.</p>
+<p>Today I figured it out- I had paused my <a href="https://www.google.com/history/">web history</a> some time back. On a whim I tried unpausing it, and lo and behold, Maps now works again in Safari. Pausing it again results in the same breakage, so the problem is repeatable. Having to enable Web History to use Maps is a little unsettling, but this sounds like a bug.</p>
 
-<p>First, my wife got a new MBPro from her job, which replaced her 3 year old MBPro. I told her the migration would be a piece of cake. I expected to do the usual trick where you boot the old machine into Firewire Target Mode, and the new machine sees the old one as a Firewire volume. No such luck- Apple changed the Firewire port on the newer MBPro, so she had to make a trip down to the Apple Store to get a new cable. Turns out they sold her the wrong one, so at this point I opted for doing the migration using our WiFi. Despite entering all the appropriate network configuration, the two computers couldn&#8217;t talk to each other.</p>
-
-<p>So I ran a Cat5 cable between the two machines. I was able to connect this time, but I kept getting thrown into an endless loop where you are prompted to enter a PIN to give the new computer access to the old one- it would connect for an instant, and then loop back to the beginning all over again.</p>
-
-<p>Wife, sensing my frustration level, decided to bring it into her office and have the IT guys deal with it. They had the appropriate Firewire cable and did the transfer without a hitch.</p>
-
-<p>So fast forward to me getting a new job, and the requisite new toy: a totally decked-out quad-core MacPro with all the bells and whistles. Time to migrate from my old MBPro to this new tower. I&#8217;m about 4 hours into the transfer using Migration Assistant (we have the right cable now!) and it&#8217;s still telling me that there are 10+ hours left in the transfer. This doesn&#8217;t look good. So I pop open the Console tool, and lo and behold, I see that MigrateTool has in fact crashed, <strong>despite the lack of any error messages on the screen.</strong> I quit Migration Assistant, and start over. Same deal.</p>
-
-<p><img src="/images/2009/10/migrationassistant.png" alt="image" /></p>
-
-<p>So I try erasing the Mac Pro&#8217;s HD and starting with a fresh OS install from DVD. Migration Assistant <strong>still</strong> silently crashes.</p>
-
-<p>So I try doing a migration from my Time Machine volume as the source volume in Migration Assistant. Same deal. So I try doing a &#8220;manual&#8221; installation using Time Machine. A few hours in, I finally get a somewhat helpful error message indicating that it cannot continue because <strong>the source volume is case-sensitive, the target volume is case-insensitive</strong>, and there is a pair of conflicting files on the source drive &#8220;3.3.1.ga&#8221; and &#8220;3.3.1.GA&#8221; (Hibernate, my favorite!)</p>
-
-<p>This is not totally surprising, and is what I suspected might be the problem- back in 2006 I had made the poor decision to install my MBPro as case-sensitive, since that&#8217;s what most Unixes use. That&#8217;s finally come back to bite me. Anyway, I remove the duplicate file from the source machine, and carry on. Several hours later, Migration Assistant crashes again. And since it doesn&#8217;t print any helpful error message, I can&#8217;t locate what is likely another duplicate file. Ugh!</p>
-
-<p>Obviously one solution might be to re-install the machine as case-sensitive, but I don&#8217;t want to go through this kind of hell again during some future migration; I&#8217;d rather pay the piper now and be done with it. I have a call into Apple Tech Support (you get 90 days free support on any new machine, even without Apple Care.. did you know that?) I will update as things progress. Any suggestions for solving this are greatly welcome.</p>
+<p><img src="/images/2010/05/stillloading2.png" alt="image" /></p>
 </div>
   
   
@@ -134,7 +118,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/10/15/intellij-idea-open-sourced/">Intellij IDEA Open Sourced</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/22/a-multilingual-password-generator-using-gwt-and-google-app-engine/">A Multilingual Password Generator Using GWT and Google App Engine</a></h1>
     
     
       <p class="meta">
@@ -150,14 +134,37 @@
   
 
 
-<time datetime="2009-10-15T14:36:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2009</time>
+<time datetime="2010-03-22T00:43:00-04:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2010</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>This is great news: <a href="http://blogs.jetbrains.com/idea/2009/10/intellij-idea-open-sourced/">Intellij IDEA Open-Sourced</a>. If you&#8217;re an Eclipse or Netbeans user you owe it to yourself to try out Intellij, especially now that it&#8217;s free. Yes, there are some features that are not included in the free edition, such as Google App Engine or GWT support. But I really hope this encourages more devs to check it out.</p>
+  <div class="entry-content"><p>My fascination with GWT and Google App Engine continues. This weekend I created a
+<a href="http://create-a-password.appspot.com/">multi-lingual memorable password generator</a>.</p>
+
+<p>In order to create memorable passwords I took the <a href="http://world.std.com/~reinhold/diceware.html">Diceware</a> approach. The idea is simple: create a list of English words, and assign a five digit number to each of them.</p>
+
+<pre><code>23542 click23543 cliff23544 climb23545 clime23546 cling23551 clink
+</code></pre>
+
+<p>To build up a password, you select some number of these words and combine them (preferably with some further randomization of the case, as well as perhaps inserting some digits or symbols between the words).</p>
+
+<p>To select each word, you roll a die (or fire up a pseudo-random number generator) five times. If you roll 2, 3, 5, 4 and then 3, that corresponds to the word with index 23543. In our case, that&#8217;s cliff. Keep selecting words in this manner until you&#8217;ve built up a sufficiently long/complex password.</p>
+
+<p>There are a number of password generator sites that seem to be using lots of server-side entropy for password generation, but then blithely download the generated passwords across the Internet to your browser. That doesn&#8217;t seem like such a good idea. With <a href="http://create-a-password.appspot.com">create-a-password</a>, it all happens right in your browser window, thanks to the magic of GWT.</p>
+
+<p>On the downside, the dictionaries used for word selection are in fact downloaded (and they are well-known anyway). Despite this shortcoming, it still seems safer to me than shipping generated passwords across the network. Using a longer password (Wikipedia recommends <a href="http://en.wikipedia.org/wiki/Diceware">5 or more dice words</a>) can help with this.</p>
+
+<p>Diceware dictionaries are available in several languages, so it was pretty straightforward to go ahead and use GWT&#8217;s <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideI18n.html">i18n</a> to make this program available in a few different languages. Hopefully I haven&#8217;t butchered the <a href="http://create-a-password.appspot.com/Password/Password_es.html">Spanish</a> too badly.</p>
+
+<p>I was a little disappointed to learn that GWT doesn&#8217;t <a href="http://stackoverflow.com/questions/156412/why-does-gwt-ignore-browser-locale">seem to support automatically recognizing the user&#8217;s browser locale</a>. I expected to be able to automatically detect this, and then offer localized content, but that doesn&#8217;t seem to be the case. I ended up having to embed a property into each of my localized html pages:</p>
+
+<pre><code>&lt;meta name='gwt:property' content='locale=fr'/&gt;
+</code></pre>
+
+<p>Another approach is to <a href="http://learngwt.com/articles/mdamour1976/AutomaticGWTInternationalizationdetection.html">use a JSP</a>. Despite this, I think it turned out pretty well.</p>
 </div>
   
   
@@ -170,7 +177,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2009/10/01/the-end-of-ai-winter/">>the End of AI Winter?</a></h1>
+      <h1 class="entry-title"><a href="/2010/03/14/how-to-disable-top-sites-in-safari/">How to Disable Top Sites in Safari</a></h1>
     
     
       <p class="meta">
@@ -186,7 +193,7 @@
   
 
 
-<time datetime="2009-10-01T16:26:00-04:00" pubdate data-updated="true">Oct 1<span>st</span>, 2009</time>
+<time datetime="2010-03-14T00:56:00-05:00" pubdate data-updated="true">Mar 14<span>th</span>, 2010</time>
         
       </p>
     
@@ -195,9 +202,14 @@
 
   <div class="entry-content"><blockquote></blockquote>
 
-<p>Is it the <a href="http://machineslikeus.com/the-end-of-AI-winter.html">end of AI Winter</a>? machineslikeus.com thinks Spring might be around the corner.</p>
+<p><img src="/images/2010/03/topsitesdemo.png" alt="image" />
+Although it might be pretty eye-candy, I do not find the Top Sites feature in Safari4 to be terribly useful for anything. You open a new tab or window, and Safari sits there spinning while loading a bunch of web sites you may or may not be interested in going to. I find Safari to be a whole lot faster with the feature turned off.</p>
 
-<blockquote><p>An AI Winter is a collapse in the perception of artificial intelligence research. The term was coined by analogy with the relentless spiral of a nuclear winter: a chain reaction of pessimism in the AI community, followed by pessimism in the press, followed by a severe cutback in funding, followed by the end of serious research.</p></blockquote>
+<p>It&#8217;s simple.  Open Preferences, and tweak the settings for &#8220;New windows open with&#8221; and &#8220;New tabs open with&#8221; to be either an <strong>Empty Page</strong>, or whatever <strong>Home Page</strong> you prefer.</p>
+
+<p><img src="http://armhold.files.wordpress.com/2010/03/disabletopsites.png?w=269" alt="" /></p>
+
+<p><img src="" alt="" /></p>
 </div>
   
   
@@ -222,7 +234,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Octopress</a>
+        <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
       <li class="post">
