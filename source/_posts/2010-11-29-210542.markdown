@@ -1,0 +1,41 @@
+---
+comments: true
+date: 2010-11-29 20:50:07
+layout: post
+slug: '210542'
+title: $210,542
+wordpress_id: 113
+categories:
+- Business/Marketing
+---
+
+No, that's not my revenue (I wish!)
+
+It's what [SLOCCount](http://www.dwheeler.com/sloccount/) estimates Quick Brown Frog cost to develop. I've always felt that SLOCCount tends to exaggerate development cost. Either that or I'm vastly underpaid.
+
+7.6 months and $210K seems way high for this app, even with the salary is set to a rather low $56K default.
+
+Still, it's quite the ego boost for a solo programmer. I've only been developing this [typing tutor](http://www.quickbrownfrog.com) for about 6 weeks so far, and this feels kind of like a pat on the back.
+
+    
+    SLOC	Directory	SLOC-by-Language (Sorted)
+    3688    typing          java=3688
+    3183    gwtstore        java=3183
+    196     mystore         java=196
+    
+    Totals grouped by language (dominant language first):
+    java:          7067 (100.00%)
+    
+    Total Physical Source Lines of Code (SLOC)                = 7,067
+    Development Effort Estimate, Person-Years (Person-Months) = 1.56 (18.70)
+     (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+    Schedule Estimate, Years (Months)                         = 0.63 (7.61)
+     (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+    Estimated Average Number of Developers (Effort/Schedule)  = 2.46
+    Total Estimated Cost to Develop                           = $ 210,542
+     (average salary = $56,286/year, overhead = 2.40).
+    SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+    Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+
+
+This also goes to show that the _cost_ of software development does not necessarily have anything at all to do with its_ worth_.
