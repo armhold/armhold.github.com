@@ -1,4 +1,5 @@
 ---
+published: false
 comments: true
 date: 2010-12-28 19:08:05
 layout: post
