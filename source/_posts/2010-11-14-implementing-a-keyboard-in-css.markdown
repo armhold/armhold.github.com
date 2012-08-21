@@ -16,7 +16,7 @@ The predictive keyboard in [QuickBrownFrog](http://www.quickbrownfrog.com/#typin
 ### Round 1 - Static Images
 
 
-[caption id="attachment_79" align="aligncenter" width="300" caption="static keyboard image from Omnigraffle"][![static keyboard image from Omnigraffle](http://quickbrownfrog.files.wordpress.com/2010/11/h.png?w=300)](http://quickbrownfrog.files.wordpress.com/2010/11/h.png)[/caption]
+[![static keyboard image from Omnigraffle](/images/2010/11/h.png)](/images/2010/11/h.png)
 
 It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.
 
@@ -47,4 +47,4 @@ Implementing the "selected" coloring is as simple as adding and removing a CSS s
 
 It's perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there's the performance improvement- typing really flies now!
 
-[caption id="attachment_84" align="aligncenter" width="300" caption="final keyboard design, rendered entirely via CSS"][![CSS Keyboard](http://quickbrownfrog.files.wordpress.com/2010/11/css_keyboard.png?w=300)](http://quickbrownfrog.files.wordpress.com/2010/11/css_keyboard.png)[/caption]
+[![CSS Keyboard](/images/2010/11/css_keyboard.png?w=300)](/images/2010/11/css_keyboard.png)
