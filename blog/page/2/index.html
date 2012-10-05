@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="The folks at 42lines have released an awesome Firefox plugin called &#8220;Wicket-Source&#8221;. It allows you to easily navigate from your browser &hellip;">
+  <meta name="description" content="I started doing some Twilio development recently and ran into a problem with Adobe Flash. Twilio Client (which lets you make phone calls right from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-19T09:26:22-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
+
+<p><img src="/images/2012/02/flash.png" alt="image" /></p>
+
+<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
+
+<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
+
+<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -236,93 +280,6 @@ public class LoginFormHandlerPage extends WebPage
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/12/27/how-to-get-jndi-working-with-wicket-1-5-and-jetty-7-5/">How to Get JNDI Working With Wicket 1.5 and Jetty 7.5</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-27T22:29:03-05:00" pubdate data-updated="true">Dec 27<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The Wicket 1.5 archetype sets up a project to use Jetty 7.5. Quite a lot has changed in Jetty since version 6, and this broke my JNDI config. Here&#8217;s how I put things right again.</p>
-
-<p>First of all, the imports have all been moved in 7.x.  Here&#8217;s where they landed:</p>
-
-<pre><code>import org.eclipse.jetty.plus.webapp.EnvConfiguration;
-import org.eclipse.jetty.webapp.WebInfConfiguration;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.WebXmlConfiguration;
-</code></pre>
-
-<p>Next, you&#8217;ll need a jetty-env.xml.</p>
-
-<pre><code>&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
-
-&lt;Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext"&gt;
-    &lt;New class="org.eclipse.jetty.plus.jndi.EnvEntry"&gt;
-    &lt;Arg&gt;jdbc/mydatasource&lt;/Arg&gt;
-    &lt;Arg&gt;
-        &lt;New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"&gt;
-            &lt;Set name="Url"&gt;jdbc:mysql://localhost/mydatabase?characterEncoding=utf8&lt;/Set&gt;
-            &lt;Set name="User"&gt;username&lt;/Set&gt;
-            &lt;Set name="Password"&gt;password&lt;/Set&gt;
-        &lt;/New&gt;
-    &lt;/Arg&gt;
-    &lt;/New&gt;
-&lt;/Configure&gt;
-</code></pre>
-
-<p>Normally this goes into src/main/webapp/WEB-INF, but you probably don&#8217;t want to deploy that with your app in your production war file. So instead I put mine in src/test/jetty/jetty-env.xml. You&#8217;ll need to modify your Start.java to tell Jetty to find the relocated config file.</p>
-
-<pre><code>EnvConfiguration envConfiguration = new EnvConfiguration();
-URL url = new File("src/test/jetty/jetty-env.xml").toURI().toURL();
-envConfiguration.setJettyEnvXml(url);
-bb.setConfigurations(new Configuration[]{
-    new WebInfConfiguration(),
-    envConfiguration,
-    new WebXmlConfiguration()
-});
-</code></pre>
-
-<p>I found that I also had to set a couple of environment properties:</p>
-
-<pre><code>System.setProperty("java.naming.factory.url.pkgs",
-                   "org.eclipse.jetty.jndi");
-System.setProperty("java.naming.factory.initial",
-                   "org.eclipse.jetty.jndi.InitialContextFactory");
-</code></pre>
-
-<p>With this, I can finally access my JNDI datasource happily from Wicket/Jetty.</p>
-
-<p>Update: I&#8217;ve created a <a href="https://gist.github.com/1539302">gist with the full source code.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -340,6 +297,10 @@ System.setProperty("java.naming.factory.initial",
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/">Ocarina- Optical Character Recognition for Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
@@ -353,10 +314,6 @@ System.setProperty("java.naming.factory.initial",
     
       <li class="post">
         <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
       </li>
     
   </ul>

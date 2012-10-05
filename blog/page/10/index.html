@@ -9,7 +9,7 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="&#8220;What I have to do, I have to catch everybody if they start to go over the cliff— I mean if they’re running and they don’t look where they’re &hellip;">
+  <meta name="description" content="My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,101 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/06/no-more-russian-dolls-respecting-the-law-of-demeter/">No More Russian Dolls- Respecting the Law of Demeter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-06T17:09:00-05:00" pubdate data-updated="true">Feb 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/2010/02/russiandolls.jpg" alt="image" /></p>
+
+<p>My colleagues and I were struggling with some test ugliness- having to construct complicated object graphs so that a particular Class Under Test could get the argument it needed at test time.  Typically, the CUT would have some call in it like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">a</span><span class="o">.</span><span class="na">getB</span><span class="o">().</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So in order to test something that used A, we&#8217;d need to also construct instances of B and C, and wire them all together like a stack of Russian dolls.  For many of our tests, the test <em>scaffolding</em> dwarfed the test proper, making it hard to tell what was really being tested.</p>
+
+<p>To address this, many of our tests were using the <a href="http://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> to build up these graphs.  This helped somewhat, by centralizing the construction of the objects, and it also led to some some re-use of the scaffolding code. But it still didn&#8217;t address the underlying problem of having to build up crazy amounts of superfluous objects for the test.</p>
+
+<p>Anyone who&#8217;s read Refactoring, or the Pragmatic Programmer series will recognize that the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a> is in play here.  A, B, and C are too tightly coupled. We all know this is &#8220;bad&#8221;, but somehow this never really bothered me much in production code.  In the age of modern IDEs, it&#8217;s really easy to track down who is calling whom, and to re-work the code when you feel things have gotten out of hand.</p>
+
+<p>The typical remedy for fixing overly tight coupling is to use encapsulation or a delegate to hide the call chain. This never really struck me as much of an improvement, as it piled <strong>yet another interface</strong> on top of the code.  Having spent too much time toiling with J2EE megaliths, I was wary of adding yet another layer.</p>
+
+<p>But then when we realized what this <a href="http://c2.com/cgi/wiki?InappropriateIntimacy">inappropriate intimacy</a> was doing to our tests, a light bulb went off. Adding a really small interface to class <strong>A</strong> doesn&#8217;t really bloat the code, and most importantly- it gives the test code a hook where it can <strong>mock out the single call that it really cares about</strong>, ignoring the rest.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">B</span> <span class="n">b</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">getC</span><span class="o">().</span><span class="na">getSomeField</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Clients of A now just call A.getSomeField().  Test code that needs an A can get a very simple mock:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">A</span> <span class="n">mockedA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSomeField</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>         <span class="k">return</span> <span class="s">&quot;mockedResult&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Yes, class <strong>B</strong>is still sharing too much information here, but unless it&#8217;s causing a problem, you can leave it alone for now, and apply the same fix to it only if it becomes an issue (maybe YAGNI).</p>
+
+<p>Obviously, this isn&#8217;t some new industry-changing technique; it&#8217;s been around forever.  But as a result of applying it judiciously, our test scaffolding has been drastically reduced, and tests are easier to write and understand.</p>
+
+<p>No more Russian dolls.</p>
+
+<p>image credit: <a href="http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg">http://en.wikipedia.org/wiki/File:Russian-Matroshka.jpg</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -161,52 +256,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/01/24/intellij-needs-to-support-more-than-a-single-editor-window/">Intellij Needs to Support More Than a Single Editor Window</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-24T10:50:00-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve been a fan of <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> for years, since a friend introduced me to it. It&#8217;s <em>by far</em> the best Java IDE around (this coming from a guy whose IDE used to be a combination of Emacs, &#8220;find&#8221; and &#8220;grep&#8221;). I (or my properly, my employer) have gladly paid each year to get the latest version of this awesome tool, along with its excellent tech support.</p>
-
-<p>But it&#8217;s kind of absurd that IDEA, now entering its 10th year of existence, still does not support having multiple editor windows. Yes, you can split the editor window horizontally and vertically, within the same window, but you cannot create two physical windows in which to view code side-by-side. This leads to absurdities like this:</p>
-
-<p><img src="http://4.bp.blogspot.com/_ix4Bk4u8y0E/S1xv8PF1pcI/AAAAAAAAAC8/LP20QsoTQEA/s200/intellij_stretched.jpg" alt="" /></p>
-
-<p>Yes, that&#8217;s a picture of the Intellij editor stretched across two LCDs.</p>
-
-<p>It turns out there is a <a href="http://youtrack.jetbrains.net/issue/IDEABKL-67">feature request</a> for this in their tracker. Can you believe that it&#8217;s been languishing there for over four years?</p>
-
-<p>If you&#8217;re an Intellij user, please <a href="http://youtrack.jetbrains.net/registerUserForm">create yourself an account</a> on their tracker and vote for this issue.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -224,6 +273,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/">Ocarina- Optical Character Recognition for Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
@@ -237,10 +290,6 @@
     
       <li class="post">
         <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
       </li>
     
   </ul>

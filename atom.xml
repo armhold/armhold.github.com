@@ -4,7 +4,7 @@
   <title><![CDATA[George Armhold's Blog]]></title>
   <link href="http://armhold.github.com/atom.xml" rel="self"/>
   <link href="http://armhold.github.com/"/>
-  <updated>2012-08-21T11:43:38-04:00</updated>
+  <updated>2012-10-04T20:05:50-04:00</updated>
   <id>http://armhold.github.com/</id>
   <author>
     <name><![CDATA[George Armhold]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ocarina- Optical Character Recognition for Ruby]]></title>
+    <link href="http://armhold.github.com/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/"/>
+    <updated>2012-10-04T19:45:00-04:00</updated>
+    <id>http://armhold.github.com/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby</id>
+    <content type="html"><![CDATA[<p>I just published a bare-bones implementation of an
+<a href="https://github.com/armhold/ocarina">Optical Character Recognizer implemented in Ruby</a>.</p>
+
+<p>It&#8217;s pretty basic, but it does successfully recognize its training set as well as the same characters
+with added &#8220;noise&#8221;. It uses a straightforward implementation of a
+<a href="http://en.wikipedia.org/wiki/Feedforward_neural_network">feed-forward neural network</a>.</p>
+
+<p>It uses RMagick/ImageMagick to handle image processing, but apart from that it&#8217;s built from scratch!</p>
+
+<p>You can grab a copy of the source <a href="https://github.com/armhold/ocarina">from Github</a>.</p>
+
+<p><img src="http://armhold.github.com/images/neural-network.png" title="training images vs input samples" alt="training images vs input samples" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Blog Moved to Github/Octopress]]></title>
@@ -826,47 +846,6 @@ After some <a href="http://code.google.com/p/googleappengine/issues/detail?id=12
 <p>The fix is simple: elide the DTD declaration from the top of your web.xml:</p>
 
 <blockquote><p>&lt;!DOCTYPE web-app    PUBLIC &#8220;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&#8221;    &#8221;http://java.sun.com/dtd/web-app_2_3.dtd&#8221;></p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Implementing a keyboard in CSS]]></title>
-    <link href="http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css/"/>
-    <updated>2010-11-14T08:53:37-05:00</updated>
-    <id>http://armhold.github.com/2010/11/14/implementing-a-keyboard-in-css</id>
-    <content type="html"><![CDATA[<p>The predictive keyboard in <a href="http://www.quickbrownfrog.com/#typing:scottish_terrier.xml:0">QuickBrownFrog</a> has gone through three major iterations so far. At first, I really didn&#8217;t expect to be able to implement a functional keyboard in GWT (i.e. Javascript+CSS), so I set about drawing the keyboard using Omnigraffle.</p>
-
-<h3>Round 1 - Static Images</h3>
-
-<p><a href="http://armhold.github.com/images/2010/11/h.png"><img src="http://armhold.github.com/images/2010/11/h.png" alt="static keyboard image from Omnigraffle" /></a></p>
-
-<p>It was fairly easy to whip up the initial design. But then in order to implement key selection I had to create about 100 variations of this with all the different keys selected. That was painful.</p>
-
-<p>GWT provides a way to <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideUiImageBundles.html">bundle image resources</a>, and that helped keep the image size in check, but it was still a bit slow on the client until all the images were cached. Unfortunately this also meant that I had to create a mongo ImageResources.java interface, which listed every foo_key() foo_keyShifted(), etc.</p>
-
-<p>So this clearly wasn&#8217;t optimal, but it worked for a while. Then when I decided it was time to change the &#8220;selected&#8221; color, and I had to manually re-color every single PNG. Obviously, this was not going to scale, and it was time to re-think my approach. So I set about experimenting with ways to programmatically generate the keyboard.</p>
-
-<h3>Round 2 - SVG</h3>
-
-<p>First up, I went with SVG. The SVG Canvas is not natively supported in every browser, but the <a href="http://code.google.com/p/gwt-graphics/">GWT-Graphics library</a> gracefully uses VML in Internet Explorer, making it effectively cross-platform. This worked pretty well, and after a day and a half tweaking the layout, I had a functional SVG keyboard. And finally I was able to change the look of the keys (color, shape, etc) very easily with a couple lines of code. I was thrilled!</p>
-
-<p>Unfortunately VML on IE was still kind of slow, and also had some occasional rendering problems. Still, this was far better than a huge set of static images, so I stuck with SVG for a while. When it came time to re-design the website with a new color scheme I was really thrilled to not have to update 100+ keyboard images in Omnigraffle again.!</p>
-
-<p>Round 3 - CSS</p>
-
-<p>With launch-time approaching, the speed issues with VML have really started to become a problem. Clearly, a <em>predictive</em> keyboard needs to be faster than the typist using it, and my keyboard was not keeping up. That led me to my third iteration- CSS.</p>
-
-<p>Since my SVGKeyboard.java was created as an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">AbsolutePanel</a> subclass, it was fairly straightforward to re-implement it in regular old GWT. Instead of an SVG rect, each key is now simply an AbsolutePanel, with <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/index.html?overview-summary.html">InlineLabels</a> for keycaps.</p>
-
-<p>Implementing the &#8220;selected&#8221; coloring is as simple as adding and removing a CSS style that specifies the color and background-color. I was even able to make the keys look rounded with the following bit of CSS magic:</p>
-
-<pre><code>-moz-border-radius: 4px;
- border-radius: 4px;
-</code></pre>
-
-<p>It&#8217;s perhaps not as pretty as my original Omnigraffle drawing, but that seems a small sacrifice to make for ease of maintenance, should I decide to tweak the design in the future. Plus there&#8217;s the performance improvement- typing really flies now!</p>
-
-<p><a href="http://armhold.github.com/images/2010/11/css_keyboard.png"><img src="http://armhold.github.com/images/2010/11/css_keyboard.png?w=300" alt="CSS Keyboard" /></a></p>
 ]]></content>
   </entry>
   

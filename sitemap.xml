@@ -177,11 +177,17 @@
         <lastmod>2012-08-19T20:51:41-04:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://armhold.github.com/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/
+        </loc>
+        <lastmod>2012-10-04T20:03:50-04:00</lastmod>
+    </url>
+    <url>
         <loc>http://armhold.github.com/blog/archives/</loc>
-        <lastmod>2012-08-21T11:34:43-04:00</lastmod>
+        <lastmod>2012-10-04T20:03:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://armhold.github.com/</loc>
-        <lastmod>2012-08-21T11:34:43-04:00</lastmod>
+        <lastmod>2012-10-04T20:03:50-04:00</lastmod>
     </url>
 </urlset>

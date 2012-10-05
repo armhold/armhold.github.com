@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Artificial Intelligence | George Armhold's Blog]]></title>
+  <link href="http://armhold.github.com/blog/categories/artificial-intelligence/atom.xml" rel="self"/>
+  <link href="http://armhold.github.com/"/>
+  <updated>2012-10-04T20:05:50-04:00</updated>
+  <id>http://armhold.github.com/</id>
+  <author>
+    <name><![CDATA[George Armhold]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ocarina- Optical Character Recognition for Ruby]]></title>
+    <link href="http://armhold.github.com/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/"/>
+    <updated>2012-10-04T19:45:00-04:00</updated>
+    <id>http://armhold.github.com/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby</id>
+    <content type="html"><![CDATA[<p>I just published a bare-bones implementation of an
+<a href="https://github.com/armhold/ocarina">Optical Character Recognizer implemented in Ruby</a>.</p>
+
+<p>It's pretty basic, but it does successfully recognize its training set as well as the same characters
+with added "noise". It uses a straightforward implementation of a
+<a href="http://en.wikipedia.org/wiki/Feedforward_neural_network">feed-forward neural network</a>.</p>
+
+<p>It uses RMagick/ImageMagick to handle image processing, but apart from that it's built from scratch!</p>
+
+<p>You can grab a copy of the source <a href="https://github.com/armhold/ocarina">from Github</a>.</p>
+
+<p><img src="/images/neural-network.png" title="training images vs input samples" alt="training images vs input samples" /></p>
+]]></content>
+  </entry>
+  
+</feed>

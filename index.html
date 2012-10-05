@@ -9,7 +9,8 @@
   <meta name="author" content="George Armhold">
 
   
-  <meta name="description" content="I&#8217;m experimenting with Octopress as a potential Wordpress replacement. I&#8217;ve grown tired of trying to properly format code with the &hellip;">
+  <meta name="description" content="I just published a bare-bones implementation of an
+Optical Character Recognizer implemented in Ruby. It&#8217;s pretty basic, but it does &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +73,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/">Ocarina- Optical Character Recognition for Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-04T19:45:00-04:00" pubdate data-updated="true">Oct 4<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just published a bare-bones implementation of an
+<a href="https://github.com/armhold/ocarina">Optical Character Recognizer implemented in Ruby</a>.</p>
+
+<p>It&#8217;s pretty basic, but it does successfully recognize its training set as well as the same characters
+with added &#8220;noise&#8221;. It uses a straightforward implementation of a
+<a href="http://en.wikipedia.org/wiki/Feedforward_neural_network">feed-forward neural network</a>.</p>
+
+<p>It uses RMagick/ImageMagick to handle image processing, but apart from that it&#8217;s built from scratch!</p>
+
+<p>You can grab a copy of the source <a href="https://github.com/armhold/ocarina">from Github</a>.</p>
+
+<p><img src="/images/neural-network.png" title="training images vs input samples" alt="training images vs input samples" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -184,50 +232,6 @@ polished enough for production use in under 2 days.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/02/19/twilio-and-adobe-flash/">Twilio and Adobe Flash</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-19T09:26:22-05:00" pubdate data-updated="true">Feb 19<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I started doing some <a href="http://www.twilio.com/api/sms">Twilio development</a> recently and ran into a problem with Adobe Flash. <a href="http://www.twilio.com/api/client">Twilio Client</a> (which lets you make phone calls right from your browser) relies on the Flash plugin. It pops up this nice little settings dialog the first time it runs to ask your permission:</p>
-
-<p><img src="/images/2012/02/flash.png" alt="image" /></p>
-
-<p>The problem is that on Chrome, <strong>it won&#8217;t let you actually click any of those buttons</strong>- the dialog is non-responsive to mouse clicks. This was really frustrating, and a few minutes of Googling showed that this was an old problem supposedly fixed by a Flash update months ago.</p>
-
-<p>Updating to the latest Flash didn&#8217;t help (it&#8217;s apparently bundled with Chrome, and doesn&#8217;t use the version you can install manually on OSX).</p>
-
-<p>Then I came across <a href="http://reviews.cnet.com/8301-13727_7-20090579-263/adobe-flash-update-fixes-unresponsive-settings-in-os-x-lion/">this trick</a>: use tab to navigate the dialog checkboxes, and spacebar to select/deselect. Works like a charm.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -243,6 +247,10 @@ polished enough for production use in under 2 days.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/10/04/announcing-ocarina-optical-character-recognition-for-ruby/">Ocarina- Optical Character Recognition for Ruby</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/08/19/trying-out-octopress/">Blog Moved to Github/Octopress</a>
       </li>
     
@@ -256,10 +264,6 @@ polished enough for production use in under 2 days.</p>
     
       <li class="post">
         <a href="/2012/02/16/announcing-wicket-source-plugin-for-intellij-idea/">Announcing: Wicket-Source plugin for Intellij IDEA</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/01/21/wicket-submitting-a-form-over-ssl-from-an-unsecured-page/">Wicket: submitting a form over SSL from an unsecured page</a>
       </li>
     
   </ul>
